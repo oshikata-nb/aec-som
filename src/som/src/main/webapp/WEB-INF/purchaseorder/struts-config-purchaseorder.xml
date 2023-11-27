@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- purchase -->
+		<form-bean name="purchaseOrderListForm"
+			type="com.asahikaseieng.app.purchaseorder.PurchaseOrderListForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ purchaseOrder -->
+		<action path="/PurchaseOrderList"
+			type="com.asahikaseieng.app.purchaseorder.PurchaseOrderListAction"
+			name="purchaseOrderListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/purchaseorder/purchaseorder_list.jsp">
+
+			<forward name="success"
+				path="/jsp/purchaseorder/purchaseorder_list.jsp" />
+			<forward name="reSearch"
+				path="/PurchaseOrderList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

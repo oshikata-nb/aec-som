@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図仕上Form -->
+		<form-bean name="directionFinishListForm"
+			type="com.asahikaseieng.app.direction.DirectionFinishListForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造指図仕上一覧 -->
+
+		<action path="/DirectionFinishList"
+			type="com.asahikaseieng.app.direction.DirectionFinishListAction"
+			name="directionFinishListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/direction/direction_finish_list.jsp">
+			<forward name="success"
+				path="/jsp/direction/direction_finish_list.jsp" />
+			<forward name="error"
+				path="/jsp/direction/direction_finish_list.jsp" />
+			<forward name="back"
+				path="/DirectionList.do?op=reSearch" />
+			<forward name="reInit"
+				path="/DirectionFinishList.do?op=reInit" />
+		</action>
+
+	</action-mappings>
+</struts-config>

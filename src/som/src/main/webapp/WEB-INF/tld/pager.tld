@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="Windows-31J" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+  <tlibversion>1.2</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>pager</shortname>
+  <uri></uri>
+  <info>Pager Tag Library</info>
+
+  <tag>
+    <name>isPrev</name>
+    <tagclass>com.asahikaseieng.customtag.pager.IsPrevTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <info>isPrev tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>isNext</name>
+    <tagclass>com.asahikaseieng.customtag.pager.IsNextTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <info>isNext tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>count</name>
+    <tagclass>com.asahikaseieng.customtag.pager.CountTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>count tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>currentFirstNo</name>
+    <tagclass>com.asahikaseieng.customtag.pager.CurrentFirstNoTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>currentFirstNo tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>currentLastNo</name>
+    <tagclass>com.asahikaseieng.customtag.pager.CurrentLastNoTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>currentLastNo tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>limit</name>
+    <tagclass>com.asahikaseieng.customtag.pager.LimitTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>limit tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>nextPage</name>
+    <tagclass>com.asahikaseieng.customtag.pager.NextPageTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>nextPage tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>prevPage</name>
+    <tagclass>com.asahikaseieng.customtag.pager.PrevPageTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>prevPage tag</info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>

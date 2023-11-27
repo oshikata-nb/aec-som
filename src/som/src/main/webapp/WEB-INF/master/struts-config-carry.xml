@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- carry -->
+		<form-bean name="carryListForm"
+			type="com.asahikaseieng.app.master.carry.CarryListForm" />
+		<!-- carry detail -->
+		<form-bean name="carryDetailForm"
+			type="com.asahikaseieng.app.master.carry.CarryDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ carry -->
+		<action path="/CarryList"
+			type="com.asahikaseieng.app.master.carry.CarryListAction"
+			name="carryListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/carry_list.jsp">
+
+			<forward name="success" path="/jsp/master/carry_list.jsp" />
+			<forward name="reSearch" path="/CarryList.do?op=reSearch" />
+			<forward name="newPage" path="/CarryDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ carry Detail -->
+		<action path="/CarryDetail"
+			type="com.asahikaseieng.app.master.carry.CarryDetailAction"
+			name="carryDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/carry_detail.jsp">
+
+			<forward name="success" path="/jsp/master/carry_detail.jsp" />
+			<forward name="back" path="/CarryList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

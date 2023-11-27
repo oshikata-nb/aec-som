@@ -1,0 +1,197 @@
+CREATE OR REPLACE VIEW AP21.SIAP_CAYA
+    (YACOCODE,YAHBRCODE,YASSODRNO,YAIMCODE,YAHINNM,YASERIESCD,YAGNKEISANNO,
+    YAHINKBN,YALEVELCD,YAGKEITAI,YAJUODRNO,YAGYOBAN,YASSHKDATE,YABUMONCD,
+    YASSQTY,YASSEDPDAY,YASSCMT,YASSSTATUS,YAWPEDDAY,YASSRKQTY,YASSHRQTY,
+    YALOTNO,YADPROJECTCD,YAPROJECTCD,YASODRSYUBT,YAMTSSODRNO,YASANSYONO,
+    YAKOTEICD,YAACNO,YAACHOJO,YAKNBUNKB,YASSONKBN,YASBUNRUICD)
+AS
+SELECT '001' AS YACOCODE -- 会社コード(自社マスタ攝津製油固定)
+	  ,'001' AS YAHBRCODE -- 本支店コード(暫定！攝津製油固定)
+	  ,DIRH.DIRECTION_NO AS YASSODRNO -- 製造オーダー番号
+	  ,DIRH.ITEM_CD AS YAIMCODE -- 品目コード(20桁以内)
+	  ,NULL AS YAHINNM -- 品目名称(未使用 NULL)
+	  ,NULL AS YASERIESCD -- 製品シリーズコード(未使用 NULL)
+	  ,NULL AS YAGNKEISANNO -- 原価計算書番号(未使用 NULL)。
+	  ,CASE -- 品目区分(0..製品 1..商品 2..中間品 3..原材料 7..外注加工品 該当品目の属性に従う。) 
+		   WHEN ITEM.TYPE_DIVISION = 0 THEN -- 0:製品           → 0..製品
+			0
+		   WHEN ITEM.TYPE_DIVISION = 1 THEN -- 1:原料           → 3..原材料
+			3
+		   WHEN ITEM.TYPE_DIVISION = 2 THEN -- 2:包材           → 3..原材料
+			3
+		   WHEN ITEM.TYPE_DIVISION = 3 THEN -- 3:中間品         → 2..中間品
+			2
+		   WHEN ITEM.TYPE_DIVISION = 4 THEN -- 4:仕入直送品     → 1..商品
+			1
+		   WHEN ITEM.TYPE_DIVISION = 5 THEN -- 5:仕入在庫品     → 1..商品
+			1
+		   WHEN ITEM.TYPE_DIVISION = 6 THEN -- 6:外注品(直送)   → 7..外注加工品
+			7
+		   WHEN ITEM.TYPE_DIVISION = 7 THEN -- 7:外注品(非直送) → 7..外注加工品
+			7
+	   END AS YAHINKBN -- 品目区分(該当品目の属性に従う)
+	  ,0 AS YALEVELCD -- ローレベルコード(未使用 0)
+	  ,4 AS YAGKEITAI -- 原価計算形態区分(5: 工程別組別総合原価計算)
+	  ,NULL AS YAJUODRNO -- 受注番号(未使用 NULL)
+	  ,0 AS YAGYOBAN -- 行番号(未使用 0)
+	  ,TO_NUMBER(TO_CHAR(DIRH.DIRECTION_DATE, 'YYYYMMDD')) AS YASSHKDATE -- 指図日（YYYYMMDD）
+	  ,NVL(RCPH.SECTION_CD
+		  ,NVL((SELECT PRODUCT_ATTRIBUTE_QUEUE.SECTION_CD
+			   FROM   AP21.PRODUCT_ATTRIBUTE_QUEUE
+					 ,AP21.ITEM
+			   WHERE  PRODUCT_ATTRIBUTE_QUEUE.ITEM_CD = ITEM.ITEM_CD
+			   AND    PRODUCT_ATTRIBUTE_QUEUE.VERSION = ITEM.VERSION
+			   AND    DIRH.ITEM_CD = ITEM.ITEM_CD)
+			  ,'9999')) AS YABUMONCD -- 原価部門コード（基本処方になければ、製造品キュー、なければ「化成品未配賦部」
+	   ---,DIRH.PLANED_QTY * DECODE(NVL(ITEM.KG_OF_FRACTION_MANAGEMENT, 0), 0, 1, NVL(ITEM.KG_OF_FRACTION_MANAGEMENT, 1)) YASSQTY -- 製造指図数
+	  ,DIRH.PLANED_QTY * NVL(ITEM.KG_OF_FRACTION_MANAGEMENT, 0) YASSQTY -- 製造指図数
+	  ,0 AS YASSEDPDAY -- 製造完了予定日(未使用 0)
+	  ,NULL AS YASSCMT -- 製造摘要(未使用 NULL)
+	  ,CASE -- 製造ステータス指図区分|1:バッチ指図,2:充填・包装指図,3:詰替・貼替指図 
+		   WHEN DIRH.DIRECTION_DIVISION = 1 THEN -- バッチ製造ステータス
+			CASE -- 1:未確定,2:指図書発行済,3:製造開始,4:中間品最終検査待,5:中間品最終検査済,6:FA受信,7:製造記録出力済,8:完了
+				WHEN DIRH.DIRECTION_STATUS = 2 THEN -- 2:指図書発行済     → 0:指図書発行
+				 0
+				WHEN DIRH.DIRECTION_STATUS = 3 THEN -- 3:製造開始         → 1:製造中
+				 1
+				WHEN DIRH.DIRECTION_STATUS = 4 THEN -- 4:中間品最終検査待 → 1:製造中
+				 1
+				WHEN DIRH.DIRECTION_STATUS = 5 THEN -- 5:中間品最終検査済 → 1:製造中
+				 1
+				WHEN DIRH.DIRECTION_STATUS = 6 THEN -- 6:製品検査入力済   → 1:製造完了
+				 2
+				WHEN DIRH.DIRECTION_STATUS = 7 THEN -- 7:製造記録出力済   → 1:製造完了
+				 2
+				WHEN DIRH.DIRECTION_STATUS = 8 THEN -- 8:完了             → 2:製造完了
+				 2
+			END
+		   ELSE -- 包装ステータス(2:充填・包装指図,3:詰替・貼替指図)
+			CASE -- 1:未確定,2:指図書発行済,3:包装実績入力,4:包装記録出力済,5:検査待ち在庫計上,6:製品検査入力済,7:完了
+				WHEN DIRH.DIRECTION_STATUS = 2 THEN -- 2:指図書発行済     → 0:指図書発行
+				 0
+				WHEN DIRH.DIRECTION_STATUS = 3 THEN -- 3:包装実績入力     → 1:製造中
+				 1
+				WHEN DIRH.DIRECTION_STATUS = 4 THEN -- 4:包装記録出力済   → 1:製造中
+				 1
+				WHEN DIRH.DIRECTION_STATUS = 5 THEN -- 5:検査待ち在庫計上 → 2:製造完了
+				 2
+				WHEN DIRH.DIRECTION_STATUS = 6 THEN -- 6:製品検査入力済   → 2:製造完了
+				 2
+				WHEN DIRH.DIRECTION_STATUS = 7 THEN -- 7:完了             → 2:製造完了
+				 2
+			END
+	   END AS YASSSTATUS -- 製造ステータス(0:指図書発行 1:製造中 2:製造完了)
+	  ,CASE -- 製造ステータス指図区分|1:バッチ指図,2:充填・包装指図,3:詰替・貼替指図 
+		   WHEN DIRH.DIRECTION_DIVISION = 1 THEN -- バッチ製造ステータス
+			CASE -- 1:未確定,2:指図書発行済,3:製造開始,4:中間品最終検査待,5:中間品最終検査済,6:FA受信,7:製造記録出力済,8:完了
+				WHEN 2 <= DIRH.DIRECTION_STATUS
+					 AND DIRH.DIRECTION_STATUS <= 5 THEN
+				 0
+				WHEN 6 <= DIRH.DIRECTION_STATUS
+					 AND DIRH.DIRECTION_STATUS <= 8 THEN
+				 TO_NUMBER(TO_CHAR(NVL(DIRH.RESULT_EDATE, DIRH.PLANED_EDATE), 'YYYYMMDD'))
+			END
+		   ELSE -- 包装ステータス(2:充填・包装指図,3:詰替・貼替指図)
+			CASE -- 1:未確定,2:指図書発行済,3:包装実績入力,4:包装記録出力済,5:検査待ち在庫計上,6:製品検査入力済,7:完了
+				WHEN 2 <= DIRH.DIRECTION_STATUS
+					 AND DIRH.DIRECTION_STATUS <= 4 THEN
+				 0
+				WHEN 5 <= DIRH.DIRECTION_STATUS
+					 AND DIRH.DIRECTION_STATUS <= 7 THEN
+				 TO_NUMBER(TO_CHAR(NVL(DIRH.RESULT_EDATE, DIRH.PLANED_EDATE), 'YYYYMMDD'))
+			END
+	   END AS YAWPEDDAY -- 製造完了日(製造ステータスが2:製造完了の場合、製造完了日(YYYYMMDD)その他のとき、0)
+	  ,0 AS YASSRKQTY -- 製造完成数(未使用 0)
+	  ,0 AS YASSHRQTY -- 不良数(未使用 0)
+	  ,NULL AS YALOTNO -- ロット番号(未使用 0)
+	  ,NULL AS YADPROJECTCD -- 代表プロジェクトコード(未使用 NULL)
+	  ,NULL AS YAPROJECTCD -- プロジェクトコード(未使用 NULL)
+	  ,NVL(TO_CHAR(RCPH.RECIPE_STATUS), '3') AS YASODRSYUBT -- オーダー種別(2:試作用,3:一般使用)
+	  ,NULL AS YAMTSSODRNO -- 発生元オーダー番号(未使用 NULL)
+	  ,NULL AS YASANSYONO -- 参照番号(未使用 NULL)
+	  ,NULL AS YAKOTEICD -- 工程コード(未使用 NULL)
+	  ,'01200' AS YAACNO -- 製造オーダー種別-勘定科目コード('01200'製品)
+	  ,'0000000000' AS YAACHOJO -- 製造オーダー種別-補助科目コード('0000000000')
+	  ,1 AS YAKNBUNKB -- 製造オーダー種別-機能別分類(0..その他 1..製造原価 2..販売費 3..一般管理費)
+	  ,0 AS YASSONKBN -- 仕損区分(未使用 0)
+	  ,NULL AS YASBUNRUICD -- 組コード(品目分類コード)
+FROM   AP21.DIRECTION_HEADER DIRH -- 製造指図（ヘッダ）
+	   -- 基本処方ステータス=2(試作用) OR 3(一般使用)
+	  ,(SELECT *
+		FROM   AP21.RECIPE_HEADER
+		WHERE  RECIPE_TYPE = 3 -- 基本処方
+		AND    RECIPE_STATUS IN (2, 3)) RCPH -- 処方（ヘッダ）
+	  ,AP21.ITEM ITEM -- 品目マスタ
+WHERE  DIRH.ITEM_CD = ITEM.ITEM_CD
+AND    DIRH.DIRECTION_STATUS > 1 -- 製造ステータスが指図書発行済み以降
+AND    ITEM.SHIPPER_DIVISION <> 3 -- 油脂以外
+AND    RCPH.RECIPE_ID(+) = DIRH.RECIPE_ID
+/
+COMMENT ON TABLE AP21.SIAP_CAYA IS 'ＣＡ製造オーダファイル'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YACOCODE IS '会社コード(攝津製油固定)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAHBRCODE IS '本支店コード(暫定！攝津製油固定)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSODRNO IS '製造オーダー番号'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAIMCODE IS '品目コード'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAHINNM IS '品目名称(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASERIESCD IS '製品シリーズコード(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAGNKEISANNO IS '原価計算書番号(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAHINKBN IS '品目区分(該当品目の属性に従う)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YALEVELCD IS 'ローレベルコード(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAGKEITAI IS '原価計算形態区分(4:工程別単純総合原価計算)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAJUODRNO IS '受注番号(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAGYOBAN IS '行番号(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSHKDATE IS '指図日（YYYYMMDD）'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YABUMONCD IS '所属部門コード(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSQTY IS '製造指図数'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSEDPDAY IS '製造完了予定日(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSCMT IS '製造摘要(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSSTATUS IS '製造ステータス(0:指図書発行 1:製造中 2:製造完了)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAWPEDDAY IS '製造完了日(製造ステータスが2:製造完了の場合、製造完了日(YYYYMMDD)その他のとき、0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSRKQTY IS '製造完成数(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSHRQTY IS '不良数(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YALOTNO IS 'ロット番号(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YADPROJECTCD IS '代表プロジェクトコード(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAPROJECTCD IS 'プロジェクトコード(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASODRSYUBT IS 'オーダー種別(SIAP/CAのオーダー種別マスタに登録した製造オーダー種別)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAMTSSODRNO IS '発生元オーダー番号(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASANSYONO IS '参照番号(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAKOTEICD IS '工程コード(未使用 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAACNO IS '製造オーダー種別-勘定科目コード(01200製品)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAACHOJO IS '製造オーダー種別-補助科目コード(0000000000)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YAKNBUNKB IS '製造オーダー種別-機能別分類(0..その他 1..製造原価 2..販売費 3..一般管理費)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASSONKBN IS '仕損区分(未使用 0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAYA.YASBUNRUICD IS '組コード(品目分類コード)'
+/

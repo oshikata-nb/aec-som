@@ -1,0 +1,640 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Common
+</name>
+</assembly>
+<members>
+<member name="M:Common.Convert.SqlStr(System.Object,System.Boolean)">
+	<summary>
+ SQL文字列変換
+ </summary>
+	<param name="val"></param>
+	<param name="NotTrim"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.Convert.Cnv2String(System.Object)">
+	<summary>
+ 文字列変換
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.Convert.Cnv2Int32(System.Object)">
+	<summary>
+ 整数(int32)変換
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.Convert.Cnv2Decimal(System.Object)">
+	<summary>
+ 10進数(Decimal)変換
+ </summary>
+	<param name="obj"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:Common.Convert">
+	<summary>
+ 変換処理共通クラス
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.Version">
+	<summary>
+ バージョン
+ V200固定
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.FileName">
+	<summary>
+ 文書ファイル名
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.FaxNo">
+	<summary>
+ FAX番号
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.Name">
+	<summary>
+ 指名
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.HonorificTitle">
+	<summary>
+ 敬称
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.CompanyName">
+	<summary>
+ 会社名
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.Belong">
+	<summary>
+ 所属
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.Position">
+	<summary>
+ 役職
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.PhoneNo">
+	<summary>
+ 電話番号
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.FCode">
+	<summary>
+ Fコード
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.MailAddress">
+	<summary>
+ メールアドレス
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.InternetFaxFlag">
+	<summary>
+ インターネットFAXフラグ
+ 0:FAX送信、1:インターネットFAX送信
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.InternetFaxTitle">
+	<summary>
+ インターネットFAXメールの件名
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.InternetFaxBody">
+	<summary>
+ インターネットFAXメールの本文
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.TransmittalLetter">
+	<summary>
+ 送付状
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.TransmittalMemo">
+	<summary>
+ 送付メモ
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.ComPort">
+	<summary>
+ 通信ポート
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.MyTalkFaxManager.Remarks">
+	<summary>
+ 任意項目
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.MyTalkFaxManager.GetOutputFilePath(System.String)">
+	<summary>
+ FAX送信ファイルの保存先
+ </summary>
+	<param name="fileName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.MyTalkFaxManager.GetOutputCsvPath(System.String)">
+	<summary>
+ FAX用CSVの保存先
+ </summary>
+	<param name="fileName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.MyTalkFaxManager.OutputCsv(System.String)">
+	<summary>
+ CSV出力
+ </summary>
+	<param name="csvPath">CSV出力先PATH</param>
+	<remarks></remarks>
+</member><member name="M:Common.MyTalkFaxManager.createField(System.String,System.Boolean,System.Boolean)">
+	<summary>
+ "で囲む。カンマを付ける
+ </summary>
+	<param name="text"></param>
+	<param name="needComma"></param>
+	<param name="needDblQuot"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:Common.MyTalkFaxManager">
+	<summary>
+ まいとーくFAX用処理クラス
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Common.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Common.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="F:Common.ReportCreatorBase.m_log">
+	<summary>
+ ロガー
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_dbAcs">
+	<summary>
+ DBアクセス
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_faxManager">
+	<summary>
+ FAX処理クラス
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_tantoCd">
+	<summary>
+ 担当者コード
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_langId">
+	<summary>
+ 言語ID
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_templateFile">
+	<summary>
+ テンプレートファイル
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_outputFile">
+	<summary>
+ 出力ファイル
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.ReportCreatorBase.m_fileType">
+	<summary>
+ 出力ファイルタイプ
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Common.ReportCreatorBase.PRM_IDX_COMMON">
+	<summary>
+ パラメータINDEX（共通）
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Common.ReportCreatorBase.PROC_RESULT">
+	<summary>
+ 処理結果
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Common.ReportCreatorBase.FILE_TYPE">
+	<summary>
+ 出力ファイルタイプ
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.#ctor">
+	<summary>
+ コンストラクタ
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.InitLog">
+	<summary>
+ ログの初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.ExecuteProc(System.String[])">
+	<summary>
+ メイン処理
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.GetParamsCommon(System.String[])">
+	<summary>
+ 引数パラメータの取得
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.GetParams(System.String[])">
+	<summary>
+ 引数の取得
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.DbOpen">
+	<summary>
+ DB接続を行う
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.DbClose">
+	<summary>
+ DB切断を行う
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.GetData(System.String)">
+	<summary>
+ データ取得
+ </summary>
+	<param name="sql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.CreateReport">
+	<summary>
+ 帳票ファイル作成
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.EditSheet(Microsoft.Office.Interop.Excel.Worksheet)">
+	<summary>
+ シート編集処理（継承クラスで実装）
+ </summary>
+	<param name="exlSheet"></param>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.EditBook(Microsoft.Office.Interop.Excel.Workbook)">
+	<summary>
+ ブック編集処理（継承クラスで実装）
+ </summary>
+	<param name="exlBook"></param>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.SetFaxInfo(System.String)">
+	<summary>
+ FAX番号の設定
+ </summary>
+	<param name="faxNo"></param>
+	<remarks></remarks>
+</member><member name="M:Common.ReportCreatorBase.SetTantoNameInfo(System.String)">
+	<summary>
+ 担当者名称の設定
+ </summary>
+	<param name="tantoName"></param>
+</member><member name="T:Common.ReportCreatorBase">
+	<summary>
+ 帳票作成ベースクラス
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.DatabaseAccess._dbManager">
+	<summary>
+ DBマネージャ
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.DatabaseAccess._log">
+	<summary>
+ ロガー
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Common.DatabaseAccess.DataBaseAccessInfo">
+	<summary>
+ DB接続情報
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Common.DatabaseAccess.LastSQL">
+	<summary>
+ LastSQL
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.#ctor">
+	<summary>
+ コンストラクタ
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.DBConnect(Common.DatabaseAccess.DataBaseAccessInfo)">
+	<summary>
+ データベース接続
+ </summary>
+	<param name="accessInfo"></param>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.DBDisconnect">
+	<summary>
+ データベース切断
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.BeginTran">
+	<summary>
+ トランザクション開始
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.Commit">
+	<summary>
+ コミット
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.RollBack">
+	<summary>
+ ロールバック
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.GetDataSet(System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.GetDataSet(System.String,System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<param name="tableName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.ExecuteSQL(System.String)">
+	<summary>
+ SQL実行（SELECT以外）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.MakeSQLSubString(System.String,System.Int32,System.Int32)">
+	<summary>
+ 部分文字列取得SQL文生成
+ </summary>
+	<param name="str">部分文字列抽出対象</param>
+	<param name="startPos">部分文字列抽出開始位置</param>
+	<param name="length">部分文字列の長さ</param>
+	<returns>部分文字列取得SQL</returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.MakeSQLConvertNULL(System.String,System.String)">
+	<summary>
+ NULL置換文字列生成
+ </summary>
+	<param name="str">NULL判定対象文字列</param>
+	<param name="replaceStr">NULL置換文字列</param>
+	<returns>NULL置換関数文字列(SQL)</returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.ConvertSQLDateTime(System.DateTime)">
+	<summary>
+ 文字列日付関数取得SQL文生成
+ </summary>
+	<param name="dateTime">変換したい日付</param>
+	<returns>変換後日時文字列</returns>
+	<remarks></remarks>
+</member><member name="M:Common.DatabaseAccess.GetDualSQL">
+	<summary>
+ Dual句取得
+ </summary>
+	<returns>Dual句</returns>
+	<remarks></remarks>
+</member><member name="T:Common.DatabaseAccess">
+	<summary>
+ DB処理クラス
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.AbstractDbManager._dbConnection">
+	<summary>
+ コネクション
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.AbstractDbManager._dbCommand">
+	<summary>
+ コマンド
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.AbstractDbManager._dbDataAdapter">
+	<summary>
+ アダプタ
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.AbstractDbManager._dbTransaction">
+	<summary>
+ トランザクション
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.Open">
+	<summary>
+ データベースに接続する
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.BeginTran">
+	<summary>
+ トランザクション開始
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.Commit">
+	<summary>
+ コミット
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.RollBack">
+	<summary>
+ ロールバック
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.Dispose">
+	<summary>
+ 終了処理
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.GetDataSet(System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.GetDataSet(System.String,System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<param name="tableName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.ExecuteSQL(System.String)">
+	<summary>
+ SQL実行（SELECT以外）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.MakeSQLSubString(System.String,System.Int32,System.Int32)">
+	<summary>
+ 部分文字列取得SQL文生成
+ </summary>
+	<param name="str">部分文字列抽出対象</param>
+	<param name="startPos">部分文字列抽出開始位置</param>
+	<param name="length">部分文字列の長さ</param>
+	<returns>部分文字列取得SQL</returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.MakeSQLConvertNULL(System.String,System.String)">
+	<summary>
+ NULL置換SQL文生成
+ </summary>
+	<param name="str">NULL判定文字列</param>
+	<param name="replaceStr">置換文字列</param>
+	<returns>NULL置換関数文字列(SQL)</returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.MakeSQLReplace(System.String,System.String[],System.String[],System.String)">
+	<summary>
+ 文字列選択置換SQL文生成
+ </summary>
+	<param name="str">置換対象文字列リスト</param>
+	<param name="replaceStr">置換文字列リスト</param>
+	<param name="elseStr">例外文字列リスト</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.ConvertSQLDateTime(System.DateTime)">
+	<summary>
+ 文字列日付関数取得SQL文生成
+ </summary>
+	<param name="dateTime">変換したい日付</param>
+	<returns>変換後日時文字列</returns>
+	<remarks></remarks>
+</member><member name="M:Common.AbstractDbManager.GetDualSQL">
+	<summary>
+ Dual句SQL文取得
+ </summary>
+	<returns>Dual句</returns>
+	<remarks></remarks>
+</member><member name="T:Common.AbstractDbManager">
+	<summary>
+ データベース処理基底クラス
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Common.SqlserverManager._log">
+	<summary>
+ ロガー
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.#ctor(System.String,System.String,System.String,System.String)">
+	<summary>
+ コンストラクタ
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.Open">
+	<summary>
+ SqlServer接続
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.BeginTran">
+	<summary>
+ トランザクション開始
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.Commit">
+	<summary>
+ コミット
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.RollBack">
+	<summary>
+ ロールバック
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.Dispose">
+	<summary>
+ 終了処理
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.GetDataSet(System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.GetDataSet(System.String,System.String)">
+	<summary>
+ SQL実行（SELECT）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.ExecuteSQL(System.String)">
+	<summary>
+ SQL実行（SELECT以外）
+ </summary>
+	<param name="wSql"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.MakeSQLSubString(System.String,System.Int32,System.Int32)">
+	<summary>
+ 部分文字列取得SQL文生成
+ </summary>
+	<param name="str">部分文字列抽出対象</param>
+	<param name="startPos">部分文字列抽出開始位置</param>
+	<param name="length">部分文字列の長さ</param>
+	<returns>部分文字列取得SQL</returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.MakeSQLConvertNULL(System.String,System.String)">
+	<summary>
+ NULL置換文字列生成
+ </summary>
+	<param name="str">NULL判定対象文字列</param>
+	<param name="replaceStr">NULL置換文字列</param>
+	<returns>NULL置換関数文字列(SQL)</returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.MakeSQLReplace(System.String,System.String[],System.String[],System.String)">
+	<summary>
+ 文字列選択置換SQL文生成
+ </summary>
+	<param name="str">置換対象文字列リスト</param>
+	<param name="replaceStr">置換文字列リスト</param>
+	<param name="elseStr">例外文字列</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.ConvertSQLDateTime(System.DateTime)">
+	<summary>
+ 文字列日付関数取得SQL文生成
+ </summary>
+	<param name="dateTime"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Common.SqlserverManager.GetDualSQL">
+	<summary>
+ Dual句SQL文取得
+ </summary>
+	<returns>Dual句</returns>
+	<remarks></remarks>
+</member><member name="T:Common.SqlserverManager">
+	<summary>
+ SqlServer処理クラス
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

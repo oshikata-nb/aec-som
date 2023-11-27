@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- shipping -->
+		<form-bean name="shippingListForm"
+			type="com.asahikaseieng.app.shipping.ShippingListForm" />
+
+		<!-- shipping detail_new -->
+		<form-bean name="shippingDetailForm"
+			type="com.asahikaseieng.app.shipping.ShippingDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ shipping -->
+		<action path="/ShippingList"
+			type="com.asahikaseieng.app.shipping.ShippingListAction"
+			name="shippingListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_list.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_list.jsp" />
+			<forward name="reSearch"
+				path="/ShippingList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ shipping Detail -->
+		<action path="/ShippingDetail"
+			type="com.asahikaseieng.app.shipping.ShippingDetailAction"
+			name="shippingDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_detail.jsp" />
+			<forward name="back"
+				path="/ShippingList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

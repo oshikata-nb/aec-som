@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- cal -->
+		<form-bean name="calListForm"
+			type="com.asahikaseieng.app.master.cal.CalListForm" />
+		<!-- cal detail -->
+		<form-bean name="calDetailForm"
+			type="com.asahikaseieng.app.master.cal.CalDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ cal -->
+		<action path="/CalList"
+			type="com.asahikaseieng.app.master.cal.CalListAction"
+			name="calListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/cal_list.jsp">
+
+			<forward name="success" path="/jsp/master/cal_list.jsp" />
+			<forward name="reSearch" path="/CalList.do?op=reSearch" />
+			<forward name="newPage" path="/CalDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ cal Detail -->
+		<action path="/CalDetail"
+			type="com.asahikaseieng.app.master.cal.CalDetailAction"
+			name="calDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/cal_detail.jsp">
+
+			<forward name="success" path="/jsp/master/cal_detail.jsp" />
+			<forward name="back" path="/CalList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

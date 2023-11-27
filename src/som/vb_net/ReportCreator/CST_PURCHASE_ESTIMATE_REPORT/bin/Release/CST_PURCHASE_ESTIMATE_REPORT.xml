@@ -1,0 +1,193 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+CST_PURCHASE_ESTIMATE_REPORT
+</name>
+</assembly>
+<members>
+<member name="P:CST_PURCHASE_ESTIMATE_REPORT.My.Resources.Resources.ResourceManager">
+	<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member><member name="P:CST_PURCHASE_ESTIMATE_REPORT.My.Resources.Resources.Culture">
+	<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member><member name="T:CST_PURCHASE_ESTIMATE_REPORT.My.Resources.Resources">
+	<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.m_log">
+	<summary>
+ ロガー
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.m_pageNumList">
+	<summary>
+ ページ番号リスト
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.m_byOrderNoList">
+	<summary>
+ 購入依頼番号
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.m_detailRowNoList">
+	<summary>
+ 明細行番号
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.m_outSourcingNoList">
+	<summary>
+ 外注行番号
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.TEMPLATE_TOP">
+	<summary>
+ テンプレートの一番上の行
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.PAGE_ROW">
+	<summary>
+ 1ページあたりの行数
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.MAX_ROW">
+	<summary>
+ 1ページあたりの最大表示データ数
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.ROW_CELLS_NUM">
+	<summary>
+ 1データの行数
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.STANDARD_ROW">
+	<summary>
+ ページの頭から表の一番上の行までの行数
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.PAGE_TOP_INDEX">
+	<summary>
+ ページ挿入行
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.SHEET_NUM">
+	<summary>
+ シート数（先頭以外削除する）
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CST_PURCHASE_ESTIMATE_REPORT.Main.ACCESSION_TITLE">
+	<summary>
+ 文字列「受託品納期回答」(コピペ用)
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CST_PURCHASE_ESTIMATE_REPORT.Main.PRM_IDX">
+	<summary>
+ パラメータINDEX（個別）
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.Main(System.String[])">
+	<summary>
+ スタートアップ関数
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.GetParams(System.String[])">
+	<summary>
+ 引数のチェック（個別）
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.EditSheet(Microsoft.Office.Interop.Excel.Worksheet)">
+	<summary>
+ シート編集処理
+ </summary>
+	<param name="exlSheet"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.EditBook(Microsoft.Office.Interop.Excel.Workbook)">
+	<summary>
+ ブック編集処理（継承クラスで実装）
+ </summary>
+	<param name="exlBook"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.GetOrderCheckReportData">
+	<summary>
+ データ取得
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.HeaderInsertData(Microsoft.Office.Interop.Excel.Worksheet,System.Data.DataRow,System.Int32,System.Int32)">
+	<summary>
+ ヘッダーデータ挿入
+ </summary>
+	<param name="exlSheet"></param>
+	<param name="dr"></param>
+	<param name="rIdx"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.InsertData(Microsoft.Office.Interop.Excel.Worksheet,System.Data.DataRow,System.Int32)">
+	<summary>
+ データ挿入
+ </summary>
+	<param name="exlSheet"></param>
+	<param name="dr"></param>
+	<param name="rIdx"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.CheckNewPage(System.Data.DataRow,System.String,System.String,System.Int32)">
+	<summary>
+ コピー位置決定
+ </summary>
+	<param name="dr"></param>
+	<param name="bfVenderCd"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.CreateNewPage(Microsoft.Office.Interop.Excel.Worksheet,System.Int32)">
+	<summary>
+ 改ページ
+ </summary>
+	<param name="exlSheet"></param>
+	<param name="rIdx"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.PageShapeTrim(Microsoft.Office.Interop.Excel.Worksheet,System.Int32)">
+	<summary>
+ ページレイアウト調整
+ </summary>
+	<param name="exlSheet"></param>
+	<param name="newPageidx"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.setWholePageNum(Microsoft.Office.Interop.Excel.Worksheet,System.Int32)">
+	<summary>
+ ページ分母割り振り
+ </summary>
+	<param name="exlSheet"></param>
+	<param name="rIdx"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.HiddenTemplate(Microsoft.Office.Interop.Excel.Worksheet)">
+	<summary>
+ テンプレート非表示
+ </summary>
+	<param name="exlSheet"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.getFaxNo(System.String)">
+	<summary>
+ FAX番号の取得
+ </summary>
+	<param name="faxNo"></param>
+	<remarks></remarks>
+</member><member name="M:CST_PURCHASE_ESTIMATE_REPORT.Main.getTantoName(System.String)">
+	<summary>
+ 担当名称の取得
+ </summary>
+	<param name="tantoCd"></param>
+	<remarks></remarks>
+</member><member name="T:CST_PURCHASE_ESTIMATE_REPORT.Main">
+	<summary>
+ メインクラス
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

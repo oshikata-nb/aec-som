@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装実績－工程一覧画面 -->
+		<form-bean name="pkgRdirectionProcedureListForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionProcedureListForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装実績－工程一覧 -->
+
+		<action path="/PkgRdirectionProcedureList"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionProcedureListAction"
+			name="pkgRdirectionProcedureListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_procedure_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgrdirection/pkgrdirection_procedure_list.jsp" />
+			<forward name="error" path="/jsp/pkgrdirection/pkgrdirection_procedure_list.jsp" />
+			<forward name="back" path="/PkgRdirectionList.do?op=reSearch" />
+			<forward name="init" path="/PkgRdirectionProcedureList.do?op=reInit" />
+			
+		</action>
+		
+		<!-- ================================================= 包装実績－工程詳細 -->
+
+		<action path="/PkgRdirectionProcedureDetail"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionProcedureDetailAction"
+			name="pkgRdirectionProcedureDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_procedure_detail.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgrdirection/pkgrdirection_procedure_detail.jsp" />
+			<forward name="error" path="/jsp/pkgrdirection/pkgrdirection_procedure_detail.jsp" />
+			<forward name="back" path="/PkgRdirectionProcedureList.do?op=init" />
+			<forward name="init" path="/PkgRdirectionProcedureDetail.do?op=init" />
+		</action>
+
+	</action-mappings>
+</struts-config>

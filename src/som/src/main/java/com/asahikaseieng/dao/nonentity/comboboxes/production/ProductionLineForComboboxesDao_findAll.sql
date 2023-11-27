@@ -1,0 +1,28 @@
+/*
+ * Created on 2009/04/06
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 生産ライン一覧用SQL
+ *
+ * @author tosco
+ *
+ * entityName=ProductionLineForComboboxes
+ * packageName=production
+ * methodName=findAll
+ *
+ */
+SELECT
+	LINE.PRODUCTION_LINE AS PRODUCTION_LINE
+,	LINE.PRODUCTION_LINE_NAME AS PRODUCTION_LINE_NAME
+,	LINE.INPUT_DATE AS INPUT_DATE
+,	LINE.INPUTOR_CD AS INPUTOR_CD
+,	LINE.UPDATE_DATE AS UPDATE_DATE
+,	LINE.UPDATOR_CD AS UPDATOR_CD
+FROM
+	LINE
+ORDER BY
+	LINE.PRODUCTION_LINE

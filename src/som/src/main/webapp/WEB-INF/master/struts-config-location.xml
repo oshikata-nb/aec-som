@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- location -->
+		<form-bean name="locationListForm"
+			type="com.asahikaseieng.app.master.location.LocationListForm" />
+		<!-- location detail -->
+		<form-bean name="locationDetailForm"
+			type="com.asahikaseieng.app.master.location.LocationDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ location -->
+		<action path="/LocationList"
+			type="com.asahikaseieng.app.master.location.LocationListAction"
+			name="locationListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/location_list.jsp">
+
+			<forward name="success" path="/jsp/master/location_list.jsp" />
+			<forward name="reSearch" path="/LocationList.do?op=reSearch" />
+			<forward name="newPage" path="/LocationDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ location Detail -->
+		<action path="/LocationDetail"
+			type="com.asahikaseieng.app.master.location.LocationDetailAction"
+			name="locationDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/location_detail.jsp">
+
+			<forward name="success" path="/jsp/master/location_detail.jsp" />
+			<forward name="back" path="/LocationList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

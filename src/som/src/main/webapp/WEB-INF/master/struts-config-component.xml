@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- component -->
+		<form-bean name="componentListForm"
+			type="com.asahikaseieng.app.master.component.ComponentListForm" />
+		<!-- component detail -->
+		<form-bean name="componentDetailForm"
+			type="com.asahikaseieng.app.master.component.ComponentDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ component -->
+		<action path="/ComponentList"
+			type="com.asahikaseieng.app.master.component.ComponentListAction"
+			name="componentListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/component_list.jsp">
+
+			<forward name="success" path="/jsp/master/component_list.jsp" />
+			<forward name="reSearch" path="/ComponentList.do?op=reSearch" />
+			<forward name="newPage" path="/ComponentDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ component Detail -->
+		<action path="/ComponentDetail"
+			type="com.asahikaseieng.app.master.component.ComponentDetailAction"
+			name="componentDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/component_detail.jsp">
+
+			<forward name="success" path="/jsp/master/component_detail.jsp" />
+			<forward name="back" path="/ComponentList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

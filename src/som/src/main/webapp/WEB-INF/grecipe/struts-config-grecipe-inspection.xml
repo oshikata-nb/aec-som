@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 検査一覧 -->
+		<form-bean name="grecipeInspectionListForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeInspectionListForm" />
+		<!-- 検査詳細 -->
+		<form-bean name="grecipeInspectionDetailForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeInspectionDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 検査一覧 -->
+		<action path="/GrecipeInspectionList"
+			type="com.asahikaseieng.app.grecipe.GrecipeInspectionListAction"
+			name="grecipeInspectionListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_inspection_list.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_inspection_list.jsp" />
+			<forward name="error"
+				path="/jsp/grecipe/grecipe_inspection_list.jsp" />
+			<forward name="back"
+				path="/GrecipeList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/GrecipeInspectionList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 検査詳細 -->
+
+		<action path="/GrecipeInspectionDetail"
+			type="com.asahikaseieng.app.grecipe.GrecipeInspectionDetailAction"
+			name="grecipeInspectionDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_inspection_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_inspection_detail.jsp" />
+			<forward name="error"
+				path="/jsp/grecipe/grecipe_inspection_detail.jsp" />
+			<forward name="back"
+				path="/GrecipeInspectionList.do?op=reSearch" />
+		</action>
+
+
+
+
+	</action-mappings>
+
+</struts-config>

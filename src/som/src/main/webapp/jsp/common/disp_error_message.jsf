@@ -1,0 +1,19 @@
+<%@ page pageEncoding = "UTF-8" %>
+<%@ page import="org.apache.struts.Globals"%>
+
+<%-- エラーメッセージ --%>
+<logic:present name="<%= Globals.ERROR_KEY %>">
+	<table border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<div class="errorExplanation" id="errorExplanation">
+					<ul>
+						<html:messages id="msg" message="false">
+						<li><bean:write name="msg" ignore="true"/></li>
+						</html:messages>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</table>
+</logic:present>

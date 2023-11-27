@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- calList -->
+		<form name="calListForm">
+			<!-- 会計年度 -->
+			<field property="srhCalYear" depends="mask">
+				<msg name="mask" key="errors.number" />
+				<arg key="cal.cal.year" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]*$</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- calDetail -->
+		<form name="calDetailForm">
+			<!-- カレンダーコード -->
+			<field property="calCd" depends="requiredif, mask">
+				<arg key="cal.cal.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 会計年度 -->
+			<field property="calYear" depends="requiredif,mask">
+				<msg name="requiredif" key="errors.required" />
+				<msg name="mask" key="errors.number" />
+				<arg key="cal.cal.year" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]*$</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

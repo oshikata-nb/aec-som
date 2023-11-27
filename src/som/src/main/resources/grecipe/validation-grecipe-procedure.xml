@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから工程一覧 ====================================-->
+		<!-- grecipeProcedureListForm -->
+        <form name="grecipeProcedureListForm">
+			<!-- 明細(内容は別定義 → form name="grecipeProcedureList") -->
+			<field property="searchProcList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>grecipeProcedureList</var-value>
+				</var>
+			</field>
+		</form>
+		<!--  工程一覧画面の明細データの入力チェック -->
+		<form name="grecipeProcedureList">
+			<!-- 工程コード -->
+			<field property="operationCd" depends="required">
+				<msg name="required" key="errors.required.row" />
+				<arg0 key="item.grecipe.operation.cd" />
+			</field>
+		</form>
+
+
+
+		<!-- grecipeProcedureDetailForm -->
+        <form name="grecipeProcedureDetailForm">
+			<!-- 工程コード -->
+			<field property="operationCd" depends="required,alphanumeric">
+				<arg0 key="item.grecipe.operation.cd" />
+			</field>
+			<!-- 温度 -->
+			<field property="strConditionTemp" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.condition.temp" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE2</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>3</var-value>
+				</var>
+			</field>
+			<!-- 時間 -->
+			<field property="strConditionTime" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.condition.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>3</var-value>
+				</var>
+			</field>
+			<!-- 攪拌速度1 -->
+			<field property="strStirSpeed1" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.stir.speed1" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>3</var-value>
+				</var>
+			</field>
+			<!-- 攪拌速度2 -->
+			<field property="strStirSpeed2" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.stir.speed2" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>3</var-value>
+				</var>
+			</field>
+			<!-- 洗浄水絶対重量 -->
+			<field property="strWaterWeight" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.water.weight" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>3</var-value>
+				</var>
+			</field>
+			<!-- 正味質量 -->
+			<field property="strNet" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.net" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 量目管理幅最小 -->
+			<field property="strWeightMin" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.weight.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 量目管理幅最大 -->
+			<field property="strWeightMax" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.weight.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 濾過用フィルター -->
+			<field property="strFilter" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.filter" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 濾過用メッシュ -->
+			<field property="strMesh" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.mesh" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ最小 -->
+			<field property="strAutoCheckerMin" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.auto.checker.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ最大 -->
+			<field property="strAutoCheckerMax" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.auto.checker.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ最小 -->
+			<field property="strGrossCheckerMin" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.gross.checker.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ最大 -->
+			<field property="strGrossCheckerMax" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.gross.checker.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ中心 -->
+			<field property="strAutoCheckerAve" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.auto.checker.ave" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ中心 -->
+			<field property="strGrossCheckerAve" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.gross.checker.ave" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 開きトルク最小 -->
+			<field property="strOpeningTorqueMin" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.opening.torque.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 開きトルク最大 -->
+			<field property="strOpeningTorqueMax" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.opening.torque.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 締めトルク最小 -->
+			<field property="strClosingTorqueMin" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.closing.torque.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 締めトルク最大 -->
+			<field property="strClosingTorqueMax" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.closing.torque.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- トルク圧 -->
+			<field property="strTorquePressure" depends="validateDegitIf">
+				<arg0 key="item.grecipe.strtorquepressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- エアー圧 -->
+			<field property="strAirPressure" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.air.pressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 巻締め時間 -->
+			<field property="strVcloseTime" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.vclose.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ﾎｯﾄｴｱｰ設定温度 -->
+			<field property="strHotAirPresetTemp" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.hot.air.preset.temp" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- ﾎｯﾄｴｱｰ吹き出し圧力 -->
+			<field property="strHotAirPressure" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.hot.air.pressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 第一ﾋｰﾄｼｰﾙ設定温度 -->
+			<field property="strFirstHeatSeal" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.first.heat.seal" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 第二ﾋｰﾄｼｰﾙ設定温度 -->
+			<field property="strSecondHeatSeal" depends="validateDegitIf">
+				<arg0 key="item.grecipe.str.second.heat.seal" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE5</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>recipeUse</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<!-- 工程条件自由入力 -->
+			<field property="condition" depends="maxlength">
+				<arg0 key="item.grecipe.condition" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.memo" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.description" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

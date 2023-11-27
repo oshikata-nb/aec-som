@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+<!--
+	This is a minimal Validator form file with a couple of examples.
+-->
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+	<formset>
+<!--==================================== ここからdeliveryListForm ====================================-->
+		<!-- topicList -->
+		<form name="topicListForm">
+			<!-- 項目を追加 -->
+			<field property="" depends="">
+			</field>
+		</form>
+<!--==================================== ここからtopicDetailForm ====================================-->
+		<!-- topicDetail -->
+		<form name="topicDetailForm">
+			<!-- トピック見出し -->
+			<field property="topicTitle" depends="required,maxlength">
+				<arg key="item.topicTitle" />
+				<arg1 key="item.topicTitle.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 項目を追加 -->
+			<field property="topicContent" depends="required,maxlength">
+				<arg0 key="item.topicContent" />
+				<arg1 key="item.topicContent.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1000</var-value>
+				</var>
+			</field>
+			<field property="topicInputor" depends="maxlength">
+				<arg0 key="item.topicInputor" />
+				<arg1 key="item.topicInputor.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="topicContentRet" depends="maxlength">
+				<arg0 key="item.topicContent" />
+				<arg1 key="item.topicContent.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1000</var-value>
+				</var>
+			</field>
+			<field property="topicRetInputor" depends="maxlength">
+				<arg0 key="item.topicInputor" />
+				<arg1 key="item.topicInputor.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+	</formset>
+</form-validation>

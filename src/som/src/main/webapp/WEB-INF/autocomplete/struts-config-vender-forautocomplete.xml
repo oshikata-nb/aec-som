@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- autocomplete -->
+		<form-bean name="venderAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.vender.VenderForAutoCompleteForm" />
+
+		<!-- 支払入力用auto complete -->
+		<form-bean name="paymentVenderForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.vender.payment.PaymentVenderForAutoCompleteForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ auto complete -->
+		<action path="/VenderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.vender.VenderForAutoCompleteAction"
+			name="venderAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/vender/vender_forautocomplete.jsp" />
+		</action>
+
+		<action path="/DepositVenderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.vender.deposit.DepositVenderForAutoCompleteAction"
+			name="depositVenderForAutoCompleteForm" validate="false"
+			parameter="op" scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/vender/deposit/deposit_vender_forautocomplete.jsp" />
+		</action>
+
+		<action path="/PaymentVenderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.vender.payment.PaymentVenderForAutoCompleteAction"
+			name="paymentVenderForAutoCompleteForm" validate="false"
+			parameter="op" scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/vender/payment/payment_vender_forautocomplete.jsp" />
+		</action>
+	</action-mappings>
+
+</struts-config>

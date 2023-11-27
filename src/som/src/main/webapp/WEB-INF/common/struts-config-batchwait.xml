@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- batchWait -->
+		<form-bean name="batchWaitForm"
+			type="com.asahikaseieng.app.common.batchwait.BatchWaitForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ Inout Monthly Update -->
+		<action path="/BatchWait"
+			type="com.asahikaseieng.app.common.batchwait.BatchWaitAction"
+			name="batchWaitForm" validate="false" parameter="op" scope="session"
+			input="/jsp/common/batchwait/batchwait.jsp">
+			<forward name="success"
+				path="/jsp/common/batchwait/batchwait.jsp" />
+			<forward name="search" path="/BatchWait.do?op=search" />
+			<!-- 売掛更新処理  -->
+			<forward name="arUpdate" path="/ArUpdate.do?op=init" />
+			<!-- 売掛更新ロールバック処理  -->
+			<forward name="arRollback" path="/ArRollback.do?op=init" />
+			<!-- 請求更新処理  -->
+			<forward name="claimUpdateCsm"
+				path="/ClaimUpdateCsm.do?op=init" />
+			<!-- 請求更新ロールバック処理  -->
+			<forward name="claimRollbackCsm"
+				path="/ClaimRollbackCsm.do?op=init" />
+			<!-- 買掛更新処理  -->
+			<forward name="apUpdate" path="/ApUpdate.do?op=init" />
+			<!-- 買掛更新ロールバック処理  -->
+			<forward name="apRollback" path="/ApRollback.do?op=init" />
+			<!-- 支払更新処理  -->
+			<forward name="paymentUpdate"
+				path="/PaymentUpdate.do?op=init" />
+			<!-- 支払更新ロールバック処理  -->
+			<forward name="paymentRollback"
+				path="/PaymentRollback.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

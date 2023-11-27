@@ -1,0 +1,135 @@
+/**
+ *
+ * @author t1344224
+ *
+ * entityName=DirectionResultFormulaListForReport
+ * packageName=rdirectionorderforreport
+ * methodName=getFormulaReportList
+ *
+ */
+SELECT
+	FORMULA.DIRECTION_DIVISION
+,	FORMULA.DIRECTION_NO
+,	FORMULA.STEP_NO
+,	FORMULA.LINE_NO
+,	FORMULA.SEQ
+,	FORMULA.LINE_TYPE
+,	FORMULA.ITEM_CD
+,	ITEM_FORMULA.ITEM_NAME
+,	NAME_FORMULA.NAME01
+,	FORMULA.TONYU
+,	FORMULA.DATAREAD
+,	FORMULA.TONYUSOKUDO
+,	FORMULA.QTY
+,	FORMULA.STOCKPD_QTY
+,	FORMULA.RESULT_QTY
+,	FORMULA.SAMPLE_QTY
+,	FORMULA.LOSS_QTY
+,	FORMULA.DEFECT_QTY
+,	FORMULA.ADJUST_QTY
+,	FORMULA.COST
+,	FORMULA.STEP_CONDITION
+,	FORMULA.NOTES
+,	FORMULA.LOCATION_CD
+,	FIRST_LOCATION.LOCATION_NAME AS FIRST_LOCATION_NAME
+,	FORMULA.NEXT_LOCATION_CD
+,	SECOND_LOCATION.LOCATION_NAME AS SECOND_LOCATION_NAME
+,	FORMULA.NEXT_AFTER_LOCATION_CD
+,	THIRD_LOCATION.LOCATION_NAME AS THIRD_LOCATION_NAME
+,	FORMULA.LOT_NO
+,	FORMULA.MANUFACTURER_LOT_NO
+,	FORMULA.FILL_QTY
+,	FORMULA.FILL_RESULT_QTY
+,	FORMULA.REMARK
+,	FORMULA.INPUT_DATE
+,	FORMULA.INPUTOR_CD
+,	INPUTOR.TANTO_NM AS INPUTOR_NAME
+,	FORMULA.UPDATE_DATE
+,	FORMULA.UPDATOR_CD
+,	UPDATOR.TANTO_NM AS UPDATOR_NAME
+
+FROM
+    VALID_ITEM_QUEUE MAX_ITEM,
+	LINE LINE,
+	NAMES NAME,
+	VALID_ITEM_QUEUE ITEM,
+	RECIPE_RESOUCE RECIPE_RESOUCE,
+	DIRECTION_HEADER HEAD
+,	DIRECTION_FORMULA FORMULA
+,	LOGIN INPUTOR
+,	LOGIN UPDATOR
+,	ITEM ITEM_FORMULA
+,	NAMES NAME_FORMULA
+,	LOCATION FIRST_LOCATION
+,	LOCATION SECOND_LOCATION
+,	LOCATION THIRD_LOCATION
+
+
+WHERE
+        HEAD.DIRECTION_DIVISION = '1'
+    AND HEAD.DIRECTION_NO = FORMULA.DIRECTION_NO
+    AND MAX_ITEM.ITEM_CD(+) = HEAD.ITEM_CD
+    AND ITEM.ITEM_CD(+) = MAX_ITEM.ITEM_CD
+    AND ITEM.VERSION(+) = MAX_ITEM.VERSION
+    AND LINE.PRODUCTION_LINE(+) = HEAD.PRODUCTION_LINE
+    AND NAME.NAME_DIVISION(+) = 'UNIT'
+    AND NAME.NAME_CD(+) = ITEM.UNIT_OF_OPERATION_MANAGEMENT
+    AND HEAD.COMPOUND_TANK_NO = RECIPE_RESOUCE.RESOUCE_CD(+)
+
+
+AND	FORMULA.INPUTOR_CD = INPUTOR.TANTO_CD(+)
+AND 	FORMULA.UPDATOR_CD = UPDATOR.TANTO_CD(+)
+AND	FORMULA.ITEM_CD = ITEM_FORMULA.ITEM_CD(+)
+AND	NAME_FORMULA.NAME_DIVISION(+) = 'UNIT'
+AND	NAME_FORMULA.NAME_CD(+) = ITEM_FORMULA.UNIT_OF_OPERATION_MANAGEMENT
+AND	FORMULA.LOCATION_CD = FIRST_LOCATION.LOCATION_CD(+)
+AND	FORMULA.NEXT_LOCATION_CD = SECOND_LOCATION.LOCATION_CD(+)
+AND	FORMULA.NEXT_AFTER_LOCATION_CD = THIRD_LOCATION.LOCATION_CD(+)
+
+
+/*IF (( condition.directionNo != null ) && ( condition.directionNo != "" ))*/
+	AND	HEAD.DIRECTION_NO LIKE /*condition.directionNo*/'O%'
+/*END*/
+/*IF (( condition.productionLine != null ) && ( condition.productionLine != "" ))*/
+	AND	HEAD.PRODUCTION_LINE = /*condition.productionLine*/'O%'
+/*END*/
+/*IF ( condition.directionStatus != 0 )*/
+	AND	HEAD.DIRECTION_STATUS = /*condition.directionStatus*/'O%'
+/*END*/
+/*IF ( condition.directionStatus == 0 )*/
+	AND	HEAD.DIRECTION_STATUS IN (6,7,8)
+/*END*/
+/*IF (( condition.itemCd != null ) && ( condition.itemCd != "" ))*/
+	AND	(HEAD.ITEM_CD LIKE /*condition.itemCd*/'O%' OR ITEM.ITEM_NAME LIKE /*condition.itemCd*/'O%')
+/*END*/
+/*IF (( condition.otherCompanyCd1 != null ) && ( condition.otherCompanyCd1 != "" ))*/
+	AND	ITEM.OTHER_COMPANY_CD1 LIKE /*condition.otherCompanyCd1*/'O%'
+/*END*/
+/*IF (( condition.resultSdateDateFrom != null ) && ( condition.resultSdateDateFrom != "" ))*/
+	AND TO_CHAR(HEAD.RESULT_SDATE,'YYYY/MM/DD HH24:MI') >= /*condition.resultSdateDateFrom*/''
+/*END*/
+/*IF (( condition.resultSdateDateTo != null ) && ( condition.resultSdateDateTo != "" ))*/
+	AND TO_CHAR(HEAD.RESULT_SDATE,'YYYY/MM/DD HH24:MI') <= /*condition.resultSdateDateTo*/''
+/*END*/
+/*IF (( condition.resultEdateDateFrom != null ) && ( condition.resultEdateDateFrom != "" ))*/
+	AND TO_CHAR(HEAD.RESULT_EDATE,'YYYY/MM/DD HH24:MI') >= /*condition.resultEdateDateFrom*/''
+/*END*/
+/*IF (( condition.resultEdateDateTo != null ) && ( condition.resultEdateDateTo != "" ))*/
+	AND TO_CHAR(HEAD.RESULT_EDATE,'YYYY/MM/DD HH24:MI') <= /*condition.resultEdateDateTo*/''
+/*END*/
+/*IF (( condition.compoundTankNo != null ) && ( condition.compoundTankNo != "" ))*/
+	AND	HEAD.COMPOUND_TANK_NO LIKE /*condition.compoundTankNo*/'EE'
+/*END*/
+
+ORDER BY
+     HEAD.COMPOUND_TANK_NO
+    ,HEAD.RESULT_SDATE
+    ,HEAD.DIRECTION_NO
+    ,HEAD.ITEM_CD
+    ,FORMULA.STEP_NO
+,FORMULA.LINE_NO
+
+
+
+
+

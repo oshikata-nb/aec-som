@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- offset -->
+		<form-bean name="offsetListForm"
+			type="com.asahikaseieng.app.payment.offset.OffsetListForm" />
+
+		<!-- offset detail -->
+		<form-bean name="offsetDetailForm"
+			type="com.asahikaseieng.app.payment.offset.OffsetDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ offset -->
+		<action path="/OffsetList"
+			type="com.asahikaseieng.app.payment.offset.OffsetListAction"
+			name="offsetListForm" validate="true" parameter="op" scope="session"
+			input="/jsp/payment/offset_list.jsp">
+
+			<forward name="success" path="/jsp/payment/offset_list.jsp" />
+			<forward name="reSearch" path="/OffsetList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ offset Detail -->
+		<action path="/OffsetDetail"
+			type="com.asahikaseieng.app.payment.offset.OffsetDetailAction"
+			name="offsetDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/payment/offset_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/payment/offset_detail.jsp" />
+			<forward name="back" path="/OffsetList.do?op=reSearch" />
+			<forward name="backArLeder"
+				path="/jsp/credit/arledger_detail.jsp" />
+			<forward name="backApLeder"
+				path="/jsp/debt/apledger_detail.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

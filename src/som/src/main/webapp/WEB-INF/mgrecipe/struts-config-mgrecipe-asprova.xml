@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- Asprova一覧 -->
+		<form-bean name="mgrecipeAsprovaListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeAsprovaListForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ Asprova一覧 -->
+		<action path="/MgrecipeAsprovaList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeAsprovaListAction"
+			name="mgrecipeAsprovaListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_asprova_list.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_asprova_list.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_asprova_list.jsp" />
+			<forward name="back"
+				path="/MgrecipeList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/MgrecipeAsprovaList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ Asprova詳細 -->
+		<action path="/MgrecipeAsprovaDetail"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeAsprovaDetailAction"
+			name="mgrecipeAsprovaDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_asprova_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_asprova_detail.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_asprova_detail.jsp" />
+			<forward name="back"
+				path="/MgrecipeAsprovaList.do?op=reSearch" />
+		</action>
+
+
+	</action-mappings>
+
+</struts-config>

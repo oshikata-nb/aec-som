@@ -1,0 +1,22 @@
+/*
+ * 成分情報一覧用SQL
+ *
+ * entityName=ComponentInformationQueueList
+ * packageName=componentinformationqueuelist
+ * methodName=getList
+ */
+
+SELECT ITEM_CD, VERSION, INDICATE_ORDER, COMPONENT_INFORMATION_QUEUE.COMPONENT_CD, CALC_VALUE, INDICATE_VALUE, COMPONENT_INFORMATION_QUEUE.UPDATE_DATE, COMPONENT_NAME, 'SONOTA3' UNIT_DIVISION
+FROM COMPONENT_INFORMATION_QUEUE, COMPONENT
+WHERE ITEM_CD IS NOT NULL
+
+/*IF (itemCd != null) && (itemCd != "")*/
+AND ITEM_CD = /*itemCd*/'%'
+/*END*/
+
+/*IF (version != null) && (version != "")*/
+AND VERSION = /*version*/1
+/*END*/
+
+AND COMPONENT_INFORMATION_QUEUE.COMPONENT_CD = COMPONENT.COMPONENT_CD(+)
+ORDER BY INDICATE_ORDER

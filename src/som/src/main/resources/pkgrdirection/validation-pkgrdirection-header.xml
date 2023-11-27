@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからヘッダー情報 ====================================-->
+		<!-- PkgRdirectionHeaderForm -->
+        <form name="pkgRdirectionHeaderForm">
+			<!-- ロット番号 -->
+			<field property="lotNo" depends="mask">
+				<msg name="mask" key="errors.alphameric.code" />
+				<arg key="item.pkgrdirection.header.lot.no" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${som_lot_mask}</var-value>
+				</var>
+			</field>
+			<!-- 包装開始実施日時 -->
+			<field property="resultSDay" depends="requiredif">
+				<arg key="item.pkgrdirection.header.result.sdate.date" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+			<field property="resultSTime" depends="requiredif">
+				<arg key="item.pkgrdirection.header.result.sdate.time" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+			<!-- 包装終了実績日時 -->
+			<field property="resultEDay" depends="requiredif">
+				<arg key="item.pkgrdirection.header.result.edate.date" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+			<field property="resultETime" depends="requiredif">
+				<arg key="item.pkgrdirection.header.result.edate.time" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+			<!-- 次回予定数量 -->
+			<field property="nextPlanedQty" depends="requiredif">
+				<arg key="item.pkgrdirection.header.next.planed.qty" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<!-- 次回予定数量 -->
+			<field property="nextPlanedQty" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.header.next.planed.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 次回包装開始日 -->
+			<field property="nextSDay" depends="requiredif">
+				<arg key="item.pkgdirection.planed.sdate.date" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<field property="nextSTime" depends="requiredif">
+				<arg key="item.pkgdirection.planed.sdate.time" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<!-- 次回包装終了日 -->
+			<field property="nextEDay" depends="requiredif">
+				<arg key="item.pkgdirection.planed.edate.date" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<field property="nextETime" depends="requiredif">
+				<arg key="item.pkgdirection.planed.edate.time" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>divideFlag</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.pkgrdirection.header.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.pkgrdirection.header.notes" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+</formset>
+</form-validation>

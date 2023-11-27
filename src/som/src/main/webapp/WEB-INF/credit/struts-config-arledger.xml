@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- arbalance -->
+		<form-bean name="arLedgerListForm"
+			type="com.asahikaseieng.app.credit.arledger.ArLedgerListForm" />
+
+		<!-- arbalance detail -->
+		<form-bean name="arLedgerDetailForm"
+			type="com.asahikaseieng.app.credit.arledger.ArLedgerDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ arledger -->
+		<action path="/ArLedgerList"
+			type="com.asahikaseieng.app.credit.arledger.ArLedgerListAction"
+			name="arLedgerListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/credit/arledger_list.jsp">
+
+			<forward name="success"
+				path="/jsp/credit/arledger_list.jsp" />
+			<forward name="reSearch"
+				path="/ArLedgerList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ arledger Detail -->
+		<action path="/ArLedgerDetail"
+			type="com.asahikaseieng.app.credit.arledger.ArLedgerDetailAction"
+			name="arLedgerDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/credit/arledger_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/credit/arledger_detail.jsp" />
+			<forward name="back"
+				path="/ArLedgerList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

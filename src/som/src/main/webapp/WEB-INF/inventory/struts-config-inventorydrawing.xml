@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+           "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+           "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- inventorydrawing -->
+		<form-bean name="InventoryDrawingListForm"
+			type="com.asahikaseieng.app.inventory.InventoryDrawingListForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ inventory drawing list -->
+		<action path="/InventoryDrawingList"
+			type="com.asahikaseieng.app.inventory.InventoryDrawingListAction"
+			name="InventoryDrawingListForm" scope="session" validate="true"
+			parameter="op" input="/jsp/inventory/inventorydrawing_list.jsp">
+
+			<forward name="success"
+				path="/jsp/inventory/inventorydrawing_list.jsp" />
+
+		</action>
+
+	</action-mappings>
+
+</struts-config>

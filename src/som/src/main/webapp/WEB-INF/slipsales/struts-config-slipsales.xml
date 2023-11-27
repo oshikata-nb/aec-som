@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 売上伝票出力画面 -->
+		<form-bean name="slipSalesListForm"
+			type="com.asahikaseieng.app.slipsales.SlipSalesListForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+		<!-- ================================================ 売上伝票出力画面 -->
+		<action path="/SlipSalesList"
+			type="com.asahikaseieng.app.slipsales.SlipSalesListAction"
+			name="slipSalesListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/slipsales/slipsales_list.jsp">
+
+			<forward name="success"
+				path="/jsp/slipsales/slipsales_list.jsp" />
+			<forward name="reSearch"
+				path="/SlipSalesList.do?op=reSearch" />
+			<forward name="reFresh" path="/SlipSalesList.do?op=reFresh" />
+		</action>
+	</action-mappings>
+
+</struts-config>

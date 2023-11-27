@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- line -->
+		<form-bean name="lineListForm"
+			type="com.asahikaseieng.app.master.line.LineListForm" />
+		<!-- line detail -->
+		<form-bean name="lineDetailForm"
+			type="com.asahikaseieng.app.master.line.LineDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ line -->
+		<action path="/LineList"
+			type="com.asahikaseieng.app.master.line.LineListAction"
+			name="lineListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/line_list.jsp">
+
+			<forward name="success" path="/jsp/master/line_list.jsp" />
+			<forward name="reSearch" path="/LineList.do?op=reSearch" />
+			<forward name="newPage" path="/LineDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ line Detail -->
+		<action path="/LineDetail"
+			type="com.asahikaseieng.app.master.line.LineDetailAction"
+			name="lineDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/line_detail.jsp">
+
+			<forward name="success" path="/jsp/master/line_detail.jsp" />
+			<forward name="back" path="/LineList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

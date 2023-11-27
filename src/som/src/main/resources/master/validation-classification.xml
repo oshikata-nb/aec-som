@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+    </global>
+
+    <formset>
+
+<!--==================================== ここからclassificationListForm ====================================-->
+		<!-- classificationList -->
+		<form name="classificationListForm">
+			<!-- 項目を追加 -->
+			<field property="" depends="">
+			</field>
+        </form>
+
+<!--==================================== ここからclassificationDetailForm ====================================-->
+		<!-- classificationDetail -->
+        <form name="classificationDetailForm">
+			<!-- ﾃﾞｰﾀ種別 -->
+			<field property="strDataType" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.strDataType"/>
+			</field>
+			<!-- ﾃﾞｰﾀ集計区分 -->
+			<field property="strDataTotalDivision" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.strDataTotalDivision"/>
+			</field>
+			<!-- 分類コード -->
+			<field property="categoryDivision" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.categoryDivision"/>
+			</field>
+			<!-- 分類名称 -->
+			<field property="categoryName" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.categoryName"/>
+			</field>
+			<!-- 対外分類名称 -->
+			<field property="externalCategoryName" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.externalCategoryName"/>
+			</field>
+			<!-- 借方勘定科目 -->
+			<field property="debitAccountsCd" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.debitAccountsCd"/>
+			</field>
+			<!-- 貸方勘定科目 -->
+			<field property="creditAccountsCd" depends="required">
+				<msg name="required" key="errors.required"/>
+				<arg0 key="item.creditAccountsCd"/>
+			</field>
+		</form>
+
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+
+</form-validation>

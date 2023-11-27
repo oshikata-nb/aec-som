@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 工程一覧 -->
+		<form-bean name="mgrecipeProcedureListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeProcedureListForm" />
+
+		<!-- 工程詳細 -->
+		<form-bean name="mgrecipeProcedureDetailForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeProcedureDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 工程一覧 -->
+		<action path="/MgrecipeProcedureList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeProcedureListAction"
+			name="mgrecipeProcedureListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_procedure_list.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_procedure_list.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_procedure_list.jsp" />
+			<forward name="back"
+				path="/MgrecipeList.do?op=reSearch" />
+			<forward name="init"
+				path="/MgrecipeProcedureList.do?op=reInit" />
+		</action>
+
+		<!-- ================================================ 工程詳細 -->
+		<action path="/MgrecipeProcedureDetail"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeProcedureDetailAction"
+			name="mgrecipeProcedureDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_procedure_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_procedure_detail.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_procedure_detail.jsp" />
+			<forward name="back"
+				path="/MgrecipeProcedureList.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

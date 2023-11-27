@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- midInspectCompListForm -->
+		<form-bean name="midInspectCompListForm"
+			type="com.asahikaseieng.app.midinspectcomp.MidInspectCompListForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ midinspectcomp -->
+		<action path="/MidInspectCompList"
+			type="com.asahikaseieng.app.midinspectcomp.MidInspectCompListAction"
+			name="midInspectCompListForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/midinspectcomp/midinspectcomp_list.jsp">
+
+			<forward name="success"
+				path="/jsp/midinspectcomp/midinspectcomp_list.jsp" />
+			<forward name="reSearch"
+				path="/MidInspectCompList.do?op=reSearch" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+	</action-mappings>
+
+</struts-config>

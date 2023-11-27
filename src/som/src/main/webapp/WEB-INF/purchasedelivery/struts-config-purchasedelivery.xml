@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- purchasedelivery -->
+		<form-bean name="purchaseDeliveryListForm"
+			type="com.asahikaseieng.app.purchasedelivery.PurchaseDeliveryListForm" />
+
+		<!-- purchasedelivery detail_new -->
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ purchasedelivery -->
+		<action path="/PurchaseDeliveryList"
+			type="com.asahikaseieng.app.purchasedelivery.PurchaseDeliveryListAction"
+			name="purchaseDeliveryListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/purchasedelivery/purchasedelivery_list.jsp">
+
+			<forward name="success"
+				path="/jsp/purchasedelivery/purchasedelivery_list.jsp" />
+			<forward name="reSearch"
+				path="/PurchaseDeliveryList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ purchasedelivery SumDetail -->
+		<action path="/PurchaseDeliverySumDetail"
+			type="com.asahikaseieng.app.purchasedelivery.PurchaseDeliverySumDetailAction"
+			name="purchaseDeliverySumDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/purchasedelivery/purchasedelivery_sumdetail.jsp">
+
+			<forward name="success"
+				path="/jsp/purchasedelivery/purchasedelivery_sumdetail.jsp" />
+			<forward name="error"
+				path="/jsp/purchasedelivery/purchasedelivery_list.jsp" />
+			<forward name="back"
+				path="/PurchaseDeliveryList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ purchasedelivery Detail -->
+		<action path="/PurchaseDeliveryDetail"
+			type="com.asahikaseieng.app.purchasedelivery.PurchaseDeliveryDetailAction"
+			name="purchaseDeliveryDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/purchasedelivery/purchasedelivery_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/purchasedelivery/purchasedelivery_detail.jsp" />
+			<forward name="error"
+				path="/jsp/purchasedelivery/purchasedelivery_detail.jsp" />
+			<forward name="back"
+				path="/PurchaseDeliverySumDetail.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

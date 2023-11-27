@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからAsprova一覧 ====================================-->
+		<!-- mgrecipeAsprovaListForm -->
+        <form name="mgrecipeAsprovaListForm">
+			<!-- 要員数（上段） -->
+			<field property="upperYouinsu" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.youinsu" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>999</var-value>
+				</var>
+			</field>
+			<!-- 要員数（下段） -->
+			<field property="lowerYouinsu" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.youinsu" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>999</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- mgrecipeAsprovaDetailForm -->
+        <form name="mgrecipeAsprovaDetailForm">
+			<!-- 優先度 -->
+			<field property="recipePriority" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.recipe.priority" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99</var-value>
+				</var>
+			</field>
+			<!-- 前段取時間（分） -->
+			<field property="maejikan" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.mae.jikan" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 後段取時間（分） -->
+			<field property="atojikan" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.ato.jikan" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 工程作業時間1（分） -->
+			<field property="processWorkTime1" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.process.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 工程作業時間2（分） -->
+			<field property="processWorkTime2" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.process.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 設備稼働時間1（分） -->
+			<field property="machineWorkTime1" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.machine.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 設備稼働時間2（分） -->
+			<field property="machineWorkTime2" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.machine.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 人作業時間1（分） -->
+			<field property="manWorkTime1" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.man.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+			<!-- 人作業時間2（分） -->
+			<field property="manWorkTime2" depends="integerEx,intRangeEx">
+				<arg key="item.mgrecipe.man.worktime" />
+				<arg1 key="0" name="intRangeEx" resource="false" />
+				<arg2 key="99999" name="intRangeEx" resource="false" />
+				<var>
+				  <var-name>min</var-name>
+				  <var-value>0</var-value>
+				</var>
+				<var>
+				  <var-name>max</var-name>
+				  <var-value>99999</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

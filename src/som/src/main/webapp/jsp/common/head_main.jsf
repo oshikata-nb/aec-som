@@ -1,0 +1,5 @@
+<%@ page language="java" pageEncoding="UTF-8" %>
+
+<!-- Style Sheet -->
+<link href='<%= request.getContextPath() + "/stylesheets/content.css"%>'
+	media="screen" rel="Stylesheet" type="text/css" />

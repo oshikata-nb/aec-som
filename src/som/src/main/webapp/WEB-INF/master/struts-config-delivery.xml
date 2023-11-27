@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- delivery -->
+		<form-bean name="deliveryListForm"
+			type="com.asahikaseieng.app.master.delivery.DeliveryListForm" />
+		<!-- delivery detail -->
+		<form-bean name="deliveryDetailForm"
+			type="com.asahikaseieng.app.master.delivery.DeliveryDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ delivery -->
+		<action path="/DeliveryList"
+			type="com.asahikaseieng.app.master.delivery.DeliveryListAction"
+			name="deliveryListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/delivery_list.jsp">
+
+			<forward name="success" path="/jsp/master/delivery_list.jsp" />
+			<forward name="reSearch" path="/DeliveryList.do?op=reSearch" />
+			<forward name="newPage" path="/DeliveryDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ delivery Detail -->
+		<action path="/DeliveryDetail"
+			type="com.asahikaseieng.app.master.delivery.DeliveryDetailAction"
+			name="deliveryDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/delivery_detail.jsp">
+
+			<forward name="success" path="/jsp/master/delivery_detail.jsp" />
+			<forward name="back" path="/DeliveryList.do?op=reSearch" />
+			<forward name="backVender" path="/VenderList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

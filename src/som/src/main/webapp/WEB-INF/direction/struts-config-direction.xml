@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図検索Form -->
+		<form-bean name="directionListForm"
+			type="com.asahikaseieng.app.direction.DirectionListForm" />
+
+		<!-- 製造指図-新規入力Form -->
+		<form-bean name="directionNewDetailForm"
+			type="com.asahikaseieng.app.direction.DirectionNewDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造指図検索 -->
+
+		<action path="/DirectionList"
+			type="com.asahikaseieng.app.direction.DirectionListAction"
+			name="directionListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/direction/direction_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/direction/direction_list.jsp" />
+			<forward name="reSearch" path="/DirectionList.do?op=reSearch" />
+			<forward name="reFresh" path="/DirectionList.do?op=reFresh" />
+		</action>
+
+		<!-- ================================================= 製造指図-新規入力 -->
+
+		<action path="/DirectionNewDetail"
+			type="com.asahikaseieng.app.direction.DirectionNewDetailAction"
+			name="directionNewDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/direction/direction_new.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/direction/direction_new.jsp" />
+			<forward name="back" path="/DirectionList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+</struts-config>

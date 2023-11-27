@@ -1,0 +1,20 @@
+<%@ page pageEncoding = "UTF-8" %>
+<%@ page import="org.apache.struts.Globals"%>
+
+<html:messages id="msg" message="true">
+	<table cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td>
+				<%-- メッセージ --%>
+				<div id="information" class="cssInformation">
+					<script language="JavaScript" type="text/javascript">
+						createEffect('information');
+					</script>
+					<font class="guide_message">
+						<bean:write name="msg" ignore="true"/>
+					</font>
+				</div>
+			</td>
+		</tr>
+	</table>
+</html:messages>

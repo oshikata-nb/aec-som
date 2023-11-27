@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- orderimport -->
+		<form-bean name="orderImportListForm"
+			type="com.asahikaseieng.app.order.orderimport.OrderImportListForm" />
+		<!-- orderimportdetail -->
+		<form-bean name="orderImportDetailForm"
+			type="com.asahikaseieng.app.order.orderimport.OrderImportDetailForm" />
+		<!-- 納入先検索ポップアップ -->
+		<form-bean name="orderDeliverySearchForm"
+			type="com.asahikaseieng.app.order.OrderDeliverySearchForm" />
+		<!-- ロット検索ポップアップ -->
+		<form-bean name="orderLotSearchForm"
+			type="com.asahikaseieng.app.order.OrderLotSearchForm" />
+		<!-- ファイル取込ポップアップ -->
+		<form-bean name="orderFileImportForm"
+			type="com.asahikaseieng.app.order.orderimport.OrderFileImportForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ orderimport -->
+		<action path="/OrderImportList"
+			type="com.asahikaseieng.app.order.orderimport.OrderImportListAction"
+			name="orderImportListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/orderimport_list.jsp">
+
+			<forward name="success" path="/jsp/order/orderimport_list.jsp" />
+			<forward name="research" path="/OrderImportList.do?op=reSearch" />
+			<forward name="newPage" path="/OrderImportDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ orderimportDetail -->
+		<action path="/OrderImportDetail"
+			type="com.asahikaseieng.app.order.orderimport.OrderImportDetailAction"
+			name="orderImportDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/orderimport_detail.jsp">
+
+			<forward name="success" path="/jsp/order/orderimport_detail.jsp" />
+			<forward name="init" path="/OrderImportDetail.do?op=newPage" />
+			<forward name="conflict" path="/OrderImportDetail.do?op=init" />
+			<forward name="back" path="/OrderImportList.do?op=reSearch" />
+		</action>
+		
+		<!-- ================================================ ファイル取込ポップアップ -->
+		<action path="/OrderFileImport"
+			type="com.asahikaseieng.app.order.orderimport.OrderFileImportAction"
+			name="orderFileImportForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/orderfile_import.jsp">
+
+			<forward name="success" path="/jsp/order/orderfile_import.jsp" />
+			<forward name="newPage" path="/OrderFileImport.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ 納入先検索ポップアップ -->
+		<action path="/OrderDeliverySearch"
+			type="com.asahikaseieng.app.order.OrderDeliverySearchAction"
+			name="orderDeliverySearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/order_delivery_search.jsp">
+
+			<forward name="success" path="/jsp/order/order_delivery_search.jsp" />
+		</action>
+		<!-- ================================================ ロット検索ポップアップ -->
+		<action path="/OrderLotSearch"
+			type="com.asahikaseieng.app.order.OrderLotSearchAction"
+			name="orderLotSearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/order_lot_search.jsp">
+
+			<forward name="success" path="/jsp/order/order_lot_search.jsp" />
+		</action>
+		
+		<!-- ================================================ ファイル取込ポップアップ -->
+		<action path="/OrderFileImport"
+			type="com.asahikaseieng.app.order.orderimport.OrderFileImportAction"
+			name="orderFileImportForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/orderfile_import.jsp">
+
+			<forward name="success" path="/jsp/order/orderfile_import.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

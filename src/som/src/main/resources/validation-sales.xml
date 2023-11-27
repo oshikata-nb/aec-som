@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから売上検索 ====================================-->
+		<!-- salesList -->
+		<form name="salesListForm">
+			<!-- 受注番号 大小関係 -->
+			<field property="srhOrderNoTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.sales.order.no.from" />
+				<arg1 key="item.sales.order.no.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhOrderNoTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 売上日From -->
+			<field property="srhSalesDateFrom" depends="date">
+				<arg key="item.sales.sales.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 売上日To -->
+			<field property="srhSalesDateTo" depends="date">
+				<arg key="item.sales.sales.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 売上日 大小関係 -->
+			<field property="srhSalesDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.sales.sales.date.from" />
+				<arg1 key="item.sales.sales.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhSalesDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhSalesDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhSalesDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 勘定年月 -->
+			<field property="srhAccountYears" depends="date">
+				<msg name="date" key="errors.sales.years" />
+				<arg key="item.sales.sales.account.years.From"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+			<!-- 勘定年月To -->
+			<field property="srhAccountYearsTo" depends="date">
+				<arg key="item.sales.sales.account.years.To"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field><!-- 勘定年月 大小関係 -->
+			<field property="srhAccountYearsTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.sales.sales.account.years.From" />
+				<arg1 key="item.sales.sales.account.years.To" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhSalesDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhAccountYearsTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhAccountYears</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+        </form>
+
+<!--==================================== ここから売上詳細(標準) ====================================-->
+		<form name="salesDetailStandardForm">
+			<!-- 売上日 -->
+			<field property="strSalesDate" depends="required,date">
+				<arg key="item.sales.sales.account.sales.date" />
+			</field>
+			<!-- 勘定年月 -->
+			<field property="strAccountYears" depends="required,date">
+				<msg name="date" key="errors.sales.years" />
+				<arg key="item.sales.sales.account.years"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+			<!-- 得意先 -->
+			<field property="venderCd" depends="required">
+				<arg key="item.sales.vender.cd" />
+			</field>
+			<!-- 品目コード -->
+			<field property="itemCd" depends="required">
+				<arg key="item.sales.item.cd" />
+			</field>
+			<!-- 数量 -->
+			<field property="strSalesQuantity" depends="required">
+				<arg key="item.sales.sales.quantity" />
+			</field>
+			<!-- 標準単価 -->
+			<field property="strStandardUnitprice" depends="required,validateDegit">
+				<arg key="item.sales.standard.unitprice" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 標準値引 -->
+			<field property="strStandardDiscount" depends="validateDegit">
+				<arg key="item.sales.standard.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 特別値引 -->
+			<field property="strSpecialDiscount" depends="validateDegit">
+				<arg key="item.sales.special.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 会計部門借方コード -->
+			<field property="accountDebitSectionCd" depends="required">
+				<arg key="item.sales.account.debit.section.cd" />
+			</field>
+			<!-- 会計部門貸方コード -->
+			<field property="accountCreditSectionCd" depends="required">
+				<arg key="item.sales.account.credit.section.cd" />
+			</field>
+			<!-- 借方科目コード -->
+			<field property="debitTitleCd" depends="required">
+				<arg key="item.sales.debit.title.name" />
+			</field>
+			<!-- 貸方科目コード -->
+			<field property="creditTitleCd" depends="required">
+				<arg key="item.sales.credit.title.name" />
+			</field>
+			<!-- 包装指図番号 -->
+			<field property="packageDirectionNo" depends="maxlength">
+				<arg0 key="item.sales.package.direction.no" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<!-- 製品ロット番号 -->
+			<field property="productLotno" depends="maxlength">
+				<arg0 key="item.sales.product.lot.no" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<!-- 備考-->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.sales.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+        </form>
+
+<!--==================================== ここから売上詳細(預り品) ====================================-->
+		<form name="salesDetailKeepForm">
+			<!-- 売上日 -->
+			<field property="strSalesDate" depends="required,date">
+				<arg key="item.sales.sales.account.sales.date" />
+			</field>
+			<!-- 勘定年月 -->
+			<field property="strAccountYears" depends="required,date">
+				<msg name="date" key="errors.sales.years" />
+				<arg key="item.sales.sales.account.years"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+			<!-- 納入先 -->
+			<field property="deliveryCd" depends="required">
+				<msg name="required" key="errors.sales.required.delivery.cd" />
+			</field>
+			<!-- 品目コード -->
+			<field property="itemCd" depends="required">
+				<arg key="item.sales.item.cd" />
+			</field>
+			<!-- 数量 -->
+			<field property="strSalesQuantity" depends="required">
+				<arg key="item.sales.keep.sales.quantity" />
+			</field>
+			<!-- 標準単価 -->
+			<field property="strStandardUnitprice" depends="required,validateDegit">
+				<arg key="item.sales.standard.unitprice" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 標準値引 -->
+			<field property="strStandardDiscount" depends="validateDegit">
+				<arg key="item.sales.standard.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 特別値引 -->
+			<field property="strSpecialDiscount" depends="validateDegit">
+				<arg key="item.sales.special.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrTanka</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>TS</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 会計部門借方コード -->
+			<field property="accountDebitSectionCd" depends="required">
+				<arg key="item.sales.account.debit.section.cd" />
+			</field>
+			<!-- 会計部門貸方コード -->
+			<field property="accountCreditSectionCd" depends="required">
+				<arg key="item.sales.account.credit.section.cd" />
+			</field>
+			<!-- 借方科目コード -->
+			<field property="debitTitleCd" depends="required">
+				<arg key="item.sales.debit.title.name" />
+			</field>
+			<!-- 貸方科目コード -->
+			<field property="creditTitleCd" depends="required">
+				<arg key="item.sales.credit.title.name" />
+			</field>
+			<!-- 備考-->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.sales.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+        </form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

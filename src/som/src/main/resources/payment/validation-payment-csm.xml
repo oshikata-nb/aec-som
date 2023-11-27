@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		支払入力 画面のチェック
+	-->
+
+	<global></global>
+
+	<formset>
+		<!-- 支払入力（リスト)画面(カスタマイズ) -->
+		<form name="paymentCsmListForm">
+			<!-- 支払日付From -->
+			<field property="srhPaymentDateFrom" depends="date">
+				<arg key="item.payment.srhPaymentDateFrom" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 支払日付To -->
+			<field property="srhPaymentDateTo" depends="date">
+				<arg key="item.payment.srhPaymentDateTo" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 支払日付 大小関係 -->
+			<field property="srhPaymentDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.payment.srhPaymentDateFrom" />
+				<arg1 key="item.payment.srhPaymentDateTo" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhPaymentDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhPaymentDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhPaymentDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 支払番号 大小関係 -->
+			<field property="srhSlipNoTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.payment.srhSlipNoFrom" />
+				<arg1 key="item.payment.srhSlipNoTo" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhSlipNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhSlipNoTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhSlipNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 支払入力（詳細)画面(カスタマイズ) -->
+		<form name="paymentCsmDetailForm">
+			<!-- 部署コード -->
+			<field property="organizationCd"
+				depends="required,mask,maxlength">
+				<arg0 key="item.payment.sectionCd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<msg name="maxlength" key="errors.maxlength" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${ap21_mask}</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<!-- 支払日付 -->
+			<field property="strPaymentDate" depends="required,date">
+				<arg key="item.payment.srhPaymentDate" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 請求先 -->
+			<field property="customerCd"
+				depends="required,mask,maxlength">
+				<arg0 key="item.payment.supplierCd" />
+				<msg name="maxlength" key="errors.maxlength" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${ap21_mask}</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<!-- 明細(内容は別定義 → form name="paymentDetail") -->
+			<field property="detailList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>paymentCsmDetail</var-value>
+				</var>
+			</field>
+
+		</form>
+		<!--  支払入力（詳細)画面の明細データの入力チェック -->
+		<form name="paymentCsmDetail">
+			<!-- 支払分類 -->
+			<field property="categoryDivision" depends="required">
+				<msg name="required" key="errors.required.row" />
+				<arg key="item.payment.categoryDivision" />
+			</field>
+			<!-- 支払金額 -->
+			<field property="paymentAmount"
+				depends="required, validateDegit">
+				<msg name="required" key="errors.required.row" />
+				<arg0 key="item.payment.paymentAmount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>KINGAKU</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<!-- 科目 -->
+			<field property="creditTitleCd" depends="required">
+				<msg name="required" key="errors.required.row" />
+				<arg key="item.payment.debitTitleCd" />
+			</field>
+			<!-- 銀行コード -->
+			<!-- 			<field property="bankCd" depends="requiredif,integer,minlength,maxlength">	 -->
+			<!-- 090625
+				<field property="bankCd" depends="integer,minlength,maxlength">
+			-->
+			<!-- 				<msg name="requiredif" key="errors.required.row"/>	 -->
+			<!-- 090625
+				<msg name="integer" key="errors.number.row"/>
+				<msg name="maxlength" key="errors.length.row"/>
+				<msg name="minlength" key="errors.length.row"/>
+				<arg0 key="item.payment.bankCd" />
+				<arg1 key="7" name="minlength" resource="false" />
+				<arg1 key="7" name="maxlength" resource="false" />
+			-->
+			<!-- 
+				<var>
+				<var-name>field[0]</var-name>
+				<var-value>bankDivision</var-value>
+				</var>
+				<var>
+				<var-name>fieldValue[0]</var-name>
+				<var-value>1</var-value>
+				</var>
+				<var>
+				<var-name>fieldTest[0]</var-name>
+				<var-value>EQUAL</var-value>
+				</var>
+			-->
+			<!-- 090625
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>7</var-value>
+				</var>
+				<var>
+				<var-name>minlength</var-name>
+				<var-value>7</var-value>
+				</var>
+				</field>
+			-->
+			<!-- 預金種別 -->
+			<!-- 
+				<field property="accountDivision" depends="requiredif">
+				<msg name="requiredif" key="errors.required.row"/>
+				<arg0 key="item.payment.accountDivision" />
+				<var>
+				<var-name>field[0]</var-name>
+				<var-value>bankDivision</var-value>
+				</var>
+				<var>
+				<var-name>fieldValue[0]</var-name>
+				<var-value>1</var-value>
+				</var>
+				<var>
+				<var-name>fieldTest[0]</var-name>
+				<var-value>EQUAL</var-value>
+				</var>
+				</field>
+			-->
+			<!-- 口座番号 -->
+			<!-- 			<field property="accountNo" depends="requiredif,integer,maxlength">	 -->
+			<!-- 090625
+				<field property="accountNo" depends="integer,maxlength">
+			-->
+			<!-- 				<msg name="requiredif" key="errors.required.row"/>	 -->
+			<!-- 090625
+				<msg name="integer" key="errors.number.row"/>
+				<msg name="maxlength" key="errors.maxlength.row"/>
+				<arg0 key="item.payment.accountNo" />
+			-->
+			<!-- 
+				<var>
+				<var-name>field[0]</var-name>
+				<var-value>bankDivision</var-value>
+				</var>
+				<var>
+				<var-name>fieldValue[0]</var-name>
+				<var-value>1</var-value>
+				</var>
+				<var>
+				<var-name>fieldTest[0]</var-name>
+				<var-value>EQUAL</var-value>
+				</var>
+			-->
+			<!-- 090625
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>10</var-value>
+				</var>
+				</field>
+			-->
+			<!-- 摘要コード -->
+			<!-- 090625
+				<field property="summaryCd" depends="mask,maxlength">
+				<msg name="mask" key="errors.alphameric.row"/>
+				<msg name="maxlength" key="errors.maxlength.row"/>
+				<arg0 key="item.payment.summaryCd" />
+				<var>
+				<var-name>mask</var-name>
+				<var-value>${ap21_mask}</var-value>
+				</var>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>3</var-value>
+				</var>
+				</field>
+			-->
+			<!-- 摘要内容 -->
+			<field property="summary" depends="maxlength">
+				<arg0 key="item.payment.summary" />
+				<msg name="maxlength" key="errors.maxlength.row" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+
+			<!-- 手形種別 -->
+			<field property="noteDivisionString" depends="requiredif">
+				<msg name="requiredif" key="errors.required.row" />
+				<arg0 key="item.payment.noteDivision" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>noteDiv</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>OR</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>noteNo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+			</field>
+			<!-- 手形番号 -->
+			<field property="noteNo"
+				depends="requiredif,mask,maxlength">
+				<msg name="requiredif" key="errors.required.row" />
+				<msg name="mask" key="errors.alphameric.row" />
+				<msg name="maxlength" key="errors.maxlength.row" />
+				<arg0 key="item.payment.noteNo" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>noteDiv</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${ap21_mask}</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<!-- 振出日 -->
+			<field property="drawalDateString"
+				depends="requiredif,date">
+				<msg name="requiredif" key="errors.required.row" />
+				<msg name="date" key="errors.date.row" />
+				<arg0 key="item.payment.drawalDateString" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>noteDiv</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>OR</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>noteNo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 満期日 -->
+			<field property="noteDateString"
+				depends="requiredif,date">
+				<msg name="requiredif" key="errors.required.row" />
+				<msg name="date" key="errors.date.row" />
+				<arg0 key="item.payment.noteDateString" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>noteDiv</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>OR</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>noteNo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+		</form>
+	</formset>
+
+</form-validation>

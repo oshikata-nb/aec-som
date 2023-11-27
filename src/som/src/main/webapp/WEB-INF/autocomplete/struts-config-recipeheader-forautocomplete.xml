@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図用基本処方ヘッダー情報auto complete -->
+		<form-bean name="pkgDirectionRecipeHeaderForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.pkgdirection.PkgDirectionRecipeHeaderForAutoCompleteForm" />
+
+		<!-- 外注原材料投入実績入力用基本処方ヘッダー情報auto complete -->
+		<form-bean name="materialRinputRecipeHeaderForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.materialrinput.MaterialRinputRecipeHeaderForAutoCompleteForm" />
+
+		<!-- 基本処方新規入力用原処方情報auto complete -->
+		<form-bean name="mgrecipeRecipeHeaderForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.mgrecipe.MgrecipeRecipeHeaderForAutoCompleteForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 包装指図用基本処方ヘッダー情報 auto complete -->
+		<action path="/PkgdirectionRecipeHeaderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.pkgdirection.PkgDirectionRecipeHeaderForAutoCompleteAction"
+			name="pkgDirectionRecipeHeaderForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/recipeheader/pkgdirection/pkgdirection_recipeheader_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 外注原材料投入実績入力用基本処方ヘッダー情報 auto complete -->
+		<action path="/MaterialRinputRecipeHeaderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.materialrinput.MaterialRinputRecipeHeaderForAutoCompleteAction"
+			name="materialRinputRecipeHeaderForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/recipeheader/materialrinput/materialrinput_recipeheader_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 基本処方新規入力用原処方情報 auto complete -->
+		<action path="/MgrecipeRecipeHeaderForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.recipeheader.mgrecipe.MgrecipeRecipeHeaderForAutoCompleteAction"
+			name="mgrecipeRecipeHeaderForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/recipeheader/mgrecipe/mgrecipe_recipeheader_forautocomplete.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

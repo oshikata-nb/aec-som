@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- production -->
+		<form-bean name="productionListForm"
+			type="com.asahikaseieng.app.production.ProductionListForm" />
+		<!-- production -->
+		<form-bean name="productionDetailForm"
+			type="com.asahikaseieng.app.production.ProductionDetailForm" />
+	</form-beans>
+	
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ production -->
+		<action path="/ProductionList"
+			type="com.asahikaseieng.app.production.ProductionListAction"
+			name="productionListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/production/production_list.jsp">
+
+			<forward name="success"
+				path="/jsp/production/production_list.jsp" />
+			<forward name="reSearch"
+				path="/ProductionList.do?op=reSearch" />
+		</action>
+		
+		<!-- ================================================ production Detail -->
+		<action path="/ProductionDetail"
+			type="com.asahikaseieng.app.production.ProductionDetailAction"
+			name="productionDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/production/production_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/production/production_detail.jsp" />
+			<forward name="back"
+				path="/ProductionList.do?op=reSearch" />
+		</action>
+	</action-mappings>
+</struts-config>

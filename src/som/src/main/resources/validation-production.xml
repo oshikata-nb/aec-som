@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからproductionListForm ====================================-->
+		<!-- productionListForm -->
+		<form name="productionListForm">			
+			<!-- 生産計画年月 -->
+			<field property="srhOrderLet" depends="date">
+				<msg name="date" key="errors.production.years" />
+				<arg key="item.production.srh.order.let"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+        </form>
+
+<!--==================================== ここからProductionDetailForm ====================================-->
+		<!-- ProductionDetailForm -->
+		<form name="productionDetailForm">			
+			<!-- 品目コード -->
+			<field property="itemCd" depends="required">
+				<arg key="item.production.item.cd" />
+			</field>
+			<!-- 生産計画年月 -->
+			<field property="strOrderLet" depends="required,date">
+				<msg name="date" key="errors.production.years" />
+				<arg key="item.production.str.order.let"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+			<!-- 一覧明細(内容は別定義 -->
+			<field property="detailList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>productionDetailList</var-value>
+				</var>
+			</field>
+        </form>
+        
+		<!-- 更新リスト部 productionDetailList -->
+		<form name="productionDetailList">
+			<!-- 品目コード -->
+			<field property="orderComment" depends="maxlength">
+				<msg name="maxlength" key="errors.digit.maxlength.row" />
+				<arg key="item.production.order.comment" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

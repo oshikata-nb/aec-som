@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+
+		<!--==================================== ここからoffsetListForm ====================================-->
+		<!-- offsetList -->
+		<form name="offsetListForm">
+			<!-- 相殺日付FROM -->
+			<field property="srhOffsetDateFrom" depends="date">
+				<arg key="item.srhOffsetDateFrom" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 相殺日付TO -->
+			<field property="srhOffsetDateTo" depends="date">
+				<arg key="item.srhOffsetDateTo" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 検索条件：相殺日付 大小関係 -->
+			<field property="srhOffsetDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.srhOffsetDateFrom" />
+				<arg1 key="item.srhOffsetDateTo" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhOffsetDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhOffsetDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhOffsetDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!--==================================== ここからoffsetDetailForm ====================================-->
+		<!-- offsetDetail -->
+		<form name="offsetDetailForm">
+			<!-- 部署コード -->
+			<field property="organizationCd" depends="required">
+				<msg name="required" key="errors.required" />
+				<arg0 key="item.offset.organizationCd" />
+			</field>
+			<!-- 相殺日付 -->
+			<field property="strOffsetDate" depends="requiredif,date">
+				<arg key="item.offset.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_update}</var-value>
+				</var>
+			</field>
+			<!-- 相殺日付 -->
+			<field property="strOffsetDate" depends="requiredif,date">
+				<arg key="item.offset.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_insert}</var-value>
+				</var>
+			</field>
+			<!-- 差額 -->
+			<field property="balanceAmount" depends="validwhen">
+				<msg name="validwhen" key="errors.offset.balance" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>
+						((*this* != null) and (*this* == 0))
+					</var-value>
+				</var>
+			</field>
+			<!-- 買掛データリスト明細(内容は別定義 → form name="offsetPayableDetail") -->
+			<field property="payableList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>offsetPayableDetail</var-value>
+				</var>
+			</field>
+			<!-- 売掛データリスト明細(内容は別定義 → form name="offsetDepositDetail") -->
+			<field property="depositList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>offsetDepositDetail</var-value>
+				</var>
+			</field>
+		</form>
+		<!--  買掛データリストデータの入力チェック -->
+		<form name="offsetPayableDetail">
+			<!-- 相殺金額 -->
+			<field property="strPayableOffset"
+				depends="required, validateDegit">
+				<msg name="required" key="errors.required.row" />
+				<arg0 key="item.offset.payableOffset" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SIKINGAKU</var-value>
+				</var>
+			</field>
+		</form>
+		<!--  売掛データリストデータの入力チェック -->
+		<form name="offsetDepositDetail">
+			<!-- 相殺金額 -->
+			<field property="strDepositOffset"
+				depends="required, validateDegit">
+				<msg name="required" key="errors.required.row" />
+				<arg0 key="item.offset.depositOffset" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SIKINGAKU</var-value>
+				</var>
+			</field>
+		</form>
+		<!--==================================== ここより上に記入 ====================================-->
+
+	</formset>
+
+
+</form-validation>

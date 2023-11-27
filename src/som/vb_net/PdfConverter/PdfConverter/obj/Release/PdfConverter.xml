@@ -1,0 +1,118 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+PdfConverter
+</name>
+</assembly>
+<members>
+<member name="T:PdfConverter.My.Resources.Resources">
+<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member>
+<member name="P:PdfConverter.My.Resources.Resources.ResourceManager">
+<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member>
+<member name="P:PdfConverter.My.Resources.Resources.Culture">
+<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member>
+<member name="T:PdfConverter.Main">
+ <summary>
+ メインクラス
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_log">
+ <summary>
+ ロガー
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_tantoCd">
+ <summary>
+ 担当者コード
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_langId">
+ <summary>
+ 言語ID
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_templateFile">
+ <summary>
+ テンプレートファイル
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_outputFile">
+ <summary>
+ 出力ファイル
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:PdfConverter.Main.m_fileType">
+ <summary>
+ 出力ファイルタイプ
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:PdfConverter.Main.PRM_IDX_COMMON">
+ <summary>
+ パラメータINDEX（共通）
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:PdfConverter.Main.PROC_RESULT">
+ <summary>
+ 処理結果
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:PdfConverter.Main.FILE_TYPE">
+ <summary>
+ 出力ファイルタイプ
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:PdfConverter.Main.#ctor">
+ <summary>
+ コンストラクタ
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:PdfConverter.Main.InitLog">
+ <summary>
+ ログの初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:PdfConverter.Main.Main(System.String[])">
+ <summary>
+ メイン処理
+ </summary>
+ <param name="args"></param>
+ <remarks></remarks>
+</member>
+<member name="M:PdfConverter.Main.GetParamsCommon(System.String[])">
+ <summary>
+ 引数パラメータの取得
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:PdfConverter.Main.CreateReport">
+ <summary>
+ 帳票ファイル作成
+ </summary>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図検索 -->
+		<form-bean name="pkgDirectionListForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionListForm" />
+
+		<!-- 包装指図－製造指図詳細ポップアップ画面 -->
+		<form-bean name="pkgDirectionDirectionDetailSearchForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionDirectionDetailSearchForm" />
+
+		<!-- 包装指図－在庫確認ポップアップ画面 -->
+		<form-bean name="pkgDirectionLotInventorySearchForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionLotInventorySearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 包装指図検索 -->
+		<action path="/PkgDirectionList"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionListAction"
+			name="pkgDirectionListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/pkgdirection/pkgdirection_list.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgdirection/pkgdirection_list.jsp" />
+			<forward name="reSearch"
+				path="/PkgDirectionList.do?op=reSearch" />
+			<forward name="reFresh" path="/PkgDirectionList.do?op=reFresh" />
+		</action>
+
+		<!-- ================================================ 包装指図－製造指図詳細ポップアップ -->
+		<action path="/PkgDirectionDirectionDetailSearch"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionDirectionDetailSearchAction"
+			name="pkgDirectionDirectionDetailSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/pkgdirection/pkgdirection_directiondetail_search.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgdirection/pkgdirection_directiondetail_search.jsp" />
+		</action>
+
+		<!-- ================================================ 包装指図－在庫確認ポップアップ -->
+		<action path="/PkgDirectionLotInventorySearch"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionLotInventorySearchAction"
+			name="pkgDirectionLotInventorySearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/pkgdirection/pkgdirection_lotinventory_search.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgdirection/pkgdirection_lotinventory_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

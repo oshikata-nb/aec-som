@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 配合一覧 -->
+		<form-bean name="mgrecipeFormulaListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeFormulaListForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 配合一覧 -->
+		<action path="/MgrecipeFormulaList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeFormulaListAction"
+			name="mgrecipeFormulaListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_formula_list.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_formula_list.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_formula_list.jsp" />
+			<forward name="back"
+				path="/MgrecipeList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/MgrecipeFormulaList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 配合詳細 -->
+		<action path="/MgrecipeFormulaDetail"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeFormulaDetailAction"
+			name="mgrecipeFormulaDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_formula_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_formula_detail.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_formula_detail.jsp" />
+			<forward name="back"
+				path="/MgrecipeFormulaList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

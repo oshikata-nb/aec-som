@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 検査一覧 -->
+		<form-bean name="mgrecipeInspectionListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeInspectionListForm" />
+		<!-- 検査詳細 -->
+		<form-bean name="mgrecipeInspectionDetailForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeInspectionDetailForm" />
+		
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 検査一覧 -->
+		<action path="/MgrecipeInspectionList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeInspectionListAction"
+			name="mgrecipeInspectionListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_inspection_list.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_inspection_list.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_inspection_list.jsp" />
+			<forward name="back"
+				path="/MgrecipeList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/MgrecipeInspectionList.do?op=reSearch" />
+		</action>
+		
+		<!-- ================================================ 検査詳細 -->
+		<action path="/MgrecipeInspectionDetail"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeInspectionDetailAction"
+			name="mgrecipeInspectionDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_inspection_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_inspection_detail.jsp" />
+			<forward name="error"
+				path="/jsp/mgrecipe/mgrecipe_inspection_detail.jsp" />
+			<forward name="back"
+				path="/MgrecipeInspectionList.do?op=reSearch" />
+		</action>
+		
+
+
+	</action-mappings>
+
+</struts-config>

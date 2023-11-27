@@ -1,0 +1,38 @@
+/*
+ * 作業日報明細一覧用SQL
+ *
+ * entityName=DailyReportDetailList
+ * packageName=dailyreport
+ * methodName=searchImpl
+ *
+ */
+
+SELECT
+	 DRCH.DIRECTION_DIVISION	-- 0:指図区分
+	,DRCH.DIRECTION_NO			-- 1:指図番号
+	,DRCH.PRODUCTION_LINE		-- 2:生産ライン
+	,TO_CHAR(DR.PRODUCTION_DATE,'YYYY/MM/DD') AS PRODUCTION_DATE	-- 3:製造日
+	,DR.TANTO_DIVISION			-- 4:担当区分
+	,DR.TANTO_CD				-- 5:担当者コード
+	,DR.JOB_TIME				-- 6:作業時間
+	,DR.JOB_TIME_HHMM			-- 2021/3/29 作業日誌YY:MM対応で修正
+	,DR.SEQ						-- 7:表示順
+FROM DIRECTION_HEADER DRCH
+	INNER JOIN ( SELECT
+                 DRH.PRODUCTION_LINE
+                ,DRH.PRODUCTION_DATE
+                ,DRH.TANTO_DIVISION 
+                ,DRH.TANTO_CD
+                ,DRH.SEQ
+                ,DR.DIRECTION_NO
+                ,DR.JOB_TIME
+                ,DR.JOB_TIME_HHMM
+				FROM DAILY_REPORT_HEADER DRH
+				LEFT JOIN DAILY_REPORT DR ON DRH.PRODUCTION_LINE=DR.PRODUCTION_LINE AND DRH.PRODUCTION_DATE=DR.PRODUCTION_DATE
+                                         AND DRH.TANTO_DIVISION=DR.TANTO_DIVISION AND DRH.TANTO_CD=DR.TANTO_CD
+				WHERE TO_CHAR(DRH.PRODUCTION_DATE,'YYYY/MM/DD') = /*condition.srhDate*/
+				AND	DRH.TANTO_DIVISION = /*condition.srhTantoDiv*/
+              ) DR ON DRCH.PRODUCTION_LINE = DR.PRODUCTION_LINE AND DRCH.DIRECTION_NO = DR.DIRECTION_NO
+WHERE DRCH.PRODUCTION_LINE = /*condition.srhLine*/
+
+ORDER BY DRCH.DIRECTION_DIVISION, DRCH.DIRECTION_NO, DR.SEQ

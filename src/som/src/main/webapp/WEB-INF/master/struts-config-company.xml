@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- company -->
+		<form-bean name="companyListForm"
+			type="com.asahikaseieng.app.master.company.CompanyListForm" />
+		<!-- company detail -->
+		<form-bean name="companyDetailForm"
+			type="com.asahikaseieng.app.master.company.CompanyDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ company -->
+		<action path="/CompanyList"
+			type="com.asahikaseieng.app.master.company.CompanyListAction"
+			name="companyListForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/company_list.jsp">
+
+			<forward name="success" path="/jsp/master/company_list.jsp" />
+			<forward name="reSearch" path="/CompanyList.do?op=reSearch" />
+			<forward name="newPage" path="/CompanyDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ company Detail -->
+		<action path="/CompanyDetail"
+			type="com.asahikaseieng.app.master.company.CompanyDetailAction"
+			name="companyDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/company_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/company_detail.jsp" />
+			<forward name="back" path="/CompanyList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

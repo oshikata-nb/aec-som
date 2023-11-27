@@ -1,0 +1,75 @@
+/*
+ * 売掛元帳詳細（上段）用SQL
+ *
+ * entityName=ArBalanceDetail
+ * packageName=credit.arledger
+ * methodName=getSearchDetail
+ *
+ */
+/*IF (targetKbn == "0" || targetKbn == "2")*/
+
+	SELECT DEP_HED.DEPOSIT_NO             --売掛番号
+	,      DEP_HED.ORGANIZATION_CD SECTION_CD	--部署コード
+	,      ORGANIZATION.ORGANIZATION_NAME SECTION_NAME	--部署名称
+	,      DEP_HED.VENDER_CD CUSTOMER_CD	--請求先コード
+	,      VENDER.VENDER_NAME1 VENDER_NAME	--請求先名称
+	,      VENDER.VENDER_SHORTED_NAME AS VENDER_SHORTED_NAME	--請求先略称
+	,      DEP_HED.BALANCE_FORWARD        --前月繰越
+	,      DEP_HED.DEPOSIT_AMOUNT         --入金金額
+	,      DEP_HED.OTHER_DEPOSIT_AMOUNT   --その他入金金額
+	,      DEP_HED.SALES_AMOUNT           --売上金額
+	,      DEP_HED.RETURNED_AMOUNT        --返品金額
+	,      DEP_HED.DISCOUNT_AMOUNT        --値引金額
+	,      DEP_HED.OTHER_SALES_AMOUNT     --その他売上金額
+	,      DEP_HED.OFFSET_AMOUNT          --相殺金額
+	,      DEP_HED.TAX_AMOUNT             --消費税額
+	,      DEP_HED.CREDIT_SALES_BREAKDOWN  --売掛金(内訳)
+	,      DEP_HED.ACCRUED_DEBIT_BREAKDOWN --未収金(内訳)
+	,      DEP_HED.CREDIT_AMOUNT          --売掛残
+	FROM   DEPOSIT_HEADER DEP_HED
+		   LEFT JOIN ORGANIZATION
+		   ON DEP_HED.ORGANIZATION_CD = ORGANIZATION.ORGANIZATION_CD
+		   LEFT JOIN VENDER VENDER
+		   ON  VENDER.VENDER_DIVISION = 'TS'
+		   AND DEP_HED.VENDER_CD = VENDER.VENDER_CD
+	WHERE  DEP_HED.ORGANIZATION_CD IS NOT NULL
+	
+	AND	DEP_HED.DEPOSIT_NO = /*depositNo*/'%'
+
+/*END*/
+
+/*IF (targetKbn == "2")*/
+	UNION
+/*END*/
+
+/*IF (targetKbn == "1" || targetKbn == "2")*/
+
+	SELECT TMP_DEP_HED.DEPOSIT_NO             --売掛番号
+	,      TMP_DEP_HED.ORGANIZATION_CD SECTION_CD	--部署コード
+	,      ORGANIZATION.ORGANIZATION_NAME SECTION_NAME	--部署名称
+	,      TMP_DEP_HED.VENDER_CD CUSTOMER_CD	--請求先コード
+	,      VENDER.VENDER_NAME1 VENDER_NAME		--請求先名称
+	,      VENDER.VENDER_SHORTED_NAME AS VENDER_SHORTED_NAME	--請求先略称
+	,      TMP_DEP_HED.BALANCE_FORWARD        --前月繰越
+	,      TMP_DEP_HED.DEPOSIT_AMOUNT         --入金金額
+	,      TMP_DEP_HED.OTHER_DEPOSIT_AMOUNT   --その他入金金額
+	,      TMP_DEP_HED.SALES_AMOUNT           --売上金額
+	,      TMP_DEP_HED.RETURNED_AMOUNT        --返品金額
+	,      TMP_DEP_HED.DISCOUNT_AMOUNT        --値引金額
+	,      TMP_DEP_HED.OTHER_SALES_AMOUNT     --その他売上金額
+	,      TMP_DEP_HED.OFFSET_AMOUNT          --相殺金額
+	,      TMP_DEP_HED.TAX_AMOUNT             --消費税額
+	,      TMP_DEP_HED.CREDIT_SALES_BREAKDOWN  --売掛金(内訳)
+	,      TMP_DEP_HED.ACCRUED_DEBIT_BREAKDOWN --未収金(内訳)
+	,      TMP_DEP_HED.CREDIT_AMOUNT          --売掛残
+	FROM   TEMPORARY_DEPOSIT_HEADER TMP_DEP_HED
+		   LEFT JOIN ORGANIZATION
+		   ON TMP_DEP_HED.ORGANIZATION_CD = ORGANIZATION.ORGANIZATION_CD
+		   LEFT JOIN VENDER VENDER
+		   ON   VENDER.VENDER_DIVISION = 'TS'
+		   AND  TMP_DEP_HED.VENDER_CD = VENDER.VENDER_CD
+	WHERE  TMP_DEP_HED.ORGANIZATION_CD IS NOT NULL
+	
+	AND	TMP_DEP_HED.DEPOSIT_NO = /*depositNo*/'%'
+
+/*END*/

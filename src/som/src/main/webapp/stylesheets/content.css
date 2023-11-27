@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+/* メインではbodyに設定したスクロールなしを打ち消す為… */
+body {
+	overflow-y: auto !important;
+	overflow-x: auto !important;
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- operation -->
+		<form-bean name="operationListForm"
+			type="com.asahikaseieng.app.master.operation.OperationListForm" />
+		<!-- operation detail -->
+		<form-bean name="operationDetailForm"
+			type="com.asahikaseieng.app.master.operation.OperationDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ operation -->
+		<action path="/OperationList"
+			type="com.asahikaseieng.app.master.operation.OperationListAction"
+			name="operationListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/operation_list.jsp">
+
+			<forward name="success" path="/jsp/master/operation_list.jsp" />
+			<forward name="reSearch" path="/OperationList.do?op=reSearch" />
+			<forward name="newPage" path="/OperationDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ operation Detail -->
+		<action path="/OperationDetail"
+			type="com.asahikaseieng.app.master.operation.OperationDetailAction"
+			name="operationDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/operation_detail.jsp">
+
+			<forward name="success" path="/jsp/master/operation_detail.jsp" />
+			<forward name="back" path="/OperationList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

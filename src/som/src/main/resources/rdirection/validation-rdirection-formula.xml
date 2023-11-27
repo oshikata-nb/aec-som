@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから配合タブ ====================================-->
+		<!-- rdirectionFormulaListForm -->
+
+<!--==================================== ここから配合詳細 ====================================-->
+		<!-- rdirectionFormulaDetailForm -->
+        <form name="rdirectionFormulaDetailForm">
+			<!-- 品目コード -->
+			<field property="formulaItemCd" depends="required">
+				<arg key="item.rdirection.item.cd" />
+			</field>
+			<!-- 投入速度 -->
+			<field property="tonyuSokudo" depends="validateDegit">
+				<arg key="item.rdirection.tonyu.sokudo" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO</var-value>
+				</var>
+			</field>
+			<!-- 実績数量 -->
+			<field property="resultQty" depends="required,validateDegit">
+				<arg key="item.rdirection.formula.result.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO</var-value>
+				</var>
+			</field>
+			<!-- ロス数量 -->
+			<field property="lossQty" depends="validateDegit">
+				<arg key="item.rdirection.formula.loss.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO</var-value>
+				</var>
+			</field>
+			<!-- 調整数量 -->
+			<field property="adjustQty" depends="validateDegit">
+				<arg key="item.rdirection.formula.adjust.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO_ADJ</var-value>
+				</var>
+			</field>
+			<!-- 投入条件 -->
+			<field property="stepCondition" depends="maxlength">
+				<arg0 key="item.rdirection.step.condition" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.rdirection.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.rdirection.notes" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

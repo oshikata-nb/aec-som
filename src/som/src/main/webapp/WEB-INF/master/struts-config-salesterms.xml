@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- sales terms -->
+		<form-bean name="salesTermsListForm"
+			type="com.asahikaseieng.app.master.salesterms.SalesTermsListForm" />
+		<!-- sales terms detail -->
+		<form-bean name="salesTermsDetailForm"
+			type="com.asahikaseieng.app.master.salesterms.SalesTermsDetailForm" />
+		<!-- search balance -->
+		<form-bean name="balanceSearchForm"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ sales terms -->
+		<action path="/SalesTermsList"
+			type="com.asahikaseieng.app.master.salesterms.SalesTermsListAction"
+			name="salesTermsListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/sales_terms_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/sales_terms_list.jsp" />
+			<forward name="reSearch"
+				path="/SalesTermsList.do?op=reSearch" />
+			<forward name="newPage"
+				path="/SalesTermsDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ sales terms Detail -->
+		<action path="/SalesTermsDetail"
+			type="com.asahikaseieng.app.master.salesterms.SalesTermsDetailAction"
+			name="salesTermsDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/sales_terms_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/sales_terms_detail.jsp" />
+			<forward name="back" path="/SalesTermsList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ search balance -->
+		<action path="/BalanceSearch"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchAction"
+			name="balanceSearchForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/search/balance_search.jsp">
+
+			<forward name="success"
+				path="/jsp/master/search/balance_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

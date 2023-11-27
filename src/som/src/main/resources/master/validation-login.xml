@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- loginDetail -->
+		<form name="loginDetailForm">
+			<!-- 担当者コード -->
+			<field property="tantoCd" depends="requiredif, mask">
+				<arg0 key="login.tanto.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 担当者名称 -->
+			<field property="tantoNm" depends="requiredif">
+				<arg0 key="login.tanto.nm" />
+			</field>
+
+			<!-- パスワード -->
+			<field property="password" depends="requiredif">
+				<arg0 key="login.password" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>newFlg</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			
+			
+			<!-- パスワード (再入力)-->
+			<field property="passwordConfirm" depends="requiredif">
+				<arg0 key="login.passwordConfirm" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>newFlg</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- ロール -->
+			<field property="roleId" depends="validwhen">
+				<msg name="validwhen" key="errors.selected" />
+				<arg0 key="login.role.id" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>
+						((loginAdminFlg == '1') or (*this* != null))
+					</var-value>
+				</var>
+			</field>
+
+			<!-- 有効フラグ -->
+			<field property="activeFlg" depends="requiredif">
+				<arg0 key="login.active.flg" />
+			</field>
+
+			<!-- 削除フラグ -->
+			<field property="deleteFlg" depends="requiredif">
+				<arg0 key="login.delete.flg" />
+			</field>
+
+			<!-- 管理者区分 -->
+			<field property="adminFlg" depends="requiredif">
+				<arg0 key="login.admin.flg" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

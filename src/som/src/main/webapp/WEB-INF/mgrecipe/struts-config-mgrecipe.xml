@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 基本処方検索 -->
+		<form-bean name="mgrecipeListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeListForm" />
+
+		<!-- 翻訳検索 -->
+		<form-bean name="mgrecipeTranslateListForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeTranslateListForm" />
+
+		<!-- ヘッダ情報 -->
+		<form-bean name="mgrecipeHeaderForm"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeHeaderForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 基本処方検索 -->
+		<action path="/MgrecipeList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeListAction"
+			name="mgrecipeListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_list.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_list.jsp" />
+			<forward name="reSearch"
+				path="/MgrecipeList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 翻訳検索 -->
+		<action path="/MgrecipeTranslateList"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeTranslateListAction"
+			name="mgrecipeTranslateListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_translate.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_translate.jsp" />
+			<forward name="reSearch"
+				path="/MgrecipeTranslateList.do?op=reSearch" />
+			<forward name="cancel"
+				path="/MgrecipeList.do?op=reSearch" />
+			<forward name="cleanNew"
+				path="/MgrecipeHeader.do?op=cleanNew" />
+		</action>
+
+		<!-- ================================================ ヘッダー情報 -->
+		<action path="/MgrecipeHeader"
+			type="com.asahikaseieng.app.mgrecipe.MgrecipeHeaderAction"
+			name="mgrecipeHeaderForm" validate="true" parameter="op"
+			scope="session" input="/jsp/mgrecipe/mgrecipe_header.jsp">
+
+			<forward name="success"
+				path="/jsp/mgrecipe/mgrecipe_header.jsp" />
+			<forward name="back"
+				path="/MgrecipeList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

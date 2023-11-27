@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造実績工程Form -->
+		<form-bean name="rdirectionProcedureListForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionProcedureListForm" />
+		
+		<!-- 製造実績工程詳細Form -->
+		<form-bean name="rdirectionProcedureDetailForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionProcedureDetailForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造実績工程一覧 -->
+
+		<action path="/RdirectionProcedureList"
+			type="com.asahikaseieng.app.rdirection.RdirectionProcedureListAction"
+			name="rdirectionProcedureListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/rdirection/rdirection_procedure_list.jsp"
+			parameter="op">
+			<forward name="success"
+				path="/jsp/rdirection/rdirection_procedure_list.jsp" />
+			<forward name="error"
+				path="/jsp/rdirection/rdirection_procedure_list.jsp" />
+			<forward name="back"
+				path="/RdirectionList.do?op=reSearch" />
+			<forward name="init"
+				path="/RdirectionProcedureList.do?op=reInit" />
+		</action>
+		
+		<!-- ================================================= 製造実績工程詳細 -->
+		<action path="/RdirectionProcedureDetail"
+			type="com.asahikaseieng.app.rdirection.RdirectionProcedureDetailAction"
+			name="rdirectionProcedureDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/rdirection/rdirection_procedure_detail.jsp"
+			parameter="op">
+			<forward name="success"
+				path="/jsp/rdirection/rdirection_procedure_detail.jsp" />
+			<forward name="error"
+				path="/jsp/rdirection/rdirection_procedure_detail.jsp" />
+			<forward name="back"
+				path="/RdirectionProcedureList.do?op=reInit" />
+		</action>
+
+	</action-mappings>
+</struts-config>

@@ -1,0 +1,17 @@
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\cstpurchaseestimatereport.exe.config
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.vbproj.ResolveComReference.cache
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\CommonReport.config
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\CommonReportLog.config
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\cstpurchaseestimatereport.exe
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\cstpurchaseestimatereport.pdb
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\cstpurchaseestimatereport.xml
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\Common.dll
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\log4net.dll
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\Common.pdb
+D:\ats\ReportCreator\cstpurchaseestimatereport\bin\Release\Common.xml
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.vbprojResolveAssemblyReference.cache
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.Resources.resources
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.vbproj.GenerateResource.Cache
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.exe
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.xml
+D:\ats\ReportCreator\cstpurchaseestimatereport\obj\Release\cstpurchaseestimatereport.pdb

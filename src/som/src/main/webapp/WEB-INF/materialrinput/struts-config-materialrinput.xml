@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- materialrinput -->
+		<form-bean name="materialRinputListForm"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputListForm" />
+
+		<!-- materialrinput detail_new -->
+		<form-bean name="materialRinputDetailForm"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputDetailForm" />
+
+		<!-- 包装実績－ロット検索画面 -->
+		<form-bean name="materialRinputLotInventorySearchForm"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputLotInventorySearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ materialrinput -->
+		<action path="/MaterialRinputList"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputListAction"
+			name="materialRinputListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/materialrinput/materialrinput_list.jsp">
+
+			<forward name="success"
+				path="/jsp/materialrinput/materialrinput_list.jsp" />
+			<forward name="reSearch"
+				path="/MaterialRinputList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ materialrinput Detail -->
+		<action path="/MaterialRinputDetail"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputDetailAction"
+			name="materialRinputDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/materialrinput/materialrinput_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/materialrinput/materialrinput_detail.jsp" />
+			<forward name="error"
+				path="/jsp/materialrinput/materialrinput_detail.jsp" />
+			<forward name="back"
+				path="/MaterialRinputList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/MaterialRinputDetail.do?op=init" />
+		</action>
+
+		<!-- ================================================ 包装実績－ロット検索画面 -->
+		<action path="/MaterialRinputLotInventorySearch"
+			type="com.asahikaseieng.app.materialrinput.MaterialRinputLotInventorySearchAction"
+			name="materialRinputLotInventorySearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/materialrinput/materialrinput_lotinventory_search.jsp">
+
+			<forward name="success"
+				path="/jsp/materialrinput/materialrinput_lotinventory_search.jsp" />
+			<forward name="back"
+				path="/MaterialRinputDetail.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

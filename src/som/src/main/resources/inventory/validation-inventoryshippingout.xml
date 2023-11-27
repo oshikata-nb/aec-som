@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- inventoryShippingoutList -->
+		<form name="inventoryShippingoutListForm">
+			<!-- 品目コード -->
+			<field property="srhItemCd" depends="requiredif">
+				<arg key="inventory.shippingout.item.cd" />
+			</field>
+		</form>
+
+		<!-- inventoryShippingoutDetail -->
+		<form name="inventoryShippingoutDetailForm">
+			<!-- 日付 -->
+			<field property="strLastInDate"
+				depends="requiredif,dateif">
+				<arg key="inventory.shippingout.last.in.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 荷姿数 -->
+			<field property="strPackQty"
+				depends="requiredif,validateDegit">
+				<arg key="inventory.shippingout.pack.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfOperationManagement</var-value>
+				</var>
+			</field>
+
+			<!-- 端数 -->
+			<field property="strFraction"
+				depends="requiredif,validateDegit">
+				<arg key="inventory.shippingout.fraction" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfFractionManagement</var-value>
+				</var>
+			</field>
+
+			<!-- 理由 -->
+			<field property="ryCd" depends="requiredif">
+				<arg0 key="inventory.shippingout.ry.cd" />
+			</field>
+
+			<!-- 摘要 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="inventory.shippingout.remark" />
+				<arg1 key="inventory.shippingout.remark.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

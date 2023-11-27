@@ -1,0 +1,36 @@
+<%@ page pageEncoding="UTF-8"%>
+<html:hidden property="page" />
+
+<div id="pageControl">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr class="TblRow">
+		<td class="alignLeft" width="60"><%-- 前ページ --%> 
+			<bean:define id="prev_param">
+				<pager:prevPage property="pager" />
+			</bean:define> 
+			<pager:isPrev property="pager">			
+				<html:link href="#"
+					onclick='<%="change_page(\'" + pageContext.findAttribute("prev_param").toString() + "\'); return false;"%>'>
+							前へ
+				</html:link>			
+			</pager:isPrev>
+		</td>		
+		<td class="alignCenter">
+			<pager:currentFirstNo property="pager" />件目～
+			<pager:currentLastNo property="pager" />件目 /全<pager:count
+				property="pager" />件
+		</td>
+		<td class="alignRight" width="60"><%--次ページ--%> 
+			<bean:define id="next_param">
+				<pager:nextPage property="pager" />
+			</bean:define> 
+			<pager:isNext property="pager">
+			<html:link href="#"
+				onclick='<%="change_page(\'" + pageContext.findAttribute("next_param").toString() + "\'); return false;"%>'>
+						次へ
+			</html:link>
+			</pager:isNext>
+		</td>
+	</tr>
+</table>
+</div>

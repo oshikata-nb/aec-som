@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- login -->
+		<form-bean name="loginListForm"
+			type="com.asahikaseieng.app.master.login.LoginListForm" />
+		<!-- login detail -->
+		<form-bean name="loginDetailForm"
+			type="com.asahikaseieng.app.master.login.LoginDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ login -->
+		<action path="/LoginList"
+			type="com.asahikaseieng.app.master.login.LoginListAction"
+			name="loginListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/login_list.jsp">
+
+			<forward name="success" path="/jsp/master/login_list.jsp" />
+			<forward name="reSearch" path="/LoginList.do?op=reSearch" />
+			<forward name="newPage" path="/LoginDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ login Detail -->
+		<action path="/LoginDetail"
+			type="com.asahikaseieng.app.master.login.LoginDetailAction"
+			name="loginDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/login_detail.jsp">
+
+			<forward name="success" path="/jsp/master/login_detail.jsp" />
+			<forward name="back" path="/LoginList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

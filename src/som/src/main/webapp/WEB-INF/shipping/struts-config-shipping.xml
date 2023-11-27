@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 出荷指図検索 -->
+		<form-bean name="shippingListForm"
+			type="com.asahikaseieng.app.shipping.ShippingListForm" />
+
+		<!-- 出荷指図詳細(自社ロット) -->
+		<form-bean name="shippingDetailCompanyForm"
+			type="com.asahikaseieng.app.shipping.ShippingDetailCompanyForm" />
+
+		<!-- 出荷指図詳細(花王・その他) -->
+		<form-bean name="shippingDetailOtherForm"
+			type="com.asahikaseieng.app.shipping.ShippingDetailOtherForm" />
+
+		<!-- 出荷指図指図自動作成 -->
+		<form-bean name="shippingAutoMakeForm"
+			type="com.asahikaseieng.app.shipping.ShippingAutoMakeForm" />
+
+		<!-- ロット検索ポップアップ -->
+		<form-bean name="shippingLotSearchForm"
+			type="com.asahikaseieng.app.shipping.ShippingLotSearchForm" />
+
+		<!-- ロット検索ポップアップ(花王その他) -->
+		<form-bean name="shippingOtherLotSearchForm"
+			type="com.asahikaseieng.app.shipping.ShippingOtherLotSearchForm" />
+
+		<!-- 受注検索ポップアップ -->
+		<form-bean name="shippingOrderSearchForm"
+			type="com.asahikaseieng.app.shipping.ShippingOrderSearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 出荷指図検索-->
+		<action path="/ShippingList"
+			type="com.asahikaseieng.app.shipping.ShippingListAction"
+			name="shippingListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_list.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_list.jsp" />
+			<forward name="reSearch"
+				path="/ShippingList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 出荷指図詳細(自社ロット) -->
+		<action path="/ShippingDetailCompany"
+			type="com.asahikaseieng.app.shipping.ShippingDetailCompanyAction"
+			name="shippingDetailCompanyForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_detail_company.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_detail_company.jsp" />
+			<forward name="back"
+				path="/ShippingList.do?op=reSearch" />
+			<forward name="init"
+				path="/ShippingDetailCompany.do?op=initNew" />
+			<forward name="initContinue" path="/ShippingDetailCompany.do?op=initContinue" />
+
+		</action>
+
+		<!-- ================================================ 出荷指図詳細(花王・その他) -->
+		<action path="/ShippingDetailOther"
+			type="com.asahikaseieng.app.shipping.ShippingDetailOtherAction"
+			name="shippingDetailOtherForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_detail_other.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_detail_other.jsp" />
+			<forward name="back"
+				path="/ShippingList.do?op=reSearch" />
+			<forward name="init"
+				path="/ShippingDetailOther.do?op=initNew" />
+		</action>
+
+		<!-- ================================================ 出荷指図指図自動作成 -->
+		<action path="/ShippingAutoMake"
+			type="com.asahikaseieng.app.shipping.ShippingAutoMakeAction"
+			name="shippingAutoMakeForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shipping/shipping_auto_make.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_auto_make.jsp" />
+			<forward name="back"
+				path="/ShippingList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ ロット検索ポップアップ -->
+		<action path="/ShippingLotSearch"
+			type="com.asahikaseieng.app.shipping.ShippingLotSearchAction"
+			name="shippingLotSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/shipping/shipping_lot_search.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_lot_search.jsp" />
+		</action>
+
+		<!-- ================================================ ロット検索ポップアップ(花王その他) -->
+		<action path="/ShippingOtherLotSearch"
+			type="com.asahikaseieng.app.shipping.ShippingOtherLotSearchAction"
+			name="shippingOtherLotSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/shipping/shipping_other_lot_search.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_other_lot_search.jsp" />
+		</action>
+
+		<!-- ================================================ 受注検索ポップアップ -->
+		<action path="/ShippingOrderSearch"
+			type="com.asahikaseieng.app.shipping.ShippingOrderSearchAction"
+			name="shippingOrderSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/shipping/shipping_order_search.jsp">
+
+			<forward name="success"
+				path="/jsp/shipping/shipping_order_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

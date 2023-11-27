@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- carry -->
+		<form-bean name="carryFileListForm"
+			type="com.asahikaseieng.app.master.carryfile.CarryFileListForm" />
+		<!-- carry detail -->
+		<form-bean name="carryFileDetailForm"
+			type="com.asahikaseieng.app.master.carryfile.CarryFileDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ carry -->
+		<action path="/CarryFileList"
+			type="com.asahikaseieng.app.master.carryfile.CarryFileListAction"
+			name="carryFileListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/carryfile_list.jsp">
+
+			<forward name="success" path="/jsp/master/carryfile_list.jsp" />
+			<forward name="reSearch" path="/CarryFileList.do?op=reSearch" />
+			<forward name="newPage" path="/CarryFileDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ carry Detail -->
+		<action path="/CarryFileDetail"
+			type="com.asahikaseieng.app.master.carryfile.CarryFileDetailAction"
+			name="carryFileDetailForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/carryfile_detail.jsp">
+
+			<forward name="success" path="/jsp/master/carryfile_detail.jsp" />
+			<forward name="back" path="/CarryFileList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

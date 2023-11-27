@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+	
+<!-- logic実装のテストケース用diconファイル -->
+
+<components>
+
+	<include path="allmock.dicon"/>
+	<component name="logicInterceptorChain" 
+		class="org.seasar.framework.aop.interceptors.InterceptorChain">
+		<!--<initMethod name="add"><arg>aop.traceThrowsInterceptor</arg></initMethod>-->
+		<initMethod name="add"><arg>aop.traceInterceptor</arg></initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*LogicImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*DecoratorImpl"</arg>
+		</initMethod>
+	</component>
+
+</components>

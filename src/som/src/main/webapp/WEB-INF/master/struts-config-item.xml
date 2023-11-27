@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- item -->
+		<form-bean name="itemListForm"
+			type="com.asahikaseieng.app.master.item.ItemListForm" />
+		<!-- item detail -->
+		<form-bean name="itemDetailForm"
+			type="com.asahikaseieng.app.master.item.ItemDetailForm" />
+		<!-- item attribute -->
+		<form-bean name="itemAttributeForm"
+			type="com.asahikaseieng.app.master.item.ItemAttributeForm" />
+		<!-- item component -->
+		<form-bean name="itemComponentForm"
+			type="com.asahikaseieng.app.master.item.ItemComponentForm" />
+		<!-- item related -->
+		<form-bean name="itemRelatedForm"
+			type="com.asahikaseieng.app.master.item.ItemRelatedForm" />
+		<!-- item tech -->
+		<form-bean name="itemTechForm"
+			type="com.asahikaseieng.app.master.item.ItemTechForm" />
+		<!-- item other -->
+		<form-bean name="itemOtherForm"
+			type="com.asahikaseieng.app.master.item.ItemOtherForm" />
+		<!-- item history -->
+		<form-bean name="itemHistoryForm"
+			type="com.asahikaseieng.app.master.item.ItemHistoryForm" />
+		<!-- item regist -->
+		<form-bean name="itemRegistForm"
+			type="com.asahikaseieng.app.master.item.ItemRegistForm" />
+		<!-- item unit update -->
+		<form-bean name="itemUnitUpdateForm"
+			type="com.asahikaseieng.app.master.item.ItemUnitUpdateForm" />
+		<!-- mypage -->
+		<form-bean name="myPageForm"
+			type="com.asahikaseieng.app.mypage.MyPageForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ item -->
+		<action path="/ItemList"
+			type="com.asahikaseieng.app.master.item.ItemListAction"
+			name="itemListForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/item_list.jsp">
+
+			<forward name="success" path="/jsp/master/item_list.jsp" />
+			<forward name="reSearch" path="/ItemList.do?op=reSearch" />
+			<forward name="newPage" path="/ItemDetail.do?op=newPage" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+
+		<!-- ================================================ item Detail -->
+		<action path="/ItemDetail"
+			type="com.asahikaseieng.app.master.item.ItemDetailAction"
+			name="itemDetailForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/item_detail.jsp">
+
+			<forward name="success" path="/jsp/master/item_detail.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Attribute -->
+		<action path="/ItemAttribute"
+			type="com.asahikaseieng.app.master.item.ItemAttributeAction"
+			name="itemAttributeForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/item_attribute.jsp">
+
+			<forward name="success"
+				path="/jsp/master/item_attribute.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Component -->
+		<action path="/ItemComponent"
+			type="com.asahikaseieng.app.master.item.ItemComponentAction"
+			name="itemComponentForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/item_component.jsp">
+
+			<forward name="success"
+				path="/jsp/master/item_component.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Related -->
+		<action path="/ItemRelated"
+			type="com.asahikaseieng.app.master.item.ItemRelatedAction"
+			name="itemRelatedForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/item_related.jsp">
+
+			<forward name="success" path="/jsp/master/item_related.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Tech -->
+		<action path="/ItemTech"
+			type="com.asahikaseieng.app.master.item.ItemTechAction"
+			name="itemTechForm" validate="false" parameter="op" scope="session"
+			input="/jsp/master/item_tech.jsp">
+
+			<forward name="success" path="/jsp/master/item_tech.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Other -->
+		<action path="/ItemOther"
+			type="com.asahikaseieng.app.master.item.ItemOtherAction"
+			name="itemOtherForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/item_other.jsp">
+
+			<forward name="success" path="/jsp/master/item_other.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item History -->
+		<action path="/ItemHistory"
+			type="com.asahikaseieng.app.master.item.ItemHistoryAction"
+			name="itemHistoryForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/item_history.jsp">
+
+			<forward name="success" path="/jsp/master/item_history.jsp" />
+			<forward name="back" path="/ItemList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ item Regist -->
+		<action path="/ItemRegist"
+			type="com.asahikaseieng.app.master.item.ItemRegistAction"
+			name="itemRegistForm" validate="false" parameter="op" scope="session"
+			input="/jsp/master/item_regist.jsp">
+
+			<forward name="success" path="/jsp/master/item_regist.jsp" />
+		</action>
+
+		<!-- ================================================ item Unit Update -->
+		<action path="/ItemUnitUpdate"
+			type="com.asahikaseieng.app.master.item.ItemUnitUpdateAction"
+			name="itemUnitUpdateForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/item_unit_update.jsp">
+
+			<forward name="success"
+				path="/jsp/master/item_unit_update.jsp" />
+		</action>
+	</action-mappings>
+
+</struts-config>

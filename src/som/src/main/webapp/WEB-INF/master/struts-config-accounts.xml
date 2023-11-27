@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- accounts -->
+		<form-bean name="accountsListForm"
+			type="com.asahikaseieng.app.master.accounts.AccountsListForm" />
+		<!-- accounts detail -->
+		<form-bean name="accountsDetailForm"
+			type="com.asahikaseieng.app.master.accounts.AccountsDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ accounts -->
+		<action path="/AccountsList"
+			type="com.asahikaseieng.app.master.accounts.AccountsListAction"
+			name="accountsListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/accounts_list.jsp">
+
+			<forward name="success" path="/jsp/master/accounts_list.jsp" />
+			<forward name="reSearch" path="/AccountsList.do?op=reSearch" />
+			<forward name="newPage" path="/AccountsDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ accounts Detail -->
+		<action path="/AccountsDetail"
+			type="com.asahikaseieng.app.master.accounts.AccountsDetailAction"
+			name="accountsDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/accounts_detail.jsp">
+
+			<forward name="success" path="/jsp/master/accounts_detail.jsp" />
+			<forward name="back" path="/AccountsList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

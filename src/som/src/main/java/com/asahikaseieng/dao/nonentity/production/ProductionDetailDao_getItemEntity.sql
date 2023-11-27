@@ -1,0 +1,57 @@
+/*
+ * Created on 2009/04/08
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 生産計画入力　明細画面　品目情報取得用SQL
+ *
+ * @author tosco
+ *
+ * entityName=ProductionDetail
+ * packageName=production
+ * methodName=getItemEntity
+ *
+ */
+SELECT	ITEM_NAMES.ITEM_NAME --品目名称
+,		ITEM_NAMES.STYLE_OF_PACKING	-- 荷姿
+,		ITEM_NAMES.TYPE_DIVISION --種別
+,		ITEM_NAMES.OTHER_COMPANY_CD1 --他社コード１
+,		ITEM_NAMES.UNIT_OF_OPERATION_MANAGEMENT --運用管理区分
+,		UNIT_NAMES.NAME01 as UNIT
+FROM
+	(SELECT	ITEM2.ITEM_CD
+	,		ITEM2.VERSION
+	,		ITEM2.ITEM_NAME
+	,		ITEM2.STYLE_OF_PACKING
+	,		ITEM2.OTHER_COMPANY_CD1
+	,		ITEM2.TYPE_DIVISION
+	,		ITEM2.UNIT_OF_OPERATION_MANAGEMENT
+	FROM
+	    	(SELECT
+	        	ITEM_CD,
+	        	MAX(VERSION) AS VERSION
+	    	FROM
+	        	ITEM
+	    	GROUP BY
+	        	ITEM_CD
+		) MAX_ITEM
+	,	ITEM ITEM2
+	WHERE	ITEM2.ITEM_CD = MAX_ITEM.ITEM_CD
+	AND		ITEM2.VERSION = MAX_ITEM.VERSION
+	) ITEM_NAMES
+,	(SELECT	NAMES.NAME_CD
+	,	NAMES.NAME01
+	FROM	NAMES
+	WHERE	NAMES.NAME_DIVISION = 'UNIT'　--運用管理単位のため'UNIT'固定
+	)UNIT_NAMES
+WHERE	ITEM_NAMES.UNIT_OF_OPERATION_MANAGEMENT = UNIT_NAMES.NAME_CD(+)
+
+/*IF (( itemCd != null ) && ( itemCd != "" ))*/
+	AND	ITEM_NAMES.ITEM_CD =  /*itemCd*/
+/*END*/
+
+
+

@@ -1,0 +1,84 @@
+[ネーミングルール]
+
+☆nonentity
+○複合テーブル(SQL)を扱うこと。
+○使用する画面毎にDaoを作成する。あちこちの画面で使いまわしをしないこと。
+○パッケージ名（フォルダ名）は画面(Action,Form...)の名称を指定する。
+
+exp1)通常画面の場合
+sample(app)
+　├SampleListAction.java
+　├SampleListForm.java
+　├SampleListLogic.java
+　├SampleListLogicImpl.java
+　├SampleDetailAction.java
+　├SampleDetailForm.java
+　├SampleDetailLogic.java
+　└SampleDetailLogicImpl.java
+
+sample(entity)→共通Dao
+　├Sample.java
+　├SampleBase.java
+　└SampleDao.java
+
+sample(nonentity)→画面(sample)専用Dao
+　├SampleList.java→画面毎のDaoを用意する
+　├SampleListBase.java
+　├SampleListDao.java
+　├SampleListPagerCondition.java
+　├SampleDetail.java→画面毎のDaoを用意する
+　├SampleDetailBase.java
+　├SampleDetailDao.java
+　├SampleDetailDao_getEntity.sql→SQLも画面毎に用意する
+　└SampleListDao_getList.sql
+
+exp2)詳細画面にリスト形式のデータを含んでいる場合
+sample2(app)
+　├Sample2ListAction.java
+　├Sample2ListForm.java
+　├Sample2ListLogic.java
+　├Sample2ListLogicImpl.java
+　├Sample2DetailAction.java
+　├Sample2DetailForm.java
+　├Sample2DetailLogic.java
+　└Sample2DetailLogicImpl.java
+
+sample2(entity)→共通Dao
+　├Sample2.java
+　├Sample2Base.java
+　└Sample2Dao.java
+
+sample2(nonentity)→画面(sample2)専用Dao
+　├Sample2List.java→画面毎のDaoを用意する
+　├Sample2ListBase.java
+　├Sample2ListDao.java
+　├Sample2ListPagerCondition.java
+　├Sample2DetailList.java→詳細画面用Dao(詳細の中にある行一覧用Dao)
+　├Sample2DetailListBase.java
+　├Sample2DetailListDao.java
+　├Sample2DetailEntity.java→詳細画面用Dao(詳細の中にある行一覧でない項目用Dao)
+　├Sample2DetailEntityBase.java
+　├Sample2DetailEntityDao.java
+　├Sample2DetailEntityDao_getDetailEntity.sql→詳細画面用(行一覧でない)Dao
+　├Sample2DetailListDao_getDetailList.sql→詳細画面用(行一覧)Dao
+　└Sample2ListDao_getList.sql→検索結果画面用Dao
+
+☆entity
+○単一テーブルのみ扱うこと。
+○update,insert,deleteもこのDaoで行う。
+　update,insert,delete時にレコード検索を行う必要がある場合はentity DaoにgetEntity,getEntityList等のメソッドを記述して使用すること(SQLを使わない)。
+　つまりentity Daoを使う時にはnonentity Daoは使わないようにする。
+
+☆オートコンプリート
+○/dao/nonentity/ 以下にautocompleteフォルダを作成して、その下に各画面毎のフォルダを作り画面毎のオートコンプリート用daoを作成する。
+その時の名前は通常のdaoと同様の名前の後ろに ForAutoComplete を付ける。
+
+☆コンボボックス
+○検索用フラグ(0:すべて)を使用する場合があるので、実値は1～を使用すること。
+→0:すべて 1:新規 2:更新 のようにする。
+※ただし品目マスタの荷主・種別に関しては例外とし、ゼロからの付番とする（客先指定の為）。
+○DBから値を取得する場合はオートコンプリートと同様に /dao/nonentity/ 以下にcomboboxesフォルダを作成して、その下に各画面毎のフォルダを作り画面毎のコンボボックス用daoを作成する。
+その時の名前は通常のdaoと同様の名前の後ろに ForComboboxes を付ける。
+○コンボボックスは詳細画面と検索条件を同じ内容として使うようにする。
+その時に検索条件には「すべて」を含む場合があるので、
+それぞれの項目に対するコードの振り分け方法は「すべて」をゼロ固定とし、その他項目は１から付番するようにする。

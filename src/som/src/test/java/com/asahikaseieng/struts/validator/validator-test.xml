@@ -1,0 +1,797 @@
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+	<global>
+	</global>
+
+   <formset>
+		<form name="selectedForm">     
+			<field property="value" depends="selected">
+				<var>
+					<var-name>list</var-name>
+					<var-value>list</var-value>
+				</var>
+                <var>
+                    <var-name>valueName</var-name>
+                    <var-value>value</var-value>
+                </var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="decimalForm">     
+			<field property="value" depends="decimal">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>point</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="integerForm">     
+			<field property="value" depends="integer">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="longForm">     
+			<field property="value" depends="long">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="integerExForm">     
+			<field property="value" depends="integerEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="floatExForm">     
+			<field property="value" depends="floatEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="doubleExForm">     
+			<field property="value" depends="doubleEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="longExForm">     
+			<field property="value" depends="longEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+   <formset>
+		<form name="bigDecimalExForm">     
+			<field property="value" depends="bigDecimalEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="intRangeExForm">
+			<field property="value" depends="intRangeEx">
+				<var>
+					<var-name>min</var-name>
+					<var-value>1000</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999999</var-value>
+				</var>
+				
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="floatRangeExForm">
+			<field property="value" depends="floatRangeEx">
+				<var>
+					<var-name>min</var-name>
+					<var-value>-1000.05</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999999.05</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="doubleRangeExForm">
+			<field property="value" depends="doubleRangeEx">
+				<var>
+					<var-name>min</var-name>
+					<var-value>-1000.05</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999999.05</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="longRangeExForm">
+			<field property="value" depends="longRangeEx">
+				<var>
+					<var-name>min</var-name>
+					<var-value>1000</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999999</var-value>
+				</var>
+				
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="bigDecimalRangeExForm">
+			<field property="value" depends="bigDecimalRangeEx">
+				<var>
+					<var-name>min</var-name>
+					<var-value>-99999999999999999999.55</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>99999999999999999999.55</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="dateForm">
+			<field property="value1" depends="date">
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<field property="value2" depends="date">
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="integerIfExForm">
+			<field property="value" depends="integerifEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>runmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>checkmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="floatIfExForm">
+			<field property="value" depends="floatifEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>runmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>checkmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+	
+	<formset>
+		<form name="doubleIfExForm">
+			<field property="value" depends="doubleifEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>runmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>checkmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+	
+	<formset>
+		<form name="longIfExForm">
+			<field property="value" depends="longifEx">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>runmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>checkmode</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+	
+	<formset>
+		<form name="requiredIfForm">
+			<field property="value" depends="requiredif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>B</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="maskIfForm">
+			<field property="value" depends="maskif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>MASKTEST</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="dateIfForm">
+			<field property="value" depends="dateif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="stringIfForm">
+			<field property="value" depends="stringif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>targetClass</var-name>
+					<var-value>com.asahikaseieng.utils.AecStringUtils</var-value>
+				</var>
+				<var>
+					<var-name>targetMethod</var-name>
+					<var-value>isNumeric</var-value>
+				</var>
+				<var>
+					<var-name>isReverse</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="maxbytelengthIfForm">
+			<field property="value" depends="maxbytelengthif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>maxbytelength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="decimalifForm">
+			<field property="value" depends="decimalif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>point</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="minbytelengthIfForm">
+			<field property="value" depends="minbytelengthif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>A</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>minbytelength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="stringForm1">
+			<field property="value" depends="string">
+				<var>
+					<var-name>targetClass</var-name>
+					<var-value>com.asahikaseieng.utils.AecStringUtils</var-value>
+				</var>
+				<var>
+					<var-name>targetMethod</var-name>
+					<var-value>isNumeric</var-value>
+				</var>
+				<var>
+					<var-name>isReverse</var-name>
+					<var-value>false</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="stringForm2">
+			<field property="value" depends="string">
+				<var>
+					<var-name>targetClass</var-name>
+					<var-value>com.asahikaseieng.utils.AecStringUtils</var-value>
+				</var>
+				<var>
+					<var-name>targetMethod</var-name>
+					<var-value>isNumeric</var-value>
+				</var>
+				<var>
+					<var-name>isReverse</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="alphabetForm">
+			<field property="value" depends="alphabet">
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="alphanumericForm">
+			<field property="value" depends="alphanumeric">
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="upperForm">
+			<field property="value" depends="upper">
+			</field>
+		</form>
+	</formset>
+
+	<formset>
+		<form name="lowerForm">
+			<field property="value" depends="lower">
+			</field>
+		</form>
+	</formset>
+	<formset>
+		<form name="compareDateForm1">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm2">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm3">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATERTHAN</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm4">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm5">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>LESSTHAN</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm6">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>LESSEQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareDateForm7">
+			<field property="date" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>date1</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="compareOtherForm1">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm2">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm3">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATERTHAN</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm4">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm5">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>LESSTHAN</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm6">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>LESSEQUAL</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="compareOtherForm7">
+			<field property="value" depends="compare">
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value1</var-value>
+				</var>
+			</field>
+		</form>
+	
+		<form name="compareIfForm1">
+			<field property="value" depends="compareif">
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>value1</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>20050110</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>value2</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>value3</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+	
+</form-validation>

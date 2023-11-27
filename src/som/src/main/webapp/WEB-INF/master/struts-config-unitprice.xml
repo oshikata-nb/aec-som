@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- unitprice -->
+		<form-bean name="unitpriceListForm"
+			type="com.asahikaseieng.app.master.unitprice.UnitpriceListForm" />
+		<!-- unitprice detail -->
+		<form-bean name="unitpriceDetailForm"
+			type="com.asahikaseieng.app.master.unitprice.UnitpriceDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ unitprice -->
+		<action path="/UnitpriceList"
+			type="com.asahikaseieng.app.master.unitprice.UnitpriceListAction"
+			name="unitpriceListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/unitprice_list.jsp">
+
+			<forward name="success" path="/jsp/master/unitprice_list.jsp" />
+			<forward name="reSearch" path="/UnitpriceList.do?op=reSearch" />
+			<forward name="newPage" path="/UnitpriceDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ unitprice Detail -->
+		<action path="/UnitpriceDetail"
+			type="com.asahikaseieng.app.master.unitprice.UnitpriceDetailAction"
+			name="unitpriceDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/unitprice_detail.jsp">
+
+			<forward name="success" path="/jsp/master/unitprice_detail.jsp" />
+			<forward name="back" path="/UnitpriceList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

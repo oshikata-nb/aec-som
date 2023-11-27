@@ -1,0 +1,227 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/jsp/common/taginclude.jsf" %>
+
+<script language="JavaScript" type="text/javascript">
+
+<!--自社マスタ-->
+<!--company-->
+	function setCompanyLabel(text, li) {
+	    $("srhHomeName1").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+
+<!--品目マスタ-->
+<!--srhItemName-->
+	function setItemLabel(text, li) {
+	    $("itemName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+	function setItemLabel1(text, li) {
+	    $("srhItemName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--ロケーションマスタ-->
+<!--srhLocationName：ロケーション検索-->
+	function setLocationLabel(text, li) {
+	    $("srhLocationName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhUpperLocationName：上位ロケーション検索-->
+	function setUpperLocationLabel(text, li) {
+	    $("srhUpperLocationName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--sectionName：部門検索-->
+	function setSectionCdLabel(text, li) {
+	    $("sectionName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+	function setSrhSectionCdLabel(text, li) {
+	    $("srhSectionName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--取引先マスタ-->
+<!--venderName：取引先名称-->
+	function setVenderLabel(text, li) {
+	    $("venderName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVenderName：取引先名称検索-->
+	function setVenderLabel1(text, li) {
+	    $("srhVenderName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVender01Name：1次店-->
+	function setVender01Label(text, li) {
+	    $("srhVender01Name").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVender02Name：2次店-->
+	function setVender02Label(text, li) {
+	    $("srhVender02Name").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVender03Name：3次店-->
+	function setVender03Label(text, li) {
+	    $("srhVender03Name").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVender04Name：4次店-->
+	function setVender04Label(text, li) {
+	    $("srhVender04Name").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhVender05Name：5次店-->
+	function setVender05Label(text, li) {
+	    $("srhVender05Name").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--paymentInvoiceName：請求先-->
+	function setPaymentInvoiceLabel(text, li) {
+	    $("paymentInvoiceName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--setCustomerLabel：得意先-->
+	function setCustomerLabel(text, li) {
+	    $("VenderName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+	function setCustomerLabel1(text, li) {
+	    $("srhVenderName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+
+<!--納入先マスタ-->
+<!--srhDeliveryName,srhVenderName-->
+	function setDeliveryLabel(text, li) {
+	    $("srhDeliveryName1").value = li.getElementsByTagName('span')[0].innerText;
+	    $("srhVenderCd").value = li.getElementsByTagName('span')[2].innerText;
+	    $("srhVenderName").value = li.getElementsByTagName('span')[1].innerText;
+		refreshLabel();
+	}
+	function setDeliveryLabel1(text, li) {
+	    $("deliveryName1").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+	function setDeliveryLabel2(text, li) {
+	    $("srhDeliveryName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+	function setDeliveryLabel3(text, li) {
+	    $("deliveryName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--役職マスタ-->
+<!--srhPostName：役職検索-->
+	function setPostLabel(text, li) {
+	    $("srhPostName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--所属マスタ-->
+<!--srhOrganizationName：所属検索-->
+	function setOrganizationLabel(text, li) {
+	    $("srhOrganizationName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--ログインマスタ-->
+<!--srhTantoName：担当者検索-->
+	function setTantoLabel(text, li) {
+	    $("srhTantoName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhTantoNm：担当者検索-->
+	function setTantoNmLabel(text, li) {
+	    $("srhTantoNm").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--ロールマスタ-->
+<!--srhRoleName：ロール検索-->
+	function setRoleLabel(text, li) {
+	    $("srhRoleName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--銀行マスタ-->
+<!--srhBankName：銀行名検索-->
+	function setBankLabel(text, li) {
+	    $("srhBankName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhBankName：支店名検索-->
+	function setBranchLabel(text, li) {
+	    $("srhBranchName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+<!--srhBankName：銀行＋支店名検索-->
+	function setBankBranchLabel(text, li) {
+	    $("srhBankBranchName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--カレンダーマスタ-->
+<!--srhCalendarName：カレンダー検索-->
+	function setCalendarLabel(text, li) {
+	    $("srhCalendarName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--分類マスタ-->
+<!--srhCategoryName：分類検索-->
+	function setCategoryLabel(text, li) {
+	    $("srhCategoryName").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--摘要名マスタ-->
+<!--srhSummary：摘要検索-->
+	function setSummaryLabel(text, li) {
+	    $("srhSummary").value = li.getElementsByTagName('span')[0].innerText;
+		refreshLabel();
+	}
+
+<!--請求更新-->
+<!--venderName,strCreditDate：請求先名称,請求締め日-->
+	function setVenderCreditDateLabel(text, li) {
+		<!--請求先名称＋請求締め日-->
+	    $("venderCreditDate").value = li.getElementsByTagName('span')[0].innerText;
+
+	    var array = $("venderCreditDate").value.split("/");
+
+		<!--請求先名称設定-->
+	    $("venderName").value = array[0];
+		<!--請求締め日設定-->
+	    if (array.length > 1) {
+		    $("strCreditDate").value = array[1];
+	    } else {
+		    $("strCreditDate").value = "";
+	    }
+		refreshLabel();
+	}
+
+<!--支払更新-->
+<!--venderName,strCreditDate：支払先名称,支払締め日-->
+	function setVenderPayableDateLabel(text, li) {
+		<!--支払先名称＋支払締め日-->
+	    $("venderPayableDate").value = li.getElementsByTagName('span')[0].innerText;
+
+	    var array = $("venderPayableDate").value.split("/");
+
+		<!--支払先名称設定-->
+	    $("venderName").value = array[0];
+		<!--支払締め日設定-->
+	    if (array.length > 1) {
+		    $("strPayableDate").value = array[1];
+	    } else {
+		    $("strPayableDate").value = "";
+	    }
+		refreshLabel();
+	}
+</script>

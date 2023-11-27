@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 工程一覧 -->
+		<form-bean name="grecipeProcedureListForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeProcedureListForm" />
+
+		<!-- 工程詳細 -->
+<!--
+		<form-bean name="grecipeProcedureDetailForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeProcedureDetailForm" />
+-->
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 工程一覧 -->
+		<action path="/GrecipeProcedureList"
+			type="com.asahikaseieng.app.grecipe.GrecipeProcedureListAction"
+			name="grecipeProcedureListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_procedure_list.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_procedure_list.jsp" />
+			<forward name="error"
+				path="/jsp/grecipe/grecipe_procedure_list.jsp" />
+			<forward name="back"
+				path="/GrecipeList.do?op=reSearch" />
+			<forward name="init"
+				path="/GrecipeProcedureList.do?op=reInit" />
+		</action>
+
+		<!-- ================================================ 工程詳細 -->
+		<action path="/GrecipeProcedureDetail"
+			type="com.asahikaseieng.app.grecipe.GrecipeProcedureDetailAction"
+			name="grecipeProcedureDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_procedure_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_procedure_detail.jsp" />
+			<forward name="error"
+				path="/jsp/grecipe/grecipe_procedure_detail.jsp" />
+			<forward name="back"
+				path="/GrecipeProcedureList.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

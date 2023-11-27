@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- aprollback -->
+		<form-bean name="apRollbackForm"
+			type="com.asahikaseieng.app.debt.aprollback.ApRollbackForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ aprollback -->
+		<action path="/ApRollback"
+			type="com.asahikaseieng.app.debt.aprollback.ApRollbackAction"
+			name="apRollbackForm" validate="true" parameter="op" scope="session"
+			input="/jsp/debt/aprollback.jsp">
+
+			<forward name="success" path="/jsp/debt/aprollback.jsp" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

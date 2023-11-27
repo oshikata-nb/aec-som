@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- production -->
+		<form-bean name="productionPlanForm"
+			type="com.asahikaseieng.app.productionplan.ProductionPlanForm" />
+	</form-beans>
+
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ production -->
+		<action path="/ProductionPlan"
+			type="com.asahikaseieng.app.productionplan.ProductionPlanAction"
+			name="productionPlanForm" validate="true" parameter="op"
+			scope="session" input="/jsp/productionplan/production_plan.jsp">
+
+			<forward name="success"
+				path="/jsp/productionplan/production_plan.jsp" />
+			<forward name="reSearch"
+				path="/ProductionPlan.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+</struts-config>

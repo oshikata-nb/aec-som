@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 数値桁数チェック用Form -->
+		<form-bean name="checkDigitForm"
+			type="com.asahikaseieng.app.checkdigit.CheckDigitForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 数値桁数丸め用ajax処理 -->
+		<action path="/CheckDigitAction"
+			type="com.asahikaseieng.app.checkdigit.CheckDigitAction"
+			name="checkDigitForm" validate="false" parameter="op"
+			scope="request">
+		</action>
+	</action-mappings>
+
+</struts-config>

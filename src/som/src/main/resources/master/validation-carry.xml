@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- carryDetail -->
+		<form name="carryDetailForm">
+			<!-- 運送会社コード -->
+			<field property="carryCd" depends="requiredif, mask">
+				<arg0 key="carry.carry.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 備考 -->
+			<field property="remarks" depends="maxlength">
+				<arg0 key="carry.remarks" />
+				<arg1 key="carry.remarks.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 帳票出力順 -->
+			<field property="strReportOutputNum" depends="validateDegit">
+				<arg0 key="carry.report.output.num" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+			
+			<!-- バーコードヘッダ -->
+			<field property="bcHeader" depends="mask">
+				<msg name="mask" key="carry.inputcheck.nw-7" />
+				<arg0 key="carry.bcheader" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9a-dA-D\-\$\:\/\.\+\@]*$</var-value>
+				</var>
+			</field>
+			<field property="bcHeaderHasStartChar" depends="validwhen">
+				<msg name="validwhen" key="carry.inputcheck.required.nw-7start" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* == 1 ))</var-value>
+				</var>
+			</field>
+			
+			<!-- バーコードフッタ -->
+			<field property="bcFooter" depends="mask">
+				<msg name="mask" key="carry.inputcheck.nw-7" />
+				<arg0 key="carry.bcfooter" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9a-dA-D\-\$\:\/\.\+\@]*$</var-value>
+				</var>
+			</field>
+			<field property="bcFooterHasEndChar" depends="validwhen">
+				<msg name="validwhen" key="carry.inputcheck.required.nw-7end" />
+				<arg0 key="carry.bcfooter" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* == 1 ))</var-value>
+				</var>
+			</field>
+			
+			<!-- バーコード連番(開始) -->
+			<field property="bcNumStart" depends="validwhen">
+				<arg0 key="carry.bcmin" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* != null  ))</var-value>
+				</var>
+			</field>
+			<field property="bcNumStart" depends="validwhen">
+				<msg name="validwhen" key="errors.compare" />
+				<arg0 key="carry.bcmin" />
+				<arg1 key="carry.bcmax" />
+				<var>
+					<var-name>test</var-name>
+					<var-value><![CDATA[(( *this* == null ) or ( (  *this* < bcNumEnd ) and ( *this* >= 0 ) ) )]]></var-value>
+				</var>
+			</field>
+			<!-- バーコード連番(終了) -->
+			<field property="bcNumEnd" depends="validwhen">
+				<arg0 key="carry.bcmax" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* != null  ))</var-value>
+				</var>
+			</field>
+			<!-- バーコード連番(現在値) -->
+			<field property="bcNumPresent" depends="validwhen">
+				<arg0 key="carry.bccur" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* != null  ))</var-value>
+				</var>
+			</field>
+			<field property="bcNumPresent" depends="validwhen">
+				<msg name="validwhen" key="errors.rang" />
+				<arg0 key="carry.bccur" />
+				<arg1 key="carry.bcmin" />
+				<arg2 key="carry.bcmax" />
+				<var>
+					<var-name>test</var-name>
+					<var-value><![CDATA[(( *this* == null ) or ( (  *this* <= bcNumEnd ) and ( *this* >= bcNumStart ) ) )]]></var-value>
+				</var>
+			</field>
+			<!-- バーコード桁数 -->
+			<field property="bcNumberOfDigit" depends="validwhen">
+				<arg0 key="carry.bcNoD" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(( bcPublishDivision == '2' ) or ( *this* != null  ))</var-value>
+				</var>
+			</field>
+			<!-- バーコード合計桁数 -->
+			<field property="bcSettingLength" depends="validwhen">
+				<msg name="validwhen" key="errors.maxlength" />
+				<arg0 key="carry.bcTotalLength" />
+				<arg1 key="50" resource="false"/>
+				<var>
+					<var-name>test</var-name>
+					<var-value><![CDATA[( *this* <= 50 )]]></var-value>
+				</var>
+			</field>			
+			<!-- チェックディジット開始 -->
+			<field property="bcNumCheckDigitStart" depends="validwhen">
+				<msg name="validwhen" key="errors.compare" />
+				<arg0 key="carry.bccheckdigitmin" />
+				<arg1 key="carry.bccheckdigitmax" />
+				<var>
+					<var-name>test</var-name>
+					<var-value><![CDATA[(( *this* == null ) or ( (  *this* <= bcNumCheckDigitEnd ) and ( *this* >= 0 ) ) )]]></var-value>
+				</var>
+			</field>
+
+		</form>
+	</formset>
+</form-validation>

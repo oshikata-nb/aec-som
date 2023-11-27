@@ -1,0 +1,21 @@
+/*
+ * 消費税率マスタ一覧コンボボックス用SQL
+ *
+ * entityName=TaxMasterListForComboboxes
+ * packageName=taxmaster
+ * methodName=getSalesTaxListForComboboxes
+ *
+ */
+
+SELECT	
+	TAX_MASTER.TAX_CD
+,	TAX_MASTER.TAX_RATIO
+,	TAX_MASTER.COMBOBOX_VALUE
+,	TAX_MASTER.COMBOBOX_NAME
+FROM	
+	TAX_MASTER
+WHERE	
+	TAX_MASTER.CATEGORY = 'STOCKING'
+AND	TAX_MASTER.USE_DIVISION = 1
+AND	TAX_MASTER.COMBOBOX_USE = 1
+ORDER BY TAX_MASTER.EX_NUMERIC_01 ASC

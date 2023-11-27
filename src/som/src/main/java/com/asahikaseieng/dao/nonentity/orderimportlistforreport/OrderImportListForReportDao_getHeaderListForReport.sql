@@ -1,0 +1,531 @@
+/*
+ * 受注取込ヘッダ(帳票用)SQL 
+ *
+ * entityName=OrderImportListForReport
+ * packageName=orderimportlistforreport
+ * methodName=getSearchList
+ *
+ */
+SELECT
+   FRST_ORDER_HEAD.FRST_ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_DIVISION
+ , ORD_NM.NAME01 AS ORDER_DIVISION_NAME
+ , FRST_ORDER_HEAD.ORDER_DATE
+ , FRST_ORDER_HEAD.ORGANIZATION_CD
+ , ORGANIZATION.ORGANIZATION_NAME
+ , FRST_ORDER_HEAD.INPUT_TANTO_CD
+ , ILG.TANTO_NM AS INPUT_TANTO_NAME
+ , FRST_ORDER_HEAD.SALES_TANTO_CD
+ , SLG.TANTO_NM AS SALES_TANTO_NAME
+ , FRST_ORDER_HEAD.VENDER_GROUP_CD
+ , OVM.VENDER_GROUP_NAME
+ , FRST_ORDER_HEAD.VENDER_CD
+ , VENDER.VENDER_SHORTED_NAME
+ , VENDER.VENDER_NAME1
+ , VENDER.VENDER_NAME2
+ , FRST_ORDER_HEAD.DELIVERY_CD
+ , DELIVERY.SEARCH_KANA
+ , DELIVERY.DELIVERY_NAME1
+ , DELIVERY.DELIVERY_NAME2
+ , FRST_ORDER_HEAD.DELIVERY_ADDRESS
+ , CONCAT(CONCAT(DELIVERY.ADDRESS1,DELIVERY.ADDRESS2),DELIVERY.ADDRESS3) AS ADDRESS
+ , DELIVERY.ADDRESS1
+ , DELIVERY.ADDRESS2
+ , DELIVERY.ADDRESS3
+ , DELIVERY.TEL_NO AS DELIVERY_TEL_NO
+ , FRST_ORDER_HEAD.BALANCE_CD
+ , FRST_ORDER_HEAD.STATUS
+ , FRST_ORDER_HEAD.CUSTOMER_ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_AMOUNT
+ , FRST_ORDER_HEAD.SUGGESTED_DELIVERLIMIT
+ , FRST_ORDER_HEAD.SCHEDULED_SHIPPING_DATE
+ , FRST_ORDER_HEAD.LEAD_TIME
+ , FRST_ORDER_HEAD.DELIVERY_EXPECTED_DATE
+ , FRST_ORDER_HEAD.DELIVERY_EXPECTED_TIME
+ , FRST_ORDER_HEAD.CARRY_CD
+ , CARRY.CARRY_NAME1
+ , FRST_ORDER_HEAD.CARRY_FARE
+ , FRST_ORDER_HEAD.CARRY_INVOICE_FLAG
+ , FRST_ORDER_HEAD.ORDER_PICTURE
+ , FRST_ORDER_HEAD.PRINT_SUMMERY
+ , FRST_ORDER_HEAD.DELIVERY_SLIP_SUMMERY
+ , FRST_ORDER_HEAD.ORDER_SUMMERY
+ , FRST_ORDER_HEAD.DELIVERYDATE_CONTACT_SUMMERY   /* 20210906 Asclab Saita 納期連絡表専用備考追加対応 */
+ , FRST_ORDER_HEAD.TOTAL_WEIGHT
+ , FRST_ORDER_HEAD.DEL_FLG
+ , FRST_ORDER_HEAD.CANCEL_FLG
+ , FRST_ORDER_HEAD.INVISIBLE_FLG
+ , FRST_ORDER_HEAD.INPUT_DATE
+ , FRST_ORDER_HEAD.INPUTOR_CD
+ , INP_LG.TANTO_NM AS INPUTOR_NAME
+ , FRST_ORDER_HEAD.UPDATE_DATE
+ , FRST_ORDER_HEAD.UPDATOR_CD
+ , UPD_LG.TANTO_NM AS UPDATOR_NAME
+FROM 
+    FRST_ORDER_HEAD
+LEFT JOIN
+    FRST_ORDER_DETAIL
+ON
+    FRST_ORDER_DETAIL.FRST_ORDER_NO = FRST_ORDER_HEAD.FRST_ORDER_NO
+LEFT JOIN
+    ORDER_IMP_BASE
+ON
+    ORDER_IMP_BASE.ORDER_IMP_NO = FRST_ORDER_DETAIL.ORDER_IMP_NO
+LEFT JOIN 
+    DELIVERY 
+ON 
+    DELIVERY.DELIVERY_CD = FRST_ORDER_HEAD.DELIVERY_CD
+LEFT JOIN 
+    VENDER 
+ON 
+    VENDER.VENDER_CD  = FRST_ORDER_HEAD.VENDER_CD
+    AND VENDER.VENDER_DIVISION = 'TS'
+LEFT JOIN 
+    ORDER_HEAD
+ON 
+    FRST_ORDER_HEAD.ORDER_NO = ORDER_HEAD.ORDER_NO
+LEFT JOIN 
+    ORDER_DETAIL  
+ON 
+    FRST_ORDER_DETAIL.ORDER_NO = ORDER_DETAIL.ORDER_NO 
+    AND FRST_ORDER_DETAIL.ROW_NO = ORDER_DETAIL.ROW_NO
+LEFT JOIN 
+(SELECT ORDER_NO,ORDER_ROW_NO,STATUS
+            FROM PURCHASE_SUBCONTRACT 
+            WHERE PURCHASE_SUBCONTRACT.ORDER_NO IS NOT NULL 
+            GROUP BY PURCHASE_SUBCONTRACT.ORDER_NO
+            ,   PURCHASE_SUBCONTRACT.ORDER_ROW_NO
+            ,   PURCHASE_SUBCONTRACT.STATUS
+) PUS 
+ON 
+    PUS.ORDER_NO = ORDER_DETAIL.ORDER_NO
+    AND PUS.ORDER_ROW_NO = ORDER_DETAIL.ROW_NO
+LEFT JOIN 
+    SHIPPING SHP 
+ON 
+    SHP.SHIPPING_NO = ORDER_DETAIL.SHIPPING_NO
+LEFT JOIN 
+(SELECT ORDER_NO
+            FROM PURCHASE_SUBCONTRACT 
+            WHERE PURCHASE_SUBCONTRACT.ORDER_NO IS NOT NULL 
+            GROUP BY PURCHASE_SUBCONTRACT.ORDER_NO
+) PUS2 
+ON 
+    PUS2.ORDER_NO = FRST_ORDER_HEAD.ORDER_NO
+LEFT JOIN 
+(SELECT ORDER_NO
+            FROM SHIPPING 
+            WHERE SHIPPING.ORDER_NO IS NOT NULL 
+            GROUP BY SHIPPING.ORDER_NO
+) SHP2 
+ON 
+    SHP2.ORDER_NO = FRST_ORDER_HEAD.ORDER_NO
+LEFT JOIN 
+    NAMES SHP_NM 
+ON 
+    SHP_NM.NAME_CD = SHP.SHIPPING_STATUS
+    AND SHP_NM.NAME_DIVISION = 'ORST'
+LEFT JOIN 
+    NAMES PUS_NM 
+ON 
+    PUS_NM.NAME_CD = PUS.STATUS
+    AND PUS_NM.NAME_DIVISION = 'PUST'
+LEFT JOIN 
+    ITEM_INVENTORY  
+ON 
+    ITEM_INVENTORY.ITEM_CD = FRST_ORDER_DETAIL.ITEM_CD
+LEFT JOIN 
+    ITEM  
+ON 
+    ITEM.ITEM_CD = FRST_ORDER_DETAIL.ITEM_CD 
+LEFT JOIN 
+	NAMES ORD_NM 
+ON 
+	ORD_NM.NAME_CD  = FRST_ORDER_HEAD.ORDER_DIVISION
+	AND ORD_NM.NAME_DIVISION = 'ORDR'
+LEFT JOIN 
+    LOGIN SLG 
+ON 
+    SLG.TANTO_CD = FRST_ORDER_HEAD.SALES_TANTO_CD
+LEFT JOIN 
+    LOGIN ILG 
+ON 
+    ILG.TANTO_CD = FRST_ORDER_HEAD.INPUT_TANTO_CD
+LEFT JOIN 
+    LOGIN UPD_LG 
+ON 
+    UPD_LG.TANTO_CD = FRST_ORDER_HEAD.UPDATOR_CD
+LEFT JOIN 
+    LOGIN INP_LG 
+ON 
+    INP_LG.TANTO_CD = FRST_ORDER_HEAD.INPUTOR_CD
+
+LEFT JOIN 
+    ORGANIZATION 
+ON 
+    ORGANIZATION.ORGANIZATION_CD = FRST_ORDER_HEAD.ORGANIZATION_CD
+LEFT JOIN 
+        (SELECT DISTINCT
+            ORDER_VENDER_MASTER.VENDER_GROUP_CD
+        ,   ORDER_VENDER_MASTER.VENDER_GROUP_NAME
+        FROM ORDER_VENDER_MASTER)OVM 
+ON
+	OVM.VENDER_GROUP_CD = FRST_ORDER_HEAD.VENDER_GROUP_CD
+LEFT JOIN 
+	CARRY 
+ON 
+	CARRY.CARRY_CD = FRST_ORDER_HEAD.CARRY_CD
+WHERE
+    FRST_ORDER_HEAD.FRST_ORDER_NO IS NOT NULL
+    --受注グループ番号From
+    /*IF (condition.srhFrstOrderNoFrom != null) && (condition.srhFrstOrderNoFrom != "")*/
+    AND	FRST_ORDER_HEAD.FRST_ORDER_NO >= /*condition.srhFrstOrderNoFrom*/'GR00000000' 
+    /*END*/
+    --受注グループ番号To
+    /*IF (condition.srhFrstOrderNoTo!= null) && (condition.srhFrstOrderNoTo != "")*/
+    AND	FRST_ORDER_HEAD.FRST_ORDER_NO <= /*condition.srhFrstOrderNoTo*/'LR99999999' 
+    /*END*/
+    --客先注文番号
+    /*IF (condition.srhCtmOrderNo != null) && (condition.srhCtmOrderNo != "")*/
+    AND	FRST_ORDER_HEAD.CUSTOMER_ORDER_NO LIKE /*condition.srhCtmOrderNo*/'00000000'
+    /*END*/
+    --得意先グループコード
+    /*IF ( condition.srhVenderGroupCd != "0" ) && (condition.srhVenderGroupCd != "99999")*/
+    AND FRST_ORDER_HEAD.VENDER_GROUP_CD = /*condition.srhVenderGroupCd*/'%'
+    /*END*/
+    /*IF (condition.srhVenderGroupCd == "99999")*/
+    AND FRST_ORDER_HEAD.VENDER_GROUP_CD IS NULL
+    /*END*/
+    --取込日From
+    /*IF (condition.srhImportDateFrom != null) && (condition.srhImportDateFrom != "")*/
+    AND TO_CHAR(ORDER_IMP_BASE.IMPORT_DATE, 'YYYY/MM/DD') >= /*condition.srhImportDateFrom*/'1900/01/01'
+    /*END*/
+    --取込日To
+    /*IF (condition.srhImportDateTo!= null) && (condition.srhImportDateTo != "")*/
+    AND TO_CHAR(ORDER_IMP_BASE.IMPORT_DATE, 'YYYY/MM/DD') <= /*condition.srhImportDateTo*/'2199/01/01'
+    /*END*/
+    --受注番号From
+    /*IF (condition.srhOrderNoFrom != null) && (condition.srhOrderNoFrom != "")*/
+    AND	FRST_ORDER_HEAD.ORDER_NO >= /*condition.srhOrderNoFrom*/'JU00000000' 
+    /*END*/
+    --受注番号To
+    /*IF (condition.srhOrderNoTo!= null) && (condition.srhOrderNoTo != "")*/
+    AND	FRST_ORDER_HEAD.ORDER_NO <= /*condition.srhOrderNoTo*/'JU99999999' 
+    /*END*/
+    -- 受注区分
+    /*IF (condition.srhOrderDivision != 0)*/
+    AND FRST_ORDER_HEAD.ORDER_DIVISION = /*condition.srhOrderDivision*/3
+    /*END*/
+    --受注ステータス
+    -- 受注ステータスが先付受注の場合
+    /*IF (condition.srhOrderStatus == 90)*/
+        AND FRST_ORDER_HEAD.ORDER_NO IS NULL
+    /*END*/
+    -- ステータスが受注登録の場合
+    /*IF (condition.srhOrderStatus == 99)*/
+        AND FRST_ORDER_HEAD.ORDER_NO IS NOT NULL
+        AND SHP.SHIPPING_STATUS IS NULL
+        AND PUS.STATUS IS NULL
+        AND NOT ( FRST_ORDER_DETAIL.CANCEL_FLG = 1 AND ( SHP2.ORDER_NO IS NOT NULL OR PUS2.ORDER_NO IS NOT NULL ) )
+    /*END*/
+                
+    --受注区分が全ての場合
+    /*IF (condition.srhOrderDivision == 0)*/
+        -- ステータスが全てでは無い場合
+        /*IF ((condition.srhOrderStatus != 0) && (condition.srhOrderStatus != 99) && (condition.srhOrderStatus != 90))*/
+            -- 出荷ステータス検索
+            AND (SHP.SHIPPING_STATUS = /*condition.srhOrderStatus*/3
+            
+            -- ステータスが出荷未確定の場合
+            /*IF (condition.srhOrderStatus == 1) */
+            OR PUS.STATUS = 7
+            /*END*/
+            
+            -- ステータスが出荷未確定より上　かつ　ステータスが出荷確定未満
+            /*IF (condition.srhOrderStatus > 1) && (condition.srhOrderStatus < 5)*/
+            OR PUS.STATUS > 1 AND PUS.STATUS < 6
+            /*END*/
+            
+            -- ステータスが出荷未確定の場合
+            /*IF (condition.srhOrderStatus == 5)*/
+            OR PUS.STATUS = 6
+            /*END*/
+            )
+        /*END*/
+        
+    /*END*/
+
+    
+    -- 受注区分が全てではなく　かつ　仕入直送品では無い場合
+    /*IF (condition.srhOrderDivision != 0) && (condition.srhOrderDivision != 3)*/
+        -- ステータスが全てでは無い場合
+        /*IF ((condition.srhOrderStatus != 0) && (condition.srhOrderStatus != 90) && (condition.srhOrderStatus != 99))*/
+            AND SHP.SHIPPING_STATUS = /*condition.srhOrderStatus*/3
+        /*END*/
+    /*END*/
+
+    -- 受注区分が仕入直送品の場合
+    /*IF ((condition.srhOrderDivision == 3) && (condition.srhOrderStatus != 90) && (condition.srhOrderStatus != 99))*/
+        
+        -- 受注区分が仕入直送品　かつ　ステータスが出荷未確定の場合
+        /*IF (condition.srhOrderStatus == 1) */
+        AND PUS.STATUS = 7
+        /*END*/
+    
+        -- 受注区分が仕入直送品　かつ　ステータスが出荷未確定より上　かつ　ステータスが出荷確定未満
+        /*IF (condition.srhOrderStatus > 1) && (condition.srhOrderStatus < 5)*/
+        AND PUS.STATUS > 1 AND PUS.STATUS < 6
+        /*END*/
+        
+        -- 受注区分が仕入直送品　かつ　ステータスが出荷未確定の場合
+        /*IF (condition.srhOrderStatus == 5)*/
+        AND PUS.STATUS = 6
+        /*END*/
+    
+    /*END*/
+    --受注日From
+    /*IF (condition.srhOrderDateFrom != null) && (condition.srhOrderDateFrom != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.ORDER_DATE, 'YYYY/MM/DD') >= /*condition.srhOrderDateFrom*/'1900/01/01'
+    /*END*/
+    --受注日To
+    /*IF (condition.srhOrderDateTo!= null) && (condition.srhOrderDateTo != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.ORDER_DATE, 'YYYY/MM/DD') <= /*condition.srhOrderDateTo*/'2199/01/01'
+    /*END*/
+    --納入先
+    /*IF (condition.srhDeliveryCd != null) && (condition.srhDeliveryCd != "")*/
+    AND	(FRST_ORDER_HEAD.DELIVERY_CD LIKE /*condition.srhDeliveryCd*/'%'
+        OR DELIVERY.SEARCH_KANA LIKE FUN_RET_MASTER_STRING_USE_AC(/*condition.srhDeliveryCd*/'%')
+        OR ORDER_IMP_BASE.CTM_DELIVERY_CD_01 || ORDER_IMP_BASE.CTM_DELIVERY_CD_02 || ORDER_IMP_BASE.CTM_DELIVERY_CD_03 LIKE /*condition.srhDeliveryCd*/'%' 
+        OR ORDER_IMP_BASE.CTM_DELIVERY_NAME_01 || ORDER_IMP_BASE.CTM_DELIVERY_NAME_02 || ORDER_IMP_BASE.CTM_DELIVERY_NAME_03 LIKE /*condition.srhDeliveryCd*/'%'
+    )
+    /*END*/
+    --住所
+    /*IF (condition.srhAddress != null) && (condition.srhAddress != "")*/
+    AND (DELIVERY.ADDRESS1 || DELIVERY.ADDRESS2 || DELIVERY.ADDRESS3 LIKE /*condition.srhAddress*/'%'
+        OR ORDER_IMP_BASE.CTM_DELIVERY_ADDRESS_01 || ORDER_IMP_BASE.CTM_DELIVERY_ADDRESS_02 || ORDER_IMP_BASE.CTM_DELIVERY_ADDRESS_03 LIKE /*condition.srhAddress*/'%')
+    /*END*/
+    --納入先電話番号
+    /*IF (condition.srhDeliveryTelNo != null) && (condition.srhDeliveryTelNo != "")*/
+    AND (FRST_ORDER_HEAD.DELIVERY_TEL_NO LIKE /*condition.srhDeliveryTelNo*/'%'
+        OR ORDER_IMP_BASE.CTM_DELIVERY_TEL_NO LIKE /*condition.srhDeliveryTelNo*/'%')
+    /*END*/
+    --客先返信
+    /*IF (condition.srhSlipPublishComp == "1")*/
+    AND FRST_ORDER_DETAIL.DEL_DATE_SEND_DATE IS NULL
+    /*END*/
+    /*IF (condition.srhSlipPublishComp == "2")*/
+    AND FRST_ORDER_DETAIL.DEL_DATE_SEND_DATE IS NOT NULL
+    /*END*/
+    --出荷予定日From
+    /*IF (condition.srhScheduledShippingDateFrom != null) && (condition.srhScheduledShippingDateFrom != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.SCHEDULED_SHIPPING_DATE, 'YYYY/MM/DD') >= /*condition.srhScheduledShippingDateFrom*/'1900/01/01'
+    /*END*/
+    --出荷予定日To
+    /*IF (condition.srhScheduledShippingDateTo!= null) && (condition.srhScheduledShippingDateTo != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.SCHEDULED_SHIPPING_DATE, 'YYYY/MM/DD') <= /*condition.srhScheduledShippingDateTo*/'2199/01/01'
+    /*END*/
+    --得意先
+    /*IF (condition.srhVenderCd != null) && (condition.srhVenderCd != "")*/
+    AND (FRST_ORDER_HEAD.VENDER_CD LIKE /*condition.srhVenderCd*/'%' 
+        OR VENDER.VENDER_SHORTED_NAME LIKE FUN_RET_MASTER_STRING_USE_AC(/*condition.srhVenderCd*/'%')
+        --2次店以下で検索
+        OR FNC_GET_UPPER_VENDER(FRST_ORDER_HEAD.BALANCE_CD ,2) = REPLACE (/*condition.srhVenderCd*/'','%','')
+        OR FNC_GET_UPPER_VENDER(FRST_ORDER_HEAD.BALANCE_CD ,3) = REPLACE (/*condition.srhVenderCd*/'','%','')
+        OR FNC_GET_UPPER_VENDER(FRST_ORDER_HEAD.BALANCE_CD ,4) = REPLACE (/*condition.srhVenderCd*/'','%','')
+        OR FNC_GET_UPPER_VENDER(FRST_ORDER_HEAD.BALANCE_CD ,5) = REPLACE (/*condition.srhVenderCd*/'','%','')
+        --客先得意先で検索
+        OR ORDER_IMP_BASE.CTM_VENDER_CD_01 || ORDER_IMP_BASE.CTM_VENDER_CD_02 || ORDER_IMP_BASE.CTM_VENDER_CD_03 LIKE /*condition.srhVenderCd*/'%' 
+        OR ORDER_IMP_BASE.CTM_VENDER_NAME_01 || ORDER_IMP_BASE.CTM_VENDER_NAME_02 || ORDER_IMP_BASE.CTM_VENDER_NAME_03 LIKE /*condition.srhVenderCd*/'%'
+    )
+    /*END*/
+    --担当部署
+    /*IF (condition.srhOrganizationCd != null) && (condition.srhOrganizationCd != "")*/
+    AND	(FRST_ORDER_HEAD.ORGANIZATION_CD LIKE /*condition.srhOrganizationCd*/'%' OR ORGANIZATION.ORGANIZATION_NAME LIKE /*condition.srhOrganizationCd*/'%')
+    /*END*/
+    --仮単価FLG
+    /*IF (condition.srhTmpUnitpriceFlg != "9")*/
+    AND FRST_ORDER_DETAIL.TMP_UNITPRICE_FLG = /*condition.srhTmpUnitpriceFlg*/0
+    /*END*/
+    --営業担当者
+    /*IF (condition.srhSalesTantoCd != null) && (condition.srhSalesTantoCd != "")*/
+    AND	(FRST_ORDER_HEAD.SALES_TANTO_CD LIKE /*condition.srhSalesTantoCd*/'%' OR SLG.TANTO_NM LIKE /*condition.srhSalesTantoCd*/'%')
+    /*END*/
+    --入力担当者
+    /*IF (condition.srhInputTantoCd != null) && (condition.srhInputTantoCd != "")*/
+    AND	(FRST_ORDER_HEAD.INPUT_TANTO_CD LIKE /*condition.srhInputTantoCd*/'%' OR ILG.TANTO_NM LIKE /*condition.srhInputTantoCd*/'%')
+    /*END*/
+    --出荷BC
+    /*IF (condition.srhCarryBc != null) && (condition.srhCarryBc != "")*/
+    AND	SHP.CARRY_BC LIKE /*condition.srhCarryBc*/'%'
+    /*END*/
+    --品目
+    /*IF (condition.srhItemCd != null) && (condition.srhItemCd != "")*/
+    AND	(FRST_ORDER_DETAIL.ITEM_CD LIKE /*condition.srhItemCd*/'%' OR ITEM.ITEM_NAME LIKE /*condition.srhItemCd*/'%')
+    /*END*/
+    --他社コード1
+    /*IF (condition.srhOtherCompanyCd1 != null) && (condition.srhOtherCompanyCd1 != "")*/
+    AND	ITEM.OTHER_COMPANY_CD1 LIKE /*condition.srhOtherCompanyCd1*/'%'
+    /*END*/
+    --希望納期From
+    /*IF (condition.srhSuggestedDeliverlimitFrom != null) && (condition.srhSuggestedDeliverlimitFrom != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.SUGGESTED_DELIVERLIMIT, 'YYYY/MM/DD') >= /*condition.srhSuggestedDeliverlimitFrom*/'1900/01/01'
+    /*END*/
+    --希望納期To
+    /*IF (condition.srhSuggestedDeliverlimitTo != null) && (condition.srhSuggestedDeliverlimitTo != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.SUGGESTED_DELIVERLIMIT, 'YYYY/MM/DD') <= /*condition.srhSuggestedDeliverlimitTo*/'2199/01/01'
+    /*END*/
+    --運送会社
+    /*IF (condition.srhCarryCd != null) && (condition.srhCarryCd != "")*/
+        /*IF ( condition.srhCarryCd != "0" )*/
+    AND	FRST_ORDER_HEAD.CARRY_CD LIKE /*condition.srhCarryCd*/'%'
+        /*END*/
+    /*END*/
+    --エラー状態
+    /*IF ( condition.srhErrorStatus == "1" )*/
+    AND FRST_ORDER_DETAIL.ERROR_FLG = '1'
+    /*END*/
+    /*IF ( condition.srhErrorStatus == "2" )*/
+    AND FRST_ORDER_DETAIL.ERROR_FLG = '0'
+    /*END*/
+
+    --データ取込区分
+    /*IF ( condition.srhInputDivision == "1" )*/
+    AND FRST_ORDER_DETAIL.ORDER_IMP_NO IS NOT NULL  
+    /*END*/
+    /*IF ( condition.srhInputDivision == "2" )*/
+    AND FRST_ORDER_DETAIL.ORDER_IMP_NO IS NULL  
+    /*END*/
+
+    --納品予定日From
+    /*IF (condition.srhDeliveryExpectedDateFrom != null) && (condition.srhDeliveryExpectedDateFrom != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.DELIVERY_EXPECTED_DATE, 'YYYY/MM/DD') >= /*condition.srhDeliveryExpectedDateFrom*/'1900/01/01'
+    /*END*/
+    --納品予定日To
+    /*IF (condition.srhDeliveryExpectedDateTo != null) && (condition.srhDeliveryExpectedDateTo != "")*/
+    AND TO_CHAR(FRST_ORDER_HEAD.DELIVERY_EXPECTED_DATE, 'YYYY/MM/DD') <= /*condition.srhDeliveryExpectedDateTo*/'2199/01/01'
+    /*END*/
+    --取込番号From
+   	/*IF (condition.srhTempNoFrom != null) && (condition.srhTempNoFrom != "")*/
+    AND	FRST_ORDER_DETAIL.ORDER_IMP_NO >= /*condition.srhTempNoFrom*/'OI000000001' 
+    /*END*/
+    --取込番号To
+    /*IF (condition.srhTempNoTo != null) && (condition.srhTempNoTo != "")*/
+    AND	FRST_ORDER_DETAIL.ORDER_IMP_NO <= /*condition.srhTempNoTo*/'OI999999999' 
+    /*END*/
+    --入力チェック
+    /*IF ( condition.srhOrderInputCheck == "1" )*/
+    AND FRST_ORDER_DETAIL.INPUT_APPROVAL_DATE IS NULL
+    /*END*/
+    /*IF ( condition.srhOrderInputCheck == "2" )*/
+    AND FRST_ORDER_DETAIL.INPUT_APPROVAL_DATE IS NOT NULL
+    /*END*/
+    --納期連絡
+    /*IF ( condition.srhDelDateSend == "1" )*/
+    AND FRST_ORDER_DETAIL.DEL_DATE_SEND_DATE IS NULL
+    /*END*/
+    /*IF ( condition.srhDelDateSend == "2" )*/
+    AND FRST_ORDER_DETAIL.DEL_DATE_SEND_DATE IS NOT NULL
+    /*END*/
+    
+    
+    --削除・キャンセル
+    /*IF ( condition.srhDeleteCancel == "0" )*/
+    -- 0:全ての場合、非表示以外を表示する。
+    AND FRST_ORDER_HEAD.DEL_FLG = 0
+    AND FRST_ORDER_DETAIL.DEL_FLG = 0
+    AND FRST_ORDER_HEAD.INVISIBLE_FLG = 0	-- 非表示は表示しない
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "1" )*/
+    -- 1:削除の場合、削除のみを表示する。
+    AND ( FRST_ORDER_HEAD.DEL_FLG = 1 OR FRST_ORDER_DETAIL.DEL_FLG = 1 )
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 0 )	-- 非表示は表示しない
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "2" )*/
+    -- 2:キャンセルの場合、キャンセルのみを表示する。
+    AND ( FRST_ORDER_HEAD.CANCEL_FLG = 1 OR FRST_ORDER_DETAIL.CANCEL_FLG = 1)
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 0 )	-- 非表示は表示しない
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "3" )*/
+    -- 3:どちらかの場合、削除及びキャンセルを表示する。
+    AND ( FRST_ORDER_HEAD.DEL_FLG = 1 OR FRST_ORDER_HEAD.CANCEL_FLG = 1 OR FRST_ORDER_DETAIL.DEL_FLG = 1 OR FRST_ORDER_DETAIL.CANCEL_FLG = 1 )
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 0 )	-- 非表示は表示しない
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "4" )*/
+    -- 4:どちらでもないの場合、削除、キャンセル、非表示以外を表示する。
+    AND ( FRST_ORDER_HEAD.DEL_FLG <> 1 AND FRST_ORDER_HEAD.CANCEL_FLG <> 1 AND FRST_ORDER_DETAIL.DEL_FLG <> 1 AND FRST_ORDER_DETAIL.CANCEL_FLG <> 1 )
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 0 )	-- 非表示は表示しない
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "5" )*/
+    -- 5:全キャンセルの場合、全キャンセルのみを表示する。
+    AND ( FRST_ORDER_HEAD.CANCEL_FLG = 1 )
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 0 )
+    /*END*/
+    /*IF ( condition.srhDeleteCancel == "6" )*/
+    -- 6:非表示　非表示の実を表示する
+    AND ( FRST_ORDER_HEAD.INVISIBLE_FLG = 1 )
+    /*END*/
+    
+GROUP BY
+   FRST_ORDER_HEAD.FRST_ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_DIVISION
+ , ORD_NM.NAME01 
+ , FRST_ORDER_HEAD.ORDER_DATE
+ , FRST_ORDER_HEAD.ORGANIZATION_CD
+ , ORGANIZATION.ORGANIZATION_NAME
+ , FRST_ORDER_HEAD.INPUT_TANTO_CD
+ , ILG.TANTO_NM
+ , FRST_ORDER_HEAD.SALES_TANTO_CD
+ , SLG.TANTO_NM
+ , FRST_ORDER_HEAD.VENDER_GROUP_CD
+ , OVM.VENDER_GROUP_NAME
+ , FRST_ORDER_HEAD.VENDER_CD
+ , VENDER.VENDER_SHORTED_NAME
+
+ , VENDER.VENDER_NAME1
+ , VENDER.VENDER_NAME2
+ , FRST_ORDER_HEAD.DELIVERY_CD
+ , DELIVERY.SEARCH_KANA
+ , DELIVERY.DELIVERY_NAME1
+ , DELIVERY.DELIVERY_NAME2
+ , FRST_ORDER_HEAD.DELIVERY_ADDRESS
+ , CONCAT(CONCAT(DELIVERY.ADDRESS1,DELIVERY.ADDRESS2),DELIVERY.ADDRESS3)
+ , DELIVERY.ADDRESS1
+ , DELIVERY.ADDRESS2
+ , DELIVERY.ADDRESS3
+ , DELIVERY.TEL_NO
+ , FRST_ORDER_HEAD.BALANCE_CD
+ , FRST_ORDER_HEAD.STATUS
+ , FRST_ORDER_HEAD.CUSTOMER_ORDER_NO
+ , FRST_ORDER_HEAD.ORDER_AMOUNT
+ , FRST_ORDER_HEAD.SUGGESTED_DELIVERLIMIT
+ , FRST_ORDER_HEAD.SCHEDULED_SHIPPING_DATE
+ , FRST_ORDER_HEAD.LEAD_TIME
+ , FRST_ORDER_HEAD.DELIVERY_EXPECTED_DATE
+ , FRST_ORDER_HEAD.DELIVERY_EXPECTED_TIME
+ , FRST_ORDER_HEAD.CARRY_CD
+ , CARRY.CARRY_NAME1
+ , FRST_ORDER_HEAD.CARRY_FARE
+ , FRST_ORDER_HEAD.CARRY_INVOICE_FLAG
+ , FRST_ORDER_HEAD.ORDER_PICTURE
+ , FRST_ORDER_HEAD.PRINT_SUMMERY
+ , FRST_ORDER_HEAD.DELIVERY_SLIP_SUMMERY
+ , FRST_ORDER_HEAD.ORDER_SUMMERY
+ , FRST_ORDER_HEAD.DELIVERYDATE_CONTACT_SUMMERY   /* 20210906 Asclab Saita 納期連絡表専用備考追加対応 */
+ , FRST_ORDER_HEAD.TOTAL_WEIGHT
+ , FRST_ORDER_HEAD.DEL_FLG
+ , FRST_ORDER_HEAD.CANCEL_FLG
+ , FRST_ORDER_HEAD.INVISIBLE_FLG
+ , FRST_ORDER_HEAD.INPUT_DATE
+ , FRST_ORDER_HEAD.INPUTOR_CD
+ , INP_LG.TANTO_NM
+ , FRST_ORDER_HEAD.UPDATE_DATE
+ , FRST_ORDER_HEAD.UPDATOR_CD
+ , UPD_LG.TANTO_NM
+ORDER BY
+	-- 20210528 ソート順序を①納入予定日、②受注番号、③先付受注番号に変更
+	FRST_ORDER_HEAD.SCHEDULED_SHIPPING_DATE	
+,	FRST_ORDER_HEAD.ORDER_NO
+
+,     FRST_ORDER_HEAD.FRST_ORDER_NO

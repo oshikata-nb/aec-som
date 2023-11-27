@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから配合一覧 ====================================-->
+		<!-- grecipeFormulaListForm -->
+
+<!--==================================== ここから配合詳細 ====================================-->
+		<!-- grecipeFormulaDetailForm -->
+        <form name="grecipeFormulaDetailForm">
+			<!-- 品目コード -->
+			<field property="itemCd" depends="required,mask">
+				<arg0 key="item.grecipe.product" />
+				<msg name="mask" key="errors.alphameric.code"/>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+			<!-- 配合量 -->
+			<field property="qty" depends="required,validateDegit">
+				<arg key="item.grecipe.formula.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO_RITU</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.memo" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.description" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+			<!-- 投入速度 -->
+			<field property="tonyuSokudo" depends="validateDegit">
+				<arg key="item.grecipe.tonyu.sokudo" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

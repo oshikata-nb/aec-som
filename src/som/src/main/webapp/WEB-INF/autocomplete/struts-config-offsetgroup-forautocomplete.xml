@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- autocomplete -->
+		<form-bean name="generalParameterForm"
+			type="com.asahikaseieng.app.autocomplete.GeneralParameterForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ auto complete -->
+		<action path="/OffsetGroupForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.offsetgroup.OffsetGroupForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/offsetgroup/offsetgroup_forautocomplete.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

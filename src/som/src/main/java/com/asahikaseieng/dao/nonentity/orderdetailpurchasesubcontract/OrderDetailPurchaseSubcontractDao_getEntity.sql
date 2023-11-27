@@ -1,0 +1,7 @@
+SELECT
+	*
+FROM
+	PURCHASE_SUBCONTRACT
+WHERE
+	ORDER_NO  = /*orderNo*/
+AND	ORDER_ROW_NO = /*orderRowNo*/

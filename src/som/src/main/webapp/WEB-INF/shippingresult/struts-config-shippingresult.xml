@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 出荷実績検索 -->
+		<form-bean name="shippingResultListForm"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultListForm" />
+
+		<!-- 出荷実績詳細 -->
+		<form-bean name="shippingResultDetailForm"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultDetailForm" />
+
+		<!-- ロット検索ポップアップ -->
+		<form-bean name="shippingResultLotSearchForm"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultLotSearchForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 出荷実績検索-->
+		<action path="/ShippingResultList"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultListAction"
+			name="shippingResultListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shippingresult/shippingresult_list.jsp">
+
+			<forward name="success"
+				path="/jsp/shippingresult/shippingresult_list.jsp" />
+			<forward name="reSearch"
+				path="/ShippingResultList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 出荷実績詳細-->
+		<action path="/ShippingResultDetail"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultDetailAction"
+			name="shippingResultDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/shippingresult/shippingresult_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/shippingresult/shippingresult_detail.jsp" />
+			<forward name="back"
+				path="/ShippingResultList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ ロット検索ポップアップ -->
+		<action path="/ShippingResultLotSearch"
+			type="com.asahikaseieng.app.shippingresult.ShippingResultLotSearchAction"
+			name="shippingResultLotSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/shippingresult/shippingresult_lot_search.jsp">
+
+			<forward name="success"
+				path="/jsp/shippingresult/shippingresult_lot_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

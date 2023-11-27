@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- bankDetail -->
+		<form name="bankDetailForm">
+			<!-- 銀行コード -->
+			<field property="bankCd" depends="requiredif, mask">
+				<arg0 key="bank.bank.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 銀行カナ名称 -->
+			<field property="bankKanaName" depends="requiredif,mask">
+				<arg0 key="bank.bank.kana.name" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 銀行名称 -->
+			<field property="bankName" depends="requiredif">
+				<arg0 key="bank.bank.name" />
+			</field>
+
+			<!-- 支店コード -->
+			<field property="branchCd" depends="requiredif, mask">
+				<arg0 key="bank.branch.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 支店カナ名称 -->
+			<field property="branchKanaName"
+				depends="requiredif,mask">
+				<arg0 key="bank.branch.kana.name" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 支店名称 -->
+			<field property="branchName" depends="requiredif">
+				<arg0 key="bank.branch.name" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

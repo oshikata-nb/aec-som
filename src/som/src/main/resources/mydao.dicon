@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components namespace="dao">
+
+	<include path="j2ee.dicon"/>
+
+	<component class="org.seasar.dao.impl.AnnotationReaderFactoryImpl"/>
+	<component
+		class="org.seasar.dao.impl.ValueTypeFactoryImpl"/>
+	<component 
+		name="stringClobType" 
+		class="org.seasar.extension.jdbc.types.StringClobType"/>
+
+	<component 
+		name="resultSetFactory"
+		class="org.seasar.dao.pager.ThresholdPagerResultSetFactoryWrapper">
+		<arg>
+			<component class="org.seasar.extension.jdbc.impl.OracleResultSetFactory"/>
+		</arg>
+		<property name="useScrollCursor">true</property>
+	</component>
+
+	<component
+		class="org.seasar.dao.impl.DaoMetaDataFactoryImpl">
+		<property name="sqlFileEncoding">"UTF-8"</property>
+	</component>
+	<component class="org.seasar.dao.impl.BeanMetaDataFactoryImpl"/>
+	<component class="org.seasar.dao.impl.DaoNamingConventionImpl"/>
+	<component class="org.seasar.dao.impl.BeanEnhancerImpl"/>
+<component class="org.seasar.dao.impl.ResultSetHandlerFactoryImpl"/>
+<component class="org.seasar.dao.impl.DtoMetaDataFactoryImpl"/>
+<component class="org.seasar.dao.impl.PropertyTypeFactoryBuilderImpl"/>
+<component class="org.seasar.dao.impl.RelationPropertyTypeFactoryBuilderImpl"/>
+<component class="org.seasar.dao.impl.DefaultTableNaming"/>
+<component class="org.seasar.dao.impl.DefaultColumnNaming"/>
+<component class="org.seasar.dao.impl.ProcedureMetaDataFactoryImpl"/>
+
+	<!-- dao bean のコールバック -->
+	<component name="interceptor"
+		class="com.asahikaseieng.seasar.aop.interceptors.PropertyTransferInitInterceptor">
+		<arg>
+			<component class="org.seasar.dao.pager.PagerS2DaoInterceptorWrapper">
+				<arg>
+					<component name="s2dao"
+						class="org.seasar.dao.interceptors.S2DaoInterceptor">
+					</component>
+				</arg>
+			</component>
+		</arg>
+	</component>
+
+</components>

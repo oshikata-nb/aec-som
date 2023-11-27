@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- paymentupdate -->
+		<form-bean name="fbdataMakingForm"
+			type="com.asahikaseieng.app.payment.fbdatamaking.FbdataMakingForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ fbdatamaking -->
+		<action path="/FbdataMaking"
+			type="com.asahikaseieng.app.payment.fbdatamaking.FbdataMakingAction"
+			name="fbdataMakingForm" validate="true" parameter="op"
+			scope="session" input="/jsp/payment/fbdatamaking.jsp">
+
+			<forward name="success"
+				path="/jsp/payment/fbdatamaking.jsp" />
+			<forward name="error" path="/jsp/payment/fbdatamaking.jsp" />
+			<forward name="reSearch" path="/FbdataMaking.do?op=search" />
+			<forward name="downLoadRefresh"
+				path="/FbdataMaking.do?op=downLoadRefresh" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

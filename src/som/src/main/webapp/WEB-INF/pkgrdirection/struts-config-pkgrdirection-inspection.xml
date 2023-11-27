@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装実績－検査一覧画面 -->
+		<form-bean name="pkgRdirectionInspectionListForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionInspectionListForm" />
+		<!-- 包装実績－検査詳細画面 -->
+		<form-bean name="pkgRdirectionInspectionDetailForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionInspectionDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装実績－検査一覧 -->
+
+		<action path="/PkgRdirectionInspectionList"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionInspectionListAction"
+			name="pkgRdirectionInspectionListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_inspection_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgrdirection/pkgrdirection_inspection_list.jsp" />
+			<forward name="error"	path="/jsp/pkgrdirection/pkgrdirection_inspection_list.jsp" />
+			<forward name="back" path="/PkgRdirectionList.do?op=reSearch" />
+			<forward name="reSearch"	path="/PkgRdirectionInspectionList.do?op=reSearch" />
+		</action>
+		<!-- ================================================= 包装指図－検査詳細 -->
+		<action path="/PkgRdirectionInspectionDetail"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionInspectionDetailAction"
+			name="pkgRdirectionInspectionDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_inspection_detail.jsp"
+			parameter="op">
+
+			<forward name="success"	path="/jsp/pkgrdirection/pkgrdirection_inspection_detail.jsp" />
+			<forward name="error"   path="/jsp/pkgrdirection/pkgrdirection_inspection_detail.jsp" />
+			<forward name="back" path="/PkgRdirectionInspectionList.do?op=reSearch" />
+			
+		</action>
+	</action-mappings>
+</struts-config>

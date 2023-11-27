@@ -1,0 +1,1 @@
+mvn -Dwtpversion=1.5 -DdownloadSources=true eclipse:eclipse

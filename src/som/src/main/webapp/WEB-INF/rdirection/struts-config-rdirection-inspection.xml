@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造実績検査Form -->
+		<form-bean name="rdirectionInspectionListForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionInspectionListForm" />
+		<form-bean name="rdirectionInspectionDetailForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionInspectionDetailForm" />
+		
+	
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造実績検査一覧 -->
+
+		<action path="/RdirectionInspectionList"
+			type="com.asahikaseieng.app.rdirection.RdirectionInspectionListAction"
+			name="rdirectionInspectionListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/rdirection/rdirection_inspection_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/rdirection/rdirection_inspection_list.jsp" />
+			<forward name="error"	path="/jsp/rdirection/rdirection_inspection_list.jsp" />
+			<forward name="back" 	path="/RdirectionList.do?op=reSearch" />
+			<forward name="reSearch"	path="/RdirectionInspectionList.do?op=reSearch" />
+		</action>
+		
+		<!-- ================================================= 製造実績検査詳細 -->
+		<action path="/RdirectionInspectionDetail"
+			type="com.asahikaseieng.app.rdirection.RdirectionInspectionDetailAction"
+			name="rdirectionInspectionDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/rdirection/rdirection_inspection_detail.jsp">
+
+			<forward name="success"	path="/jsp/rdirection/rdirection_inspection_detail.jsp" />
+			<forward name="error"	path="/jsp/rdirection/rdirection_inspection_detail.jsp" />
+			<forward name="back"	path="/RdirectionInspectionList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+</struts-config>

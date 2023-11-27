@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装実績検索 -->
+		<form-bean name="PkgRdirectionListForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionListForm" />
+
+		<!-- 包装実績－製造指図詳細ポップアップ画面 -->
+		<form-bean name="PkgRdirectionDirectionDetailSearchForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionDirectionDetailSearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 包装実績検索 -->
+		<action path="/PkgRdirectionList"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionListAction"
+			name="PkgRdirectionListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/pkgrdirection/pkgrdirection_list.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgrdirection/pkgrdirection_list.jsp" />
+			<forward name="reSearch"
+				path="/PkgRdirectionList.do?op=reSearch" />
+			<forward name="reFresh"
+				path="/PkgRdirectionList.do?op=reFresh" />
+		</action>
+
+		<!-- ================================================ 包装実績－製造指図詳細ポップアップ -->
+		<action path="/PkgRdirectionDirectionDetailSearch"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionDirectionDetailSearchAction"
+			name="PkgRdirectionDirectionDetailSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/pkgrdirection/pkgrdirection_directiondetail_search.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgrdirection/pkgrdirection_directiondetail_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

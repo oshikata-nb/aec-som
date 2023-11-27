@@ -1,0 +1,880 @@
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<!--
+
+   This file contains the default Struts Validator pluggable validator
+   definitions.  It should be placed somewhere under /WEB-INF and
+   referenced in the struts-config.xml under the plug-in element
+   for the ValidatorPlugIn.
+
+      <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,
+                                                  /WEB-INF/validation.xml"/>
+      </plug-in>
+
+   These are the default error messages associated with
+   each validator defined in this file.  They should be
+   added to your projects ApplicationResources.properties
+   file or you can associate new ones by modifying the
+   pluggable validators msg attributes in this file.
+
+   # Struts Validator Error Messages
+   errors.required={0} is required.
+   errors.minlength={0} can not be less than {1} characters.
+   errors.maxlength={0} can not be greater than {1} characters.
+   errors.maxstringnum={0} can not be greater than {1} characters.
+   errors.invalid={0} is invalid.
+
+   errors.byte={0} must be a byte.
+   errors.short={0} must be a short.
+   errors.integer={0} must be an integer.
+   errors.long={0} must be a long.
+   errors.float={0} must be a float.
+   errors.double={0} must be a double.
+
+   errors.date={0} is not a date.
+   errors.range={0} is not in the range {1} through {2}.
+   errors.creditcard={0} is an invalid credit card number.
+   errors.email={0} is an invalid e-mail address.
+   errors.url={0} is an invalid url (web address).
+
+   errors.minbytelength={0} can not be less than {1} bytes.
+   errors.maxbytelength={0} can not be greater than {1} bytes.
+
+   Note: Starting in Struts 1.2.0 the default javascript definitions have
+         been consolidated to commons-validator. The default can be overridden
+         by supplying a <javascript> element with a CDATA section, just as
+         in struts 1.1.
+
+-->
+
+<form-validation>
+
+   <global>
+
+      <validator name="required"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateRequired"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+                  msg="errors.required"/>
+
+<!--
+      <validator name="requiredif"
+                 classname="org.apache.struts.validator.FieldChecks"
+                 method="validateRequiredIf"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                               org.apache.commons.validator.Validator,
+                               javax.servlet.http.HttpServletRequest"
+                 msg="errors.required"/>
+ -->
+      <validator name="validwhen"
+          msg="errors.required"
+                 classname="org.apache.struts.validator.validwhen.ValidWhen"
+                 method="validateValidWhen"
+                 methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"/>
+
+
+      <validator name="minlength"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateMinLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.minlength"
+           jsFunction="org.apache.commons.validator.javascript.validateMinLength"/>
+
+
+      <validator name="maxlength"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateMaxLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxlength"
+           jsFunction="org.apache.commons.validator.javascript.validateMaxLength"/>
+
+      <validator name="maxstringnum"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateMaxLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxstringnum"
+           jsFunction="org.apache.commons.validator.javascript.validateMaxLength"/>
+
+
+      <validator name="mask"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateMask"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.invalid"/>
+
+
+      <validator name="byte"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateByte"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.byte"
+       jsFunctionName="ByteValidations"/>
+
+
+      <validator name="short"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateShort"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.short"
+       jsFunctionName="ShortValidations"/>
+
+	  <!--
+      <validator name="integer"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateInteger"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.integer"
+       jsFunctionName="IntegerValidations"/>
+
+      <validator name="long"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateLong"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.long"/>
+-->
+
+      <validator name="float"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateFloat"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.float"
+       jsFunctionName="FloatValidations"/>
+
+      <validator name="double"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateDouble"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.double"/>
+
+	  <!--
+      <validator name="date"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateDate"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.date"
+       jsFunctionName="DateValidations"/>
+       -->
+
+      <validator name="intRange"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateIntRange"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends="integer"
+                  msg="errors.range"/>
+
+
+      <validator name="floatRange"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateFloatRange"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends="float"
+                  msg="errors.range"/>
+
+      <validator name="doubleRange"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateDoubleRange"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends="double"
+                  msg="errors.range"/>
+
+      <validator name="creditCard"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateCreditCard"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.creditcard"/>
+
+
+      <validator name="email"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateEmail"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.email"/>
+
+      <validator name="url"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateUrl"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.url"/>
+
+      <validator name="minbytelength"
+            classname="org.seasar.struts.validator.FieldChecks"
+               method="validateMinByteLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.minbytelength"/>
+
+
+      <validator name="maxbytelength"
+            classname="org.seasar.struts.validator.FieldChecks"
+               method="validateMaxByteLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxbytelength"/>
+
+      <!-- ==================== カスタムした既存ルール ==================== -->
+
+      <!-- チェック方法をカスタマイズ -->
+
+      <validator name="date"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDate"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.date"
+       jsFunctionName="DateValidations"/>
+
+      <!-- ===== 全角数字を対象としない為 =====  -->
+
+      <validator name="integer"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateInteger"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.integer"/>
+
+      <validator name="long"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateLong"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- ==================== Validator If ==================== -->
+
+      <validator name="requiredif"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateRequiredIf"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.required"/>
+
+      <validator name="maskif"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateMaskIf"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.invalid"/>
+
+      <validator name="dateif"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDateIf"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.date"/>
+
+      <!-- ==================== カスタムRules ==================== -->
+
+      <validator name="decimal"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateDecimal"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                               javax.servlet.http.HttpServletRequest"
+                 msg="errors.decimal"/>
+
+      <validator name="string"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateString"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                               javax.servlet.http.HttpServletRequest"
+                 msg=""/>
+
+      <validator name="alphabet"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateAlphabet"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                               javax.servlet.http.HttpServletRequest"
+                 msg="errors.alphabet"/>
+
+      <validator name="alphanumeric"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateAlphanumeric"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                               javax.servlet.http.HttpServletRequest"
+                 msg="errors.alphanumeric"/>
+
+      <validator name="selected"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateSelected"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.selected"/>
+
+      <validator name="compare"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateCompare"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg=""/>
+
+      <!-- ==================== カスタムRules：Validator If ==================== -->
+
+      <validator name="decimalif"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateDecimalIf"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                     		   org.apache.commons.validator.Validator,
+                               javax.servlet.http.HttpServletRequest"
+                 msg="errors.decimal"/>
+
+      <validator name="stringif"
+                 classname="com.asahikaseieng.struts.validator.Rules"
+                 method="validateStringIf"
+                 methodParams="java.lang.Object,
+                               org.apache.commons.validator.ValidatorAction,
+                               org.apache.commons.validator.Field,
+                               org.apache.struts.action.ActionMessages,
+                     		   org.apache.commons.validator.Validator,
+                               javax.servlet.http.HttpServletRequest"
+                 msg=""/>
+
+      <validator name="selectedif"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateSelectedIf"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.selected"/>
+
+      <validator name="compareif"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateCompareIf"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg=""/>
+
+      <!-- ==================== カンマ対応 ==================== -->
+
+      <!-- 1.Integer -->
+      <validator name="integerEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateIntegerEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.integer"
+       jsFunctionName="IntegerExValidations"/>
+
+      <!-- 2.Double -->
+      <validator name="doubleEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDoubleEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"
+       jsFunctionName="DoubleExValidations"/>
+
+      <!-- 3.BigDecimal -->
+      <validator name="bigDecimalEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateBigDecimalEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- 4.Long -->
+      <validator name="longEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateLongEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"
+       jsFunctionName="LongExValidations"/>
+
+      <!-- 5.Float -->
+      <validator name="floatEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateFloatEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"
+       jsFunctionName="FloatExValidations"/>
+
+      <!-- 1.Integer (Range) -->
+      <validator name="intRangeEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateIntRangeEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"
+       jsFunctionName="IntRangeExValidations"/>
+
+      <!-- 2.Double (Range) -->
+      <validator name="doubleRangeEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDoubleRangeEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"
+       jsFunctionName="DoubleRangeExValidations"/>
+
+      <!-- 3.BigDecimal (Range) -->
+      <validator name="bigDecimalRangeEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateBigDecimalRangeEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+      <!-- 4.Long (Range) -->
+      <validator name="longRangeEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateLongRangeEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"
+       jsFunctionName="LongRangeExValidations"/>
+
+      <!-- 5.Float (Range) -->
+      <validator name="floatRangeEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateFloatRangeEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"
+       jsFunctionName="LongFloatExValidations"/>
+
+      <!-- ==================== カンマ対応：Validator If ==================== -->
+
+      <!-- 1.Integer -->
+      <validator name="integerifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateIntegerIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.integer"/>
+
+      <!-- 2.Double -->
+      <validator name="doubleifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDoubleIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- 3.BigDecimal -->
+      <validator name="bigDecimalifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateBigDecimalIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- 4.Long -->
+      <validator name="longifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateLongIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- 5.Float -->
+      <validator name="floatifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateFloatIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.number"/>
+
+      <!-- 1.Integer (Range) -->
+      <validator name="intRangeifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateIntRangeIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+      <!-- 2.Double (Range) -->
+      <validator name="doubleRangeifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateDoubleRangeIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+      <!-- 3.BigDecimal (Range) -->
+      <validator name="bigDecimalRangeifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateBigDecimalRangeIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+      <!-- 4.Long (Range) -->
+      <validator name="longRangeifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateLongRangeIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+      <!-- 5.Float (Range) -->
+      <validator name="floatRangeifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateFloatRangeIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.rang"/>
+
+       <validator name="compareEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateCompareEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg=""/>
+
+      <validator name="compareifEx"
+            classname="com.asahikaseieng.struts.validator.Rules"
+               method="validateCompareIfEx"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg=""/>
+
+      <!-- ==================== Extends Rules ==================== -->
+
+     <validator name="extends"
+                 classname="com.asahikaseieng.struts.validator.ValidatorExtendsRule"
+                 method="validateExtends"
+                 methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest,
+                       javax.servlet.ServletContext"
+                 msg=""/>
+
+      <!-- ==================== Extends Rules：Validator If ==================== -->
+
+     <validator name="extendsif"
+                 classname="com.asahikaseieng.struts.validator.ValidatorExtendsRule"
+                 method="validateExtendsIf"
+                 methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest,
+                       javax.servlet.ServletContext"
+                 msg=""/>
+
+      <!-- ==================== 数値桁数チェックマスタを用いた入力チェック==================== -->
+      <!-- validateDegit  -->
+      <validator name="validateDegit"
+                 classname="com.asahikaseieng.struts.validator.ValidateDigit"
+                 method="validateDegit"
+		         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+                 msg="errors.degit"/>
+
+      <!-- validateDegitIf  -->
+      <validator name="validateDegitIf"
+                 classname="com.asahikaseieng.struts.validator.ValidateDigit"
+                 method="validateDegitIf"
+		         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+                 msg="errors.degit"/>
+
+   </global>
+
+</form-validation>

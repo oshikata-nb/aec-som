@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Aec Web Application</display-name>
+
+	<!-- ===== filter definitions ===== -->
+	<filter>
+		<filter-name>sanitizing</filter-name>
+		<filter-class>
+			com.asahikaseieng.filter.SanitizingFilter
+		</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>s2filter</filter-name>
+		<filter-class>
+			org.seasar.framework.container.filter.S2ContainerFilter
+		</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>s2strutsfilter</filter-name>
+		<filter-class>
+			org.seasar.struts.filter.S2StrutsFilter
+		</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>encodingfilter</filter-name>
+		<filter-class>
+			org.seasar.extension.filter.EncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<!-- ===== filter mapping ===== -->
+	<filter-mapping>
+		<filter-name>sanitizing</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>s2filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>s2strutsfilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>encodingfilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>s2container</servlet-name>
+		<servlet-class>
+			org.seasar.framework.container.servlet.S2ContainerServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Standard Action Servlet Configuration (with debugging) -->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>
+			com.asahikaseieng.struts.ApplicationServlet
+		</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>
+				/WEB-INF/accept/struts-config-accept.xml,
+				/WEB-INF/arrival/struts-config-arrival.xml,
+				/WEB-INF/aspimport/struts-config-aspimport.xml,
+				/WEB-INF/autocomplete/struts-config-accounts-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-area-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-bank-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-bumon-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-cal-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-company-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-carry-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-component-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-delivery-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-financialclass-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-itemcategory-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-item-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-itemqueue-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-line-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-location-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-login-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-names-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-offsetgroup-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-operation-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-organization-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-post-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-reason-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-recipeasprova-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-recipeheader-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-recipepegresouce-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-reciperesouce-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-reciperesoucegroup-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-role-forautocomplete.xml,
+				/WEB-INF/autocomplete/struts-config-vender-forautocomplete.xml,
+				/WEB-INF/beforehandmeltlbl/struts-config-beforehandmeltlbl.xml,
+				/WEB-INF/buying/struts-config-buying.xml,
+				/WEB-INF/buyingapproval/struts-config-buyingapproval.xml,
+				/WEB-INF/carryshipping/struts-config-carryshipping.xml,
+				/WEB-INF/checkdigit/struts-config-checkdigit.xml,
+				/WEB-INF/claim/struts-config-billissue.xml,
+				/WEB-INF/claim/struts-config-claimbalance.xml,
+				/WEB-INF/claim/struts-config-claimrollback-csm.xml,
+				/WEB-INF/claim/struts-config-claimrollback-csm.xml,
+				/WEB-INF/claim/struts-config-claimupdate-csm.xml,
+				/WEB-INF/claim/struts-config-deposit.xml,
+				/WEB-INF/claim/struts-config-depositplan.xml,
+				/WEB-INF/claim/struts-config-eraser-csm.xml,
+				/WEB-INF/common/struts-config-batchwait.xml,
+				/WEB-INF/cost/struts-config-costaccounting.xml,
+				/WEB-INF/credit/struts-config-arbalance.xml,
+				/WEB-INF/credit/struts-config-arledger.xml,
+				/WEB-INF/credit/struts-config-arrollback-csm.xml,
+				/WEB-INF/credit/struts-config-arrollback-csm.xml,
+				/WEB-INF/credit/struts-config-artrans.xml,
+				/WEB-INF/credit/struts-config-arupdate.xml,
+				/WEB-INF/dailyreport/struts-config-dailyreport.xml,
+				/WEB-INF/debt/struts-config-apbalance.xml,
+				/WEB-INF/debt/struts-config-apledger.xml,
+				/WEB-INF/debt/struts-config-aprollback.xml,
+				/WEB-INF/debt/struts-config-aptrans.xml,
+				/WEB-INF/debt/struts-config-apupdate.xml,
+				/WEB-INF/direction/struts-config-direction.xml,
+				/WEB-INF/direction/struts-config-direction-materialused.xml,
+				/WEB-INF/direction/struts-config-direction-finish.xml,
+				/WEB-INF/direction/struts-config-direction-formula.xml,
+				/WEB-INF/direction/struts-config-direction-header.xml,
+				/WEB-INF/direction/struts-config-direction-inspection.xml,
+				/WEB-INF/direction/struts-config-direction-procedure.xml,
+				/WEB-INF/directionstatuschange/struts-config-directionstatuschange.xml,
+				/WEB-INF/estimate/struts-config-estimate.xml,
+				/WEB-INF/gadget/struts-config-gadget.xml,
+				/WEB-INF/grecipe/struts-config-grecipe.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-finish.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-formula.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-header.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-inspection.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-other.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-procedure.xml,
+				/WEB-INF/grecipe/struts-config-grecipe-specifics.xml,
+				/WEB-INF/inout/struts-config-inoutlist.xml,
+				/WEB-INF/inout/struts-config-inoutmonthlycancel.xml,
+				/WEB-INF/inout/struts-config-inoutmonthlyupdate.xml,
+				/WEB-INF/inout/struts-config-inoutmaterial.xml,
+				/WEB-INF/inout/struts-config-inoutmonthlyreport.xml,
+				/WEB-INF/inquiry/struts-config-inquiryinputlist.xml,
+				/WEB-INF/inquiry/struts-config-inquirypreparation.xml,
+				/WEB-INF/inquiry/struts-config-inquirypreparationcancel.xml,
+				/WEB-INF/inquiry/struts-config-inquiryupdate.xml,
+				/WEB-INF/inventory/struts-config-inventory.xml,
+				/WEB-INF/inventory/struts-config-inventorydrawing.xml,
+				/WEB-INF/inventory/struts-config-inventorylist.xml,
+				/WEB-INF/inventory/struts-config-inventorymove.xml,
+				/WEB-INF/inventory/struts-config-inventoryshippingout.xml,
+				/WEB-INF/inventory/struts-config-inventorystock.xml,
+				/WEB-INF/master/search/struts-config-itemqueuesearch.xml,
+				/WEB-INF/master/search/struts-config-itemsearch.xml,
+				/WEB-INF/master/search/struts-config-operationsearch.xml,
+				/WEB-INF/master/search/struts-config-recipeheadersearch.xml,
+				/WEB-INF/master/struts-config-accounts.xml,
+				/WEB-INF/master/struts-config-area.xml,
+				/WEB-INF/master/struts-config-balance.xml,
+				/WEB-INF/master/struts-config-bank.xml,
+				/WEB-INF/master/struts-config-belong.xml,
+				/WEB-INF/master/struts-config-belongrole.xml,
+				/WEB-INF/master/struts-config-bumon.xml,
+				/WEB-INF/master/struts-config-cal.xml,
+				/WEB-INF/master/struts-config-company.xml,
+				/WEB-INF/master/struts-config-carry.xml,
+				/WEB-INF/master/struts-config-carryfile.xml,
+				/WEB-INF/master/struts-config-chgpwd.xml,
+				/WEB-INF/master/struts-config-component.xml,
+				/WEB-INF/master/struts-config-delivery.xml,
+				/WEB-INF/master/struts-config-financialclass.xml,
+				/WEB-INF/master/struts-config-item.xml,
+				/WEB-INF/master/struts-config-itemcategory.xml,
+				/WEB-INF/master/struts-config-line.xml,
+				/WEB-INF/master/struts-config-location.xml,
+				/WEB-INF/master/struts-config-login.xml,
+				/WEB-INF/master/struts-config-names.xml,
+				/WEB-INF/master/struts-config-offsetgroup.xml,
+				/WEB-INF/master/struts-config-operation.xml,
+				/WEB-INF/master/struts-config-ordervenderlink.xml,
+				/WEB-INF/master/struts-config-organization.xml,
+				/WEB-INF/master/struts-config-post.xml,
+				/WEB-INF/master/struts-config-reason.xml,
+				/WEB-INF/master/struts-config-reciperesouce.xml,
+				/WEB-INF/master/struts-config-reciperesoucegroup.xml,
+				/WEB-INF/master/struts-config-remark.xml,
+				/WEB-INF/master/struts-config-role.xml,
+				/WEB-INF/master/struts-config-salesterms.xml,
+				/WEB-INF/master/struts-config-unitprice.xml,
+				/WEB-INF/master/struts-config-vender.xml,
+				/WEB-INF/master/struts-config-salestermsandestimate.xml,
+				/WEB-INF/materialrinput/struts-config-materialrinput.xml,
+				/WEB-INF/monthlyvender/struts-config-monthlyvender.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-asprova.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-finish.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-formula.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-inspection.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-other.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-procedure.xml,
+				/WEB-INF/mgrecipe/struts-config-mgrecipe-specifics.xml,
+				/WEB-INF/midinspectcomp/struts-config-midinspectcomp.xml,
+				/WEB-INF/order/struts-config-order.xml,
+				/WEB-INF/order/struts-config-orderimport.xml,
+				/WEB-INF/payment/struts-config-fbdatamaking.xml,
+				/WEB-INF/payment/struts-config-offset.xml,
+				/WEB-INF/payment/struts-config-paymentbalance.xml,
+				/WEB-INF/payment/struts-config-payment-csm.xml,
+				/WEB-INF/payment/struts-config-paymentplan.xml,
+				/WEB-INF/payment/struts-config-paymentrollback.xml,
+				/WEB-INF/payment/struts-config-paymentupdate.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection-finish.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection-formula.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection-header.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection-inspection.xml,
+				/WEB-INF/pkgdirection/struts-config-pkgdirection-procedure.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection-finish.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection-formula.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection-header.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection-inspection.xml,
+				/WEB-INF/pkgrdirection/struts-config-pkgrdirection-procedure.xml,
+				/WEB-INF/productinspectcomp/struts-config-productinspectcomp.xml,
+				/WEB-INF/production/struts-config-production.xml,
+				/WEB-INF/productionplan/struts-config-productionplan.xml,
+				/WEB-INF/purchase/struts-config-purchase.xml,
+				/WEB-INF/purchasedelivery/struts-config-purchasedelivery.xml,
+				/WEB-INF/purchaseorder/struts-config-purchaseorder.xml,
+				/WEB-INF/rdirection/struts-config-rdirection.xml,
+				/WEB-INF/rdirection/struts-config-rdirection-finish.xml,
+				/WEB-INF/rdirection/struts-config-rdirection-formula.xml,
+				/WEB-INF/rdirection/struts-config-rdirection-header.xml,
+				/WEB-INF/rdirection/struts-config-rdirection-inspection.xml,
+				/WEB-INF/rdirection/struts-config-rdirection-procedure.xml,
+				/WEB-INF/sales/struts-config-sales.xml,
+				/WEB-INF/shipping/struts-config-shipping.xml,
+				/WEB-INF/shippingresult/struts-config-shippingresult.xml,
+				/WEB-INF/slipsales/struts-config-slipsales.xml,
+				/WEB-INF/slipshipping/struts-config-slipshipping.xml,
+				/WEB-INF/stockbooking/struts-config-stockbooking.xml,
+				/WEB-INF/struts-config.xml,
+				/WEB-INF/tanklock/struts-config-tanklock.xml,
+				/WEB-INF/topic/struts-config-topic.xml
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>2</param-value>
+		</init-param>
+		<init-param>
+			<param-name>detail</param-name>
+			<param-value>2</param-value>
+		</init-param>
+		<init-param>
+			<param-name>javaEncoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- FileDownLoadServlet -->
+	<servlet>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<servlet-class>
+			com.asahikaseieng.servlet.FileDownloadServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- ChartServlet -->
+	<servlet>
+		<servlet-name>ChartServlet</servlet-name>
+		<servlet-class>
+			com.asahikaseieng.servlet.ChartServlet
+		</servlet-class>
+	</servlet>
+	<!--  
+		<servlet>
+		<servlet-name>qrcode</servlet-name>
+		<servlet-class>
+		com.asahikaseieng.servlet.QRCodeServlet
+		</servlet-class>
+		</servlet>
+	-->
+	<!-- ===== Servlet Mapping ===== -->
+	<servlet-mapping>
+		<servlet-name>s2container</servlet-name>
+		<url-pattern>/s2container</url-pattern>
+	</servlet-mapping>
+
+	<!-- Standard Action Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- DataFile Download Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<url-pattern>/FileDownload/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Chart Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>ChartServlet</servlet-name>
+		<url-pattern>/chart.jpg</url-pattern>
+	</servlet-mapping>
+
+	<!-- ===== Other ===== -->
+	<!--  
+		<servlet-mapping>
+		<servlet-name>qrcode</servlet-name>
+		<url-pattern>/qrcode</url-pattern>
+		</servlet-mapping>
+	-->
+	<!--  session timeout -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<!-- Mime Mapping -->
+	<mime-mapping>
+		<extension>htm</extension>
+		<mime-type>text/html; charset=UTF-8</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html; charset=UTF-8</mime-type>
+	</mime-mapping>
+
+	<!-- The Usual Welcome File List -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Error Page -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.html</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/Error.do</location>
+	</error-page>
+
+	<!-- ===== Struts Tag Library Descriptors ===== -->
+	<taglib>
+		<taglib-uri>/tags/app</taglib-uri>
+		<taglib-location>/WEB-INF/tld/app.tld</taglib-location>
+	</taglib>
+
+	<taglib>
+		<taglib-uri>/tags/pager</taglib-uri>
+		<taglib-location>/WEB-INF/tld/pager.tld</taglib-location>
+	</taglib>
+
+	<!-- ===== Security Constraint ===== -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>jsp files</web-resource-name>
+			<url-pattern>/jsp/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint></auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+</web-app>

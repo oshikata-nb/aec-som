@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+<!--==================================== ここからSalestermsAndEstimateListForm ====================================-->
+		<!-- salestermsAndEstimateListFrom -->
+		<form name="salestermsAndEstimateListForm">
+ 			<!-- 入力日From -->
+			<field property="strSrhInputDateFrom" depends="date">
+				<arg key="item.salestermsandestimate.input.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 入力日To -->
+			<field property="strSrhInputDateTo" depends="date">
+				<arg key="item.salestermsandestimate.input.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 入力日 大小関係 -->
+			<field property="strSrhInputDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.salestermsandestimate.input.date.from" />
+				<arg1 key="item.salestermsandestimate.input.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strSrhInputDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>strSrhInputDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strSrhInputDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+		</form>
+<!--==================================== ここからSalestermsAndEstimateDetailForm ====================================-->
+		<!-- salestermsAndEstimateDetailForm -->
+		<form name="salestermsAndEstimateDetailForm">
+			<!-- コピー元・削除品目 -->
+			<field property="itemCdFrom" depends="requiredif">
+				<arg0 key="item.salestermsandestimate.item.cd.from" />
+			</field>
+			<!-- コピー先品目 -->
+			<field property="itemCdTo" depends="requiredif">
+				<arg0 key="item.salestermsandestimate.item.cd.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>processDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>4</var-value>
+				</var>
+				<var>
+  					<var-name>fieldJoin</var-name>
+  					<var-value>OR</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>processDivision</var-value>
+				</var>
+				
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[1]</var-name>
+					<var-value>5</var-value>
+				</var>
+				<var>
+  					<var-name>fieldJoin</var-name>
+  					<var-value>OR</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>processDivision</var-value>
+				</var>
+				
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[2]</var-name>
+					<var-value>6</var-value>
+				</var>
+			</field>
+			
+		</form>	
+	</formset>
+</form-validation>

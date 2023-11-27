@@ -1,0 +1,71 @@
+/*
+ * Created on 2009/02/26
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 品目入力時、検索SQL
+ *
+ * @author tosco
+ *
+ * entityName=BuyingDetail
+ * packageName=buying
+ * methodName=getItemRelatedData
+ *
+ */
+ 
+SELECT
+	ITEM.ITEM_NAME	AS ITEM_MASTER_NAME				-- 品目名称(購買外注オーダーの項目名と同じにする)
+,	ITEM.OTHER_COMPANY_CD1	AS OTHER_COMPANY_CD1	-- 他社コード１
+,	PAQ.VENDER_CD									-- 基準仕入先コード
+-- 入庫ロケーション、区分により取得する
+,	(CASE
+	 WHEN ITEM.TYPE_DIVISION = 4 THEN
+		NULL
+	 ELSE
+		CASE
+		WHEN ITEM.SPOT_DIVISION = 2 THEN
+			NULL
+		ELSE
+			ITEM.DEFAULT_LOCATION
+		END
+	END) AS HOUSING_LOCATION_CD
+-- 入庫ロケーション名称、区分により取得する
+,	(CASE
+	 WHEN ITEM.TYPE_DIVISION = 4 THEN
+		NULL
+	 ELSE
+		CASE
+		WHEN ITEM.SPOT_DIVISION = 2 THEN
+			NULL
+		ELSE
+			LOC.LOCATION_NAME
+		END
+	END) AS LOCATION_NAME
+,	ITEM.UNIT_OF_OPERATION_MANAGEMENT		--運用管理単位(購入数量の単位名称を取得するのに必要)
+,	NAME.NAME01	AS STOCKING_QUANTITY_UNIT	--購入数量の単位名称(画面表示)
+,	ITEM.KG_OF_FRACTION_MANAGEMENT			--Kg換算係数(在庫)(重量と金額の計算で必要)
+,	ITEM.SPOT_DIVISION						--スポット区分(品目名入力可／不可の判断)
+,	ITEM.STOCK_DIVISION						--在庫管理区分(仕入返品時の受払選択有無の判断）
+,	PAQ.SECTION_CD			AS	ACCOUNT_DEBIT_SECTION_CD	-- 借方部門コード
+,	PAQ.ACCOUNTS_CD			AS	DEBIT_TITLE_CD				-- 借方科目コード
+,	BUM.SECTION_NAME		AS	ACCOUNT_DEBIT_SECTION_NAME	-- 借方部門名称
+,	ACC.ACCOUNTS_NAME		AS	DEBIT_TITLE_NAME			-- 借方科目名称
+FROM	
+	ITEM
+,	PURCHASE_ATTRIBUTE_QUEUE PAQ
+,	NAMES		NAME
+,	LOCATION	LOC
+,	BUMON			BUM
+,	ACCOUNTS		ACC
+WHERE
+		ITEM.ITEM_CD = /*itemCd*/
+	AND PAQ.VERSION(+) = ITEM.VERSION
+	AND PAQ.ITEM_CD(+) = ITEM.ITEM_CD
+	AND NAME.NAME_DIVISION(+) = 'UNIT'
+	AND NAME.NAME_CD(+) = ITEM.UNIT_OF_OPERATION_MANAGEMENT
+	AND LOC.LOCATION_CD(+) = ITEM.DEFAULT_LOCATION
+	AND	BUM.SECTION_CD(+) = PAQ.SECTION_CD
+	AND	ACC.ACCOUNTS_CD(+) = PAQ.ACCOUNTS_CD

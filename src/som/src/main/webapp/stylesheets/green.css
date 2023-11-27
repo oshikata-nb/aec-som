@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+/*** ボタン ***/
+.cssButton {
+	/*background-color: #d1ec4c; */
+	border: 2px outset #d1ec4c;
+}
+
+.cssButton:hover {
+	background-color: #e3f48e;
+}
+
+/*** システムボタン ***/
+.sysButton{
+	background-color: #009900;
+	border: 1px #009900 outset;
+}
+
+/* 必須項目 */
+.cssRequired{
+	background-color:#D0FCF3;
+	border-color: 20A092;
+}
+
+/* インフォメーション */
+.cssInformation{
+	background-color:#20A092;
+	color:#ffffff;
+}
+
+/*** マイページ ***/
+/* タイトルバー */
+.msgtitle {
+  background-color: #df9;
+  border-top:   1px #009900 solid;
+}
+
+/*** 背景色 ***/
+/* 検索項目タイトル背景色 */
+.bcTitleSearch{background-color:#ccff99;}
+/* 一覧タイトル背景色 */
+.bcTitleList{background-color:#ccff99;}
+/* 一覧明細背景色(奇数) */
+.bcList1{background-color:#ffffff}
+/* 一覧明細背景色(偶数) */
+.bcList2{background-color:#efd;}
+/* 詳細タイトル背景色 */
+.bcTitleDetail{background-color:#ccff99;}
+/* 特別タイトル背景色 */
+.bcTitleSpacial{background-color:#99ccff;}
+.bcTitleLine{background-color:#009900;}
+.bcTitleClaim{background-color:#ff0000;}
+.bcTitleYellowCard{background-color:#ffd700;}
+.bcTitleCanceld{background-color:#e46673;}
+
+/* ロゴ背景色 */
+.bcLogo{background-color:#009900;}
+
+/*** 文字色 ***/
+/* タイトル文字色 */
+.fcTitle{color:#009900;}
+/* 検索項目タイトル文字色 */
+.fcTitleSearch{color:#009900;}
+/* 一覧タイトル文字色 */
+.fcTitleList{color:#009900;}
+/* 詳細タイトル文字色 */
+.fcTitleDetail{color:#009900;}
+/* 特別タイトル文字色 */
+.fcTitleSpacial{color:#0033ff;}
+/* 注意文字色 */
+.fcAlert{color:#ff0000;}
+
+/*** ボーダー色 ***/
+/* テーブル(デフォルト) */
+.bdcTable{border-color:#009900;}

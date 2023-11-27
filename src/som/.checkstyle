@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileset-config file-format-version="1.2.0" simple-config="false">
+    <local-check-config name="BaseCheck" location=".settings/AEC_BaseCheckStyle.XML" type="project" description="">
+        <additional-data name="protect-config-file" value="false"/>
+    </local-check-config>
+    <local-check-config name="Java Source" location=".settings/AEC_NormalCaseCheckStyle.XML" type="project" description="">
+        <additional-data name="protect-config-file" value="false"/>
+    </local-check-config>
+    <local-check-config name="Test Source" location=".settings/AEC_TestCaseCheckStyle.XML" type="project" description="">
+        <additional-data name="protect-config-file" value="false"/>
+    </local-check-config>
+    <fileset name="Java Source" enabled="true" check-config-name="Java Source" local="true">
+        <file-match-pattern match-pattern=".java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".Test\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*Mock.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*MailSender.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern="seasar.*java$" include-pattern="false"/>
+    </fileset>
+    <fileset name="Test Source" enabled="true" check-config-name="Test Source" local="true">
+        <file-match-pattern match-pattern=".Test\.java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".*Mock.*\.java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".*MailSender.*\.java$" include-pattern="false"/>
+    </fileset>
+    <fileset name="Base Check" enabled="true" check-config-name="BaseCheck" local="true">
+        <file-match-pattern match-pattern=".java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".Test\.java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".*Mock.*\.java$" include-pattern="true"/>
+        <file-match-pattern match-pattern=".*MailSender.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern="seasar.*java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*ValidatorExtendsRule.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*AecCrypt.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*AbstractAction.*\.java$" include-pattern="false"/>
+        <file-match-pattern match-pattern=".*MyPageAction.*\.java$" include-pattern="false"/>
+    </fileset>
+</fileset-config>

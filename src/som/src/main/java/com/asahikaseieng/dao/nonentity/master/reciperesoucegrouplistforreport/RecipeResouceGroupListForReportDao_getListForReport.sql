@@ -1,0 +1,32 @@
+/*
+ * 設備グループ帳票用SQL
+ *
+ * entityName=RecipeResouceGroupListForReport
+ * packageName=reciperesoucegrouplistforreport
+ * methodName=getListForReport
+ *
+ */
+
+SELECT RECIPE.*
+, OPERATION.OPERATION_GROUP_NAME
+, INPUTOR.TANTO_NM INPUTOR_NAME
+, UPDATOR.TANTO_NM UPDATOR_NAME
+
+FROM RECIPE_RESOUCE_GROUP RECIPE
+, OPERATION_GROUP OPERATION
+, LOGIN INPUTOR
+, LOGIN UPDATOR
+
+WHERE RECIPE.RESOUCE_GROUP_CD IS NOT NULL
+
+/*IF (condition.srhResouceGroupCd != null) && (condition.srhResouceGroupCd != "")*/
+AND (RECIPE.RESOUCE_GROUP_CD LIKE /*condition.srhResouceGroupCd*/'%' OR RECIPE.RESOUCE_GROUP_NAME LIKE /*condition.srhResouceGroupCd*/'%')
+/*END*/
+
+AND RECIPE.OPERATION_GROUP_CD = OPERATION.OPERATION_GROUP_CD(+)
+AND RECIPE.INPUTOR_CD = INPUTOR.TANTO_CD(+)
+AND RECIPE.UPDATOR_CD = UPDATOR.TANTO_CD(+)
+
+ORDER BY RECIPE.RESOUCE_GROUP_CD
+
+

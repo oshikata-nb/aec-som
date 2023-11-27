@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- organizationDetail -->
+		<form name="organizationDetailForm">
+			<!-- 部署コード -->
+			<field property="organizationCd"
+				depends="requiredif, mask">
+				<arg0 key="organization.organization.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+			<!-- Fromメールアドレス1 -->
+			<field property="fromMailAddress1"
+				depends="mask">
+				<arg0 key="organization.from.mail.address1" />
+				<msg name="mask" key="errors.email.organization.from.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			<!-- Fromメールアドレス2 -->
+			<field property="fromMailAddress2"
+				depends="mask">
+				<arg0 key="organization.from.mail.address2" />
+				<msg name="mask" key="errors.email.organization.from.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			<!-- Fromメールアドレス3 -->
+			<field property="fromMailAddress3"
+				depends="mask">
+				<arg0 key="organization.from.mail.address3" />
+				<msg name="mask" key="errors.email.organization.from.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

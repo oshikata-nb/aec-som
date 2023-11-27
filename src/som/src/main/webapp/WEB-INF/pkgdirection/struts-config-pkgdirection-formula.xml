@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図－配合一覧画面 -->
+		<form-bean name="pkgDirectionFormulaListForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionFormulaListForm" />
+
+		<!-- 包装指図－配合詳細画面 -->
+		<form-bean name="pkgDirectionFormulaDetailForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionFormulaDetailForm" />
+			
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装指図－配合一覧 -->
+
+		<action path="/PkgDirectionFormulaList"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionFormulaListAction"
+			name="pkgDirectionFormulaListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_formula_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_formula_list.jsp" />
+			<forward name="error" path="/jsp/pkgdirection/pkgdirection_formula_list.jsp" />
+			<forward name="back" path="/PkgDirectionList.do?op=reSearch" />
+			<forward name="reSearch" path="/PkgDirectionFormulaList.do?op=reSearch" />
+		</action>
+		
+		<!-- ================================================= 包装指図－配合詳細 -->
+
+		<action path="/PkgDirectionFormulaDetail"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionFormulaDetailAction"
+			name="pkgDirectionFormulaDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_formula_detail.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_formula_detail.jsp" />
+			<forward name="error" path="/jsp/pkgdirection/pkgdirection_formula_detail.jsp" />
+			<forward name="back" path="/PkgDirectionFormulaList.do?op=reSearch" />
+			<forward name="init" path="/PkgDirectionFormulaDetail.do?op=init" />
+		</action>
+
+	</action-mappings>
+</struts-config>

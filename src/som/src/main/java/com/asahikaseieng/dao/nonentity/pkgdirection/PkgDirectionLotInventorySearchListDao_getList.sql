@@ -1,0 +1,27 @@
+/*
+ * 包装指図－在庫確認ポップアップ画面検索用SQL
+ *
+ * entityName=PkgDirectionLotInventorySearchList
+ * packageName=pkgdirection
+ * methodName=getList
+ *
+ */
+
+SELECT
+	LOT_INVENTORY.LOCATION_CD			-- ロケーションコード
+,	LOT_INVENTORY.ITEM_CD				-- 品目コード
+,	LOT_INVENTORY.LOT_NO				-- 入荷ロット番号/包装指図番号
+,	LOT_INVENTORY.INVENTORY_QTY			-- 在庫数量
+,	ITEM.ITEM_NAME						-- 品目名称
+,	ITEM.UNIT_OF_OPERATION_MANAGEMENT 	-- 運用管理単位
+,	LOCATION.LOCATION_NAME				-- ロケーション名称
+FROM
+	LOT_INVENTORY
+,	ITEM
+,	LOCATION
+WHERE
+	LOT_INVENTORY.ITEM_CD = /*condition.itemCd*/
+AND	LOT_INVENTORY.ITEM_CD = ITEM.ITEM_CD(+)
+AND	LOT_INVENTORY.LOCATION_CD = LOCATION.LOCATION_CD(+)
+AND NVL(LOT_INVENTORY.INVENTORY_QTY, 0) > 0
+ORDER BY LOT_INVENTORY.LOCATION_CD,LOT_INVENTORY.LOT_NO

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから工程タブ ====================================-->
+		<!-- PkgRdirectionProcedureListForm -->
+        <form name="pkgRdirectionProcedureListForm">
+			<field property="" depends="">
+			</field>
+		</form>
+		<!-- PkgRdirectionProcedureDetailForm -->
+        <form name="pkgRdirectionProcedureDetailForm">
+        	<!-- 工程開始実績日付 -->
+			<field property="strResultSDay" depends="required">
+				<arg key="item.pkgrdirection.result.sday" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			<!-- 工程開始実績時間 -->
+			<field property="strResultSTime" depends="required">
+				<arg key="item.pkgrdirection.result.stime" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			<!-- 工程終了実績日付 -->
+			<field property="strResultEDay" depends="required">
+				<arg key="item.pkgrdirection.result.eday" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			<!-- 工程終了実績時間 -->
+			<field property="strResultETime" depends="required">
+				<arg key="item.pkgrdirection.result.etime" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			
+			<!-- 正味質量 -->
+			<field property="strNet" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.net" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 量目管理幅最小 -->
+			<field property="strWeightMin" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.weight.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 量目管理幅最大 -->
+			<field property="strWeightMax" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.weight.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 濾過用フィルター -->
+			<field property="strFilter" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.filter" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 濾過用メッシュ -->
+			<field property="strMesh" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.mesh" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ最小 -->
+			<field property="strAutoCheckerMin" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.auto.checker.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ最大 -->
+			<field property="strAutoCheckerMax" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.auto.checker.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ最小 -->
+			<field property="strGrossCheckerMin" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.gross.checker.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ最大 -->
+			<field property="strGrossCheckerMax" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.gross.checker.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｵｰﾄﾁｪｯｶｰ中心 -->
+			<field property="strAutoCheckerAve" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.auto.checker.ave" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ｸﾞﾛｽﾁｪｯｶｰ中心 -->
+			<field property="strGrossCheckerAve" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.gross.checker.ave" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 開きトルク最小 -->
+			<field property="strOpeningTorqueMin" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.opening.torque.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 開きトルク最大 -->
+			<field property="strOpeningTorqueMax" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.opening.torque.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 締めトルク最小 -->
+			<field property="strClosingTorqueMin" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.closing.torque.min" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 締めトルク最大 -->
+			<field property="strClosingTorqueMax" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.closing.torque.max" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- トルク圧 -->
+			<field property="strTorquePressure" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.strtorquepressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- エアー圧 -->
+			<field property="strAirPressure" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.air.pressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 巻締め時間 -->
+			<field property="strVcloseTime" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.vclose.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ﾎｯﾄｴｱｰ設定温度 -->
+			<field property="strHotAirPresetTemp" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.hot.air.preset.temp" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- ﾎｯﾄｴｱｰ吹き出し圧力 -->
+			<field property="strHotAirPressure" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.hot.air.pressure" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 第一ﾋｰﾄｼｰﾙ設定温度 -->
+			<field property="strFirstHeatSeal" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.first.heat.seal" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 第二ﾋｰﾄｼｰﾙ設定温度 -->
+			<field property="strSecondHeatSeal" depends="validateDegit">
+				<arg0 key="item.pkgrdirection.str.second.heat.seal" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>fixedUnitDiv</var-value>
+				</var>
+			</field>
+			<!-- 工程条件自由入力 -->
+			<field property="condition" depends="maxlength">
+				<arg0 key="item.pkgrdirection.condition" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.pkgrdirection.proc.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.pkgrdirection.proc.notes" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+		</form>
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

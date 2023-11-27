@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- arrival -->
+		<form-bean name="arrivalListForm"
+			type="com.asahikaseieng.app.arrival.ArrivalListForm" />
+
+		<!-- arrival detail_new -->
+		<form-bean name="arrivalDetailForm"
+			type="com.asahikaseieng.app.arrival.ArrivalDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ arrival -->
+		<action path="/ArrivalList"
+			type="com.asahikaseieng.app.arrival.ArrivalListAction"
+			name="arrivalListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/arrival/arrival_list.jsp">
+
+			<forward name="success"
+				path="/jsp/arrival/arrival_list.jsp" />
+			<forward name="reSearch"
+				path="/ArrivalList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ arrival Detail -->
+		<action path="/ArrivalDetail"
+			type="com.asahikaseieng.app.arrival.ArrivalDetailAction"
+			name="arrivalDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/arrival/arrival_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/arrival/arrival_detail.jsp" />
+			<forward name="reSearch"
+				path="/ArrivalDetail.do?op=search" />
+			<forward name="back"
+				path="/ArrivalList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

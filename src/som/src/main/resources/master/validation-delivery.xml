@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- deliveryDetail -->
+		<form name="deliveryDetailForm">
+			<!-- 納入先コード -->
+			<field property="deliveryCd" depends="requiredif, mask">
+				<arg0 key="delivery.delivery.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- リードタイム -->
+			<field property="strLeadTime" depends="validateDegit">
+				<arg0 key="delivery.lead.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 納入条件 -->
+			<field property="deliveryCondition" depends="maxlength">
+				<arg0 key="delivery.delivery.condition" />
+				<arg1 key="delivery.delivery.condition.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1333</var-value>
+				</var>
+			</field>
+
+			<!-- 備考 -->
+			<field property="remarks" depends="maxlength">
+				<arg0 key="delivery.remarks" />
+				<arg1 key="delivery.remarks.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1333</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

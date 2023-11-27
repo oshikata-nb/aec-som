@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図－検査一覧画面 -->
+		<form-bean name="pkgDirectionInspectionListForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionInspectionListForm" />
+		<form-bean name="pkgDirectionInspectionDetailForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionInspectionDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装指図－検査一覧 -->
+
+		<action path="/PkgDirectionInspectionList"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionInspectionListAction"
+			name="pkgDirectionInspectionListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_inspection_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_inspection_list.jsp" />
+			<forward name="error"	path="/jsp/pkgdirection/pkgdirection_inspection_list.jsp" />
+			<forward name="back" path="/PkgDirectionList.do?op=reSearch" />
+			<forward name="reSearch"	path="/PkgDirectionInspectionList.do?op=reSearch" />
+		</action>
+		<!-- ================================================= 包装指図－検査詳細 -->
+		<action path="/PkgDirectionInspectionDetail"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionInspectionDetailAction"
+			name="pkgDirectionInspectionDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_inspection_detail.jsp"
+			parameter="op">
+
+			<forward name="success"	path="/jsp/pkgdirection/pkgdirection_inspection_detail.jsp" />
+			<forward name="error"   path="/jsp/pkgdirection/pkgdirection_inspection_detail.jsp" />
+			<forward name="back" path="/PkgDirectionInspectionList.do?op=reSearch" />
+			
+		</action>
+
+	</action-mappings>
+</struts-config>

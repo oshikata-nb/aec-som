@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 基本処方検索ポップアップ -->
+		<form-bean name="recipeHeaderSearchForm"
+			type="com.asahikaseieng.app.master.search.recipeheader.RecipeHeaderSearchForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 基本処方検索ポップアップ -->
+		<action path="/RecipeHeaderSearch"
+			type="com.asahikaseieng.app.master.search.recipeheader.RecipeHeaderSearchAction"
+			name="recipeHeaderSearchForm" validate="false" parameter="op"
+			scope="session"
+			input="/jsp/master/search/recipeheader_search.jsp">
+			<forward name="success" path="/jsp/master/search/recipeheader_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

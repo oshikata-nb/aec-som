@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからヘッダー情報 ====================================-->
+		<!-- grecipeHeaderForm -->
+        <form name="grecipeHeaderForm">
+			<!-- レシピコード -->
+			<field property="recipeCd" depends="required,mask">
+				<arg key="item.grecipe.recipe.cd" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${ap21_mask}</var-value>
+				</var>
+			</field>
+			<!-- バージョン -->
+			<field property="recipeVersion" depends="required,integer,intRange">
+				<arg key="item.grecipe.recipe.version" />
+				<arg1 key="0" name="intRange" resource="false" />
+				<arg2 key="9999" name="intRange" resource="false" />
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>9999</var-value>
+				</var>
+			</field>
+			<!-- 品目コード -->
+			<field property="inputProduct" depends="required,alphanumeric">
+				<arg key="item.grecipe.product" />
+			</field>
+			<!-- 標準生産量 -->
+			<field property="stdQty" depends="required,validateDegit">
+				<arg key="item.grecipe.std.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO_RITU</var-value>
+				</var>
+			</field>
+			<!-- 開始有効日-->
+			<field property="startDate" depends="required,dateif">
+				<arg key="item.grecipe.start.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 終了有効日 -->
+			<field property="endDate" depends="required,dateif">
+				<arg key="item.grecipe.end.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 開始有効日、終了有効日 大小関係 -->
+			<field property="endDate" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.grecipe.start.date" />
+				<arg1 key="item.grecipe.end.date" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>startDate</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>endDate</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>startDate</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 備考-->
+			<field property="recipeMemo" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.memo" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 注釈-->
+			<field property="recipeDescription" depends="maxlength">
+				<arg0 key="item.grecipe.recipe.description" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

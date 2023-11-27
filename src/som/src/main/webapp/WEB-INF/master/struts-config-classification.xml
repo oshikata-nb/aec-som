@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- classification -->
+		<form-bean name="classificationListForm"
+			type="com.asahikaseieng.app.master.classification.ClassificationListForm" />
+
+		<!-- classification detail_new -->
+		<form-bean name="ClassificationDetailForm"
+			type="com.asahikaseieng.app.master.classification.ClassificationDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ classification -->
+		<action path="/ClassificationList"
+			type="com.asahikaseieng.app.master.classification.ClassificationListAction"
+			name="classificationListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/classification_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/classification_list.jsp" />
+			<forward name="reSearch"
+				path="/ClassificationList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ classification Detail -->
+		<action path="/ClassificationDetail"
+			type="com.asahikaseieng.app.master.classification.ClassificationDetailAction"
+			name="classificationDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/classification_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/classification_detail.jsp" />
+			<forward name="back"
+				path="/ClassificationList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

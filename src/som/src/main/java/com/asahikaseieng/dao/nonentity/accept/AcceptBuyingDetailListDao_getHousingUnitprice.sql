@@ -1,0 +1,42 @@
+/*
+ * Created on 2009/03/23
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 増付入力時、仕入単価検索SQL
+ *
+ * @author tosco
+ *
+ * entityName=AcceptBuyingDetailList
+ * packageName=accept
+ * methodName=getHousingUnitprice
+ *
+ */
+
+SELECT
+	UNIT.UNITPRICE AS HOUSING_UNITPRICE			-- 仕入単価(購買外注オーダーの項目名に合わせる)
+FROM
+	(
+	SELECT
+		 VENDER_CD
+		,ITEM_CD 
+		,MAX(VERSION) AS VERSION
+		,MAX(CONSECUTIVE_NO) AS CONSECUTIVE_NO
+	FROM	UNITPRICE
+	WHERE	VENDER_DIVISION = 'SI'	--発注　'SI'固定
+	AND		VENDER_CD = /*venderCd*/'00495005'
+	AND		ITEM_CD = /*itemCd*/'11002611'
+	AND		QUANTITY_FROM <= /*sumStockingQuantity*/'10'
+	AND		DECODE(QUANTITY_TO, 0, 9999999999999.9999999, QUANTITY_TO) >= /*sumStockingQuantity*/'10'
+	GROUP BY	VENDER_CD, ITEM_CD
+	) UNIT01,
+	UNITPRICE UNIT
+WHERE
+	UNIT.VENDER_DIVISION = 'SI'
+AND	UNIT.VENDER_CD = UNIT01.VENDER_CD
+AND	UNIT.ITEM_CD = UNIT01.ITEM_CD
+AND	UNIT.VERSION = UNIT01.VERSION
+AND	UNIT.CONSECUTIVE_NO = UNIT01.CONSECUTIVE_NO

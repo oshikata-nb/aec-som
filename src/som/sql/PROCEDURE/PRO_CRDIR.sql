@@ -1,0 +1,70 @@
+CREATE OR REPLACE procedure      PRO_CRDIR
+	(P_LNG_DIRDIV 	IN NUMBER,	--指図区分
+	P_LNG_PARDIV 	IN NUMBER,	--親指図区分
+	P_STR_PARNO 	IN VARCHAR2,--親指図番号
+	P_STR_ORDERNO 	IN VARCHAR2,--受注番号
+	P_LNG_ORDERLINENO IN NUMBER,--受注行番号
+	P_STR_PDLINECD 	IN VARCHAR2,--生産ラインコード
+	P_STR_ITEMCD 	IN VARCHAR2,--品目コード
+	P_STR_RCPIDXCD 	IN VARCHAR2,--基本処方コード
+	P_LNG_NEEDQTY 	IN NUMBER,	--必要数量
+	P_DTE_PDSTART 	IN DATE,	--製造開始日時
+	P_DTE_PDEND 	IN DATE,	--製造終了日時
+	P_STR_LOT 		IN VARCHAR2,--ロット番号
+	P_STR_LOCATIONCD IN VARCHAR2,--ロケーションコード
+	P_STR_TEKI 		IN VARCHAR2,--摘要
+	P_LNG_DIRSTS 	IN NUMBER,	--指図ステータス
+	P_STR_INPUTORCD	IN VARCHAR2,--登録者ＩＤ
+	OUT_PARA 		OUT VARCHAR2) IS--戻り値
+
+	/*
+	戻り値
+	-1:レシピインデックス、レシピコード、レシピバージョン編集異常
+	-2:処方ヘッダテーブル取得異常
+
+	-4:製造指図(ヘッダ、プロシージャ、フォーミュラ)登録異常
+	-5:最小～最大生産数範囲外異常
+	正常時:指図番号
+	*/
+BEGIN
+	if P_LNG_DIRDIV= PD_PLAN_PACKAGE.pc_DirDivPack then
+		--製造指図作成処理    詰め替え
+		OUT_PARA := PD_PLAN_PACKAGE.FUN_CREATE_REPACK_DIRECTION
+			(P_LNG_DIRDIV,
+			P_LNG_PARDIV,
+			P_STR_PARNO,
+			P_STR_ORDERNO,
+			P_LNG_ORDERLINENO,
+			P_STR_PDLINECD,
+			P_STR_ITEMCD,
+			P_STR_RCPIDXCD,
+			P_LNG_NEEDQTY,
+			P_DTE_PDSTART,
+			P_DTE_PDEND,
+			P_STR_LOT,
+			P_STR_LOCATIONCD,
+			P_STR_TEKI,
+			P_LNG_DIRSTS,
+			P_STR_INPUTORCD);
+	else
+	  	--製造指図作成処理
+		OUT_PARA := PD_PLAN_PACKAGE.FUN_PD_PLAN_CREATE_DIRECTION
+			(P_LNG_DIRDIV,
+			P_LNG_PARDIV,
+			P_STR_PARNO,
+			P_STR_ORDERNO,
+			P_LNG_ORDERLINENO,
+			P_STR_PDLINECD,
+			P_STR_ITEMCD,
+			P_STR_RCPIDXCD,
+			P_LNG_NEEDQTY,
+			P_DTE_PDSTART,
+			P_DTE_PDEND,
+			P_STR_LOT,
+			P_STR_LOCATIONCD,
+			P_STR_TEKI,
+			P_LNG_DIRSTS,
+			P_STR_INPUTORCD);
+	end if;
+END;
+/

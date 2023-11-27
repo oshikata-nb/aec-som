@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからbuyingApprovalListForm ====================================-->
+		<!-- buyingApprovalList -->
+		<form name="buyingApprovalListForm">
+			<!-- 仕入日From -->
+			<field property="srhStockingDateFrom" depends="dateif">
+				<arg key="item.buyingapproval.srh.stocking.date.from" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 仕入日To -->
+			<field property="srhStockingDateTo" depends="dateif">
+				<arg key="item.buyingapproval.srh.stockingdate.to" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 仕入日 大小関係 -->
+			<field property="srhStockingDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.buyingapproval.srh.stocking.date.from" />
+				<arg1 key="item.buyingapproval.srh.stockingdate.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhStockingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhStockingDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhStockingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+
+			<!-- 受入日From -->
+			<field property="srhAcceptDateFrom" depends="dateif">
+				<arg key="item.buying.srh.accept.date.from" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 受入日To -->
+			<field property="srhAcceptDateTo" depends="dateif">
+				<arg key="item.buying.srh.acceptdate.to" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 受入日 大小関係 -->
+			<field property="srhAcceptDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.buying.srh.accept.date.from" />
+				<arg1 key="item.buying.srh.acceptdate.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhAcceptDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhAcceptDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhAcceptDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+        </form>
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- area -->
+		<form-bean name="areaListForm"
+			type="com.asahikaseieng.app.master.area.AreaListForm" />
+		<!-- area detail -->
+		<form-bean name="areaDetailForm"
+			type="com.asahikaseieng.app.master.area.AreaDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ area -->
+		<action path="/AreaList"
+			type="com.asahikaseieng.app.master.area.AreaListAction"
+			name="areaListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/area_list.jsp">
+
+			<forward name="success" path="/jsp/master/area_list.jsp" />
+			<forward name="reSearch" path="/AreaList.do?op=reSearch" />
+			<forward name="newPage" path="/AreaDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ area Detail -->
+		<action path="/AreaDetail"
+			type="com.asahikaseieng.app.master.area.AreaDetailAction"
+			name="areaDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/area_detail.jsp">
+
+			<forward name="success" path="/jsp/master/area_detail.jsp" />
+			<forward name="back" path="/AreaList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

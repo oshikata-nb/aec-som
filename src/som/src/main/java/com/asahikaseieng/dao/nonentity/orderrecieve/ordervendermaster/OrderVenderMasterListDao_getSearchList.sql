@@ -1,0 +1,66 @@
+/*
+ * 取引先グループ一覧用SQL
+ *
+ * entityName=OrderVenderMasterList
+ * packageName=ordervendermasterlist
+ * methodName=getSearchList
+ *
+ */
+
+SELECT
+    VENDER_GROUP.VENDER_GROUP_CD
+,   VENDER_GROUP.VENDER_GROUP_NAME
+,   VENDER_GROUP.DELIVERY_CONF
+,   (CASE VENDER_GROUP.DELIVERY_CONF
+    WHEN 1 THEN '設定済'
+    ELSE '未設定'
+    END) AS DELIVERY_CONF_NAME
+,   VENDER_GROUP.ITEM_CONF
+,   (CASE VENDER_GROUP.ITEM_CONF
+    WHEN 1 THEN '設定済'
+    ELSE '未設定'
+    END) AS ITEM_CONF_NAME
+FROM    
+    (SELECT
+        MAX(VG_LIST.VENDER_GROUP_CD) AS VENDER_GROUP_CD
+    ,   MAX(VG_LIST.VENDER_GROUP_NAME) AS VENDER_GROUP_NAME
+    ,   (CASE COUNT(CASE WHEN OVD.CTM_DELIVERY_CD_01 IS NULL THEN 1 END) 
+        WHEN 0 THEN 1 --設定済
+        ELSE 2 --未設定
+        END) AS DELIVERY_CONF
+    ,   (CASE COUNT(CASE WHEN OVI.CTM_ITEM_CD_01 IS NULL THEN 1 END) 
+        WHEN 0 THEN 1 --設定済
+        ELSE 2 --未設定
+        END) AS ITEM_CONF
+    FROM
+        (SELECT
+            VENDER_GROUP_CD
+        ,   VENDER_GROUP_NAME
+        FROM ORDER_VENDER_MASTER
+        GROUP BY 
+            VENDER_GROUP_CD
+        ,   VENDER_GROUP_NAME
+        ORDER BY VENDER_GROUP_CD) VG_LIST
+    LEFT JOIN ORDER_VENDER_DELIVERY OVD ON OVD.VENDER_GROUP_CD = VG_LIST.VENDER_GROUP_CD
+    LEFT JOIN ORDER_VENDER_ITEM OVI ON OVI.VENDER_GROUP_CD = VG_LIST.VENDER_GROUP_CD
+    WHERE 
+        VG_LIST.VENDER_GROUP_CD IS NOT NULL
+    GROUP BY     
+        VG_LIST.VENDER_GROUP_CD
+    ,   VG_LIST.VENDER_GROUP_NAME
+    )VENDER_GROUP
+WHERE 
+    VENDER_GROUP.VENDER_GROUP_CD IS NOT NULL
+    --得意先グループ番号
+    /*IF ( condition.srhVenderGroupCd != "0" )*/
+    AND VENDER_GROUP.VENDER_GROUP_CD LIKE /*condition.srhVenderGroupCd*/'%'
+    /*END*/
+    --納入先設定
+    /*IF ( condition.srhDeliveryConf != 0 )*/
+    AND VENDER_GROUP.DELIVERY_CONF = /*condition.srhDeliveryConf*/0
+    /*END*/
+    --品目設定
+    /*IF ( condition.srhItemConf != 0 )*/
+    AND VENDER_GROUP.ITEM_CONF = /*condition.srhItemConf*/0
+    /*END*/
+ORDER BY VENDER_GROUP.VENDER_GROUP_CD

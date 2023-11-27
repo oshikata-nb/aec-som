@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- itemList -->
+		<form name="itemListForm">
+			<!-- 検索条件：出荷予定日(FROM) -->
+			<field property="strSrhActiveDateFrom" depends="dateif">
+				<arg key="item.active.date.from" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：出荷予定日(TO) -->
+			<field property="strSrhActiveDateTo" depends="dateif">
+				<arg key="item.active.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：出荷予定日 大小関係 -->
+			<field property="strSrhActiveDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.active.date.from" />
+				<arg1 key="item.active.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strSrhActiveDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>strSrhActiveDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strSrhActiveDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="itemDetailForm">
+			<!-- 品目名称 -->
+			<field property="itemName" depends="requiredif">
+				<arg0 key="item.item.name" />
+			</field>
+
+			<!-- 有効日時 -->
+			<field property="strActiveDate"
+				depends="dateif,requiredif">
+				<arg0 key="item.active.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 荷姿 -->
+			<field property="styleOfPacking" depends="mask">
+				<arg0 key="item.style.of.packing" />
+				<msg name="mask" key="errors.normal.width" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${item_kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 入数 -->
+			<field property="strNumberOfInsertions"
+				depends="validateDegit">
+				<arg0 key="item.number.of.insertions" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- 総重量 -->
+			<field property="strAllUpWeight" depends="validateDegit">
+				<arg0 key="item.all.up.weight" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- Kg換算係数(在庫) -->
+			<field property="strKgOfFractionManagement"
+				depends="requiredif, validateDegit">
+				<arg0 key="item.kg.of.fraction.management" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- Kg換算係数(端数) -->
+			<field property="strKgConversionCoefficient"
+				depends="validateDegit">
+				<arg0 key="item.kg.conversion.coefficient" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- 基準保管場所 -->
+			<field property="defaultLocation" depends="requiredif">
+				<arg0 key="item.default.location" />
+			</field>
+		</form>
+
+		<form name="itemAttributeForm">
+			<!-- 使用期限 -->
+			<field property="strExpireMonths"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.expire.months" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+			</field>
+
+			<!-- 取引可能期限 -->
+			<field property="strContractMonths"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.contract.months" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+			</field>
+
+			<!-- 発注情報 -->
+			<field property="orderInfo" depends="maxlength">
+				<arg0 key="item.order.info" />
+				<arg1 key="item.order.info.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+
+			<!-- 備考 -->
+			<field property="remarks" depends="maxlength">
+				<arg0 key="item.remarks" />
+				<arg1 key="item.remarks.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+
+			<!-- 指図書パターン -->
+			<field property="strOrderPattern"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.order.pattern" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>productDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 検査時間 -->
+			<field property="strInspectionDays"
+				depends="validateDegit">
+				<arg0 key="item.inspection.days" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>productDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 発注点 -->
+			<field property="strProductOrderPoint"
+				depends="validateDegit">
+				<arg0 key="item.product.order.point" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>productDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 標準販売単価 -->
+			<field property="strSellingPrice"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.selling.price" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionUrtanka</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>articleDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- パレット上製品数 -->
+			<field property="strPaletteProducts"
+				depends="validateDegit">
+				<arg0 key="item.palette.products" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>articleDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- リードタイム -->
+			<field property="strSafetyLeadTime"
+				depends="validateDegit">
+				<arg0 key="item.safety.lead.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>articleDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- リードタイム -->
+			<field property="strPurchaseLeadTime"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.purchase.lead.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>purchaseDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 標準仕入単価 -->
+			<field property="strPurchasePrice"
+				depends="requiredif,validateDegit">
+				<arg0 key="item.purchase.price" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionSitanka</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>purchaseDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 発注点 -->
+			<field property="strPurchaseOrderPoint"
+				depends="validateDegit">
+				<arg0 key="item.purchase.order.point" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionOther</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>purchaseDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+
+			<!-- 標準発注数 -->
+			<field property="strOrderQty" depends="validateDegit">
+				<arg0 key="item.order.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfStockControl</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>purchaseDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>0</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- itemComponent -->
+		<form name="itemComponentForm">
+			<!-- 成分リスト(内容は別定義 → form name="itemComponent") -->
+			<field property="searchComponentList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>itemComponent</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- 成分リスト -->
+		<form name="itemComponent">
+			<!-- 成分コード -->
+			<field property="componentCd" depends="requiredif">
+				<arg0 key="item.component.cd" />
+				<msg name="requiredif" key="errors.required.row" />
+			</field>
+
+			<!-- 有効分 -->
+			<field property="strCalcValue" depends="validateDegit">
+				<arg0 key="item.calc.value" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="itemOtherForm">
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.other.remark" />
+				<arg1 key="item.other.remark.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

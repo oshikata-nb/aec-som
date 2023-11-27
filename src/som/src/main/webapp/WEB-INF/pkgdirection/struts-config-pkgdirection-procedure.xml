@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図－工程一覧画面 -->
+		<form-bean name="pkgDirectionProcedureListForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionProcedureListForm" />
+
+		<!-- 包装指図－工程詳細画面 -->
+		<form-bean name="pkgDirectionProcedureDetailForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionProcedureDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装指図－工程一覧 -->
+
+		<action path="/PkgDirectionProcedureList"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionProcedureListAction"
+			name="pkgDirectionProcedureListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_procedure_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_procedure_list.jsp" />
+			<forward name="error" path="/jsp/pkgdirection/pkgdirection_procedure_list.jsp" />
+			<forward name="back" path="/PkgDirectionList.do?op=reSearch" />
+			<forward name="init" path="/PkgDirectionProcedureList.do?op=reInit" />
+		</action>
+
+		<!-- ================================================= 包装指図－工程詳細 -->
+
+		<action path="/PkgDirectionProcedureDetail"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionProcedureDetailAction"
+			name="pkgDirectionProcedureDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_procedure_detail.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_procedure_detail.jsp" />
+			<forward name="error" path="/jsp/pkgdirection/pkgdirection_procedure_detail.jsp" />
+			<forward name="back" path="/PkgDirectionProcedureList.do?op=init" />
+			<forward name="init" path="/PkgDirectionProcedureDetail.do?op=init" />
+		</action>
+
+	</action-mappings>
+</struts-config>

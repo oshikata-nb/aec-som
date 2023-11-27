@@ -1,0 +1,43 @@
+<body>
+在庫操作、受払ソース操作に関するパッケージ。<BR>
+ＤＢ上にある関連データを元に在庫操作、受払ソース操作を行う。<BR>
+<BR>
+**LogicImpl.javaのメソッドから呼び出すこと。<BR>
+コンストラクタでSQL実行Dao(ProcedureCallDao)を設定すること。<BR>
+エラーが発生したらLogicExceptionExをthrowします。<BR>
+<PRE>
+操作するデータはＤＢ上に存在しなければならない。
+**LogicImpl.javaのメソッドで、
+	(新規の場合）
+		foo出荷指示入力(){
+			StockinoutForShipping stockinout 
+				= new StockinoutForShipping(procedureCallDao);
+			foo出荷beanInsert(); //テーブルデータの挿入
+			if(!stockinout.entryShipping()){ //在庫操作(登録)
+				throw ***; //ROLLBACK
+			}
+		}
+	(更新の場合)
+		foo製造指図更新(){
+			StockinoutForDirection stockinout 
+				= new StockinoutForDirection(procedureCallDao);
+			if(!stockinout.cancelEntry()){ //在庫操作(取消)
+				throw ***;  //ROLLBACK
+			}
+			foo製造指図更新();　 //テーブルデータの更新
+			if(!stockinout.cancelEntry()){ //在庫操作(登録)
+				throw ***; //ROLLBACK
+			}
+		}			
+	(削除の場合)
+		foo発注取消(){
+			StockinoutForPurchase stockinout 
+				= new StockinoutForPurchase(procedureCallDao);
+			if(!stockinout.cancelEntry()){ //在庫操作(取消)
+				throw ***;  //ROLLBACK
+			}
+			foo発注削除();　 //テーブルデータの削除
+		}			
+</PRE>
+@author a7710658
+</body>

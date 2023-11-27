@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- buying -->
+		<form-bean name="buyingListForm"
+			type="com.asahikaseieng.app.buying.BuyingListForm" />
+
+		<!-- buying detail_new -->
+		<form-bean name="buyingDetailForm"
+			type="com.asahikaseieng.app.buying.BuyingDetailForm" />
+
+		<!-- 受払検索ポップアップ -->
+		<form-bean name="buyingInoutSearchForm"
+			type="com.asahikaseieng.app.buying.BuyingInoutSearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ buying -->
+		<action path="/BuyingList"
+			type="com.asahikaseieng.app.buying.BuyingListAction"
+			name="buyingListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/buying/buying_list.jsp">
+
+			<forward name="success"
+				path="/jsp/buying/buying_list.jsp" />
+			<forward name="reSearch"
+				path="/BuyingList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ buying Detail -->
+		<action path="/BuyingDetail"
+			type="com.asahikaseieng.app.buying.BuyingDetailAction"
+			name="buyingDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/buying/buying_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/buying/buying_detail.jsp" />
+			<forward name="back"
+				path="/BuyingList.do?op=reSearch" />
+		</action>
+		<!-- ================================================ 受払検索ポップアップ -->
+		<action path="/BuyingInoutSearch"
+			type="com.asahikaseieng.app.buying.BuyingInoutSearchAction"
+			name="buyingInoutSearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/buying/buying_inout_search.jsp">
+
+			<forward name="success"
+				path="/jsp/buying/buying_inout_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

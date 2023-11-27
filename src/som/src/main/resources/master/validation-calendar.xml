@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+    </global>
+
+    <formset>
+
+<!--==================================== ここからcalendarListForm ====================================-->
+		<!-- calendarList -->
+		<form name="calendarListForm">
+        </form>
+
+<!--==================================== ここからcalendarDetailForm ====================================-->
+		<!-- calendarDetail -->
+        <form name="calendarDetailForm">
+			<!-- カレンダーコード -->
+			<field property="calendarCd" depends="required,mask">
+				<msg name="required" key="errors.required"/>
+				<msg name="mask" key="errors.alphameric.code"/>
+				<arg key="item.calendarCd" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9a-zA-Z]*$</var-value>
+				</var>
+			</field>
+			<!-- 会計年度 -->
+			<field property="fiscalYear" depends="required,mask">
+				<msg name="required" key="errors.required"/>
+				<msg name="mask" key="errors.number"/>
+				<arg key="item.fiscalYear" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]*$</var-value>
+				</var>
+			</field>
+			
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

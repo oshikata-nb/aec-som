@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- post -->
+		<form-bean name="postListForm"
+			type="com.asahikaseieng.app.master.post.PostListForm" />
+		<!-- post detail -->
+		<form-bean name="postDetailForm"
+			type="com.asahikaseieng.app.master.post.PostDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ post -->
+		<action path="/PostList"
+			type="com.asahikaseieng.app.master.post.PostListAction"
+			name="postListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/post_list.jsp">
+
+			<forward name="success" path="/jsp/master/post_list.jsp" />
+			<forward name="reSearch" path="/PostList.do?op=reSearch" />
+			<forward name="newPage" path="/PostDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ post Detail -->
+		<action path="/PostDetail"
+			type="com.asahikaseieng.app.master.post.PostDetailAction"
+			name="postDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/post_detail.jsp">
+
+			<forward name="success" path="/jsp/master/post_detail.jsp" />
+			<forward name="back" path="/PostList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

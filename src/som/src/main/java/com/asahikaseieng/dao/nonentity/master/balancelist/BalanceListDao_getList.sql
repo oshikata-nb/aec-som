@@ -1,0 +1,132 @@
+/*
+ * 帳合マスタ一覧用SQL
+ *
+ * entityName=BalanceList
+ * packageName=balancelist
+ * methodName=getList
+ *
+ */
+
+/*IF (condition.srhBalanceType == 0 || condition.srhBalanceType == 1)*/
+SELECT BALANCE_CD, BALANCE_TYPE, NULL BALANCE_TYPE_NAME, NULL VENDER_NAME1, NULL DISP_VENDER_NAME1, NULL VENDER_NAME2, NULL DISP_VENDER_NAME2, NULL VENDER_NAME3, NULL DISP_VENDER_NAME3, NULL VENDER_NAME4, NULL DISP_VENDER_NAME4, NULL VENDER_NAME5, NULL DISP_VENDER_NAME5
+FROM BALANCE, VENDER
+WHERE BALANCE_CD IS NOT NULL
+
+/*IF (condition.srhBalanceCd != null) && (condition.srhBalanceCd != "")*/
+AND BALANCE.BALANCE_CD LIKE /*condition.srhBalanceCd*/'%'
+/*END*/
+
+AND VENDER_DIVISION(+) = 'TS'
+AND BALANCE.VENDER_CD = VENDER.VENDER_CD(+)
+
+START WITH BALANCE.VENDER_CD IS NOT NULL
+
+/*IF (condition.srhBalanceType == 1)*/
+AND BALANCE_TYPE = 1
+/*END*/
+
+/*IF (condition.srhVenderCd != null) && (condition.srhVenderCd != "")*/
+AND (BALANCE.VENDER_CD LIKE /*condition.srhVenderCd*/'%' OR VENDER_NAME1 LIKE /*condition.srhVenderCd*/'%')
+/*END*/
+
+CONNECT BY PRIOR BALANCE.UPPER_BALANCE_CD = BALANCE.BALANCE_CD
+
+/*IF (condition.srhBalanceType == 1)*/
+AND BALANCE_TYPE = 1
+/*END*/
+
+UNION
+
+SELECT BALANCE_CD, BALANCE_TYPE, NULL BALANCE_TYPE_NAME, NULL VENDER_NAME1, NULL DISP_VENDER_NAME1, NULL VENDER_NAME2, NULL DISP_VENDER_NAME2, NULL VENDER_NAME3, NULL DISP_VENDER_NAME3, NULL VENDER_NAME4, NULL DISP_VENDER_NAME4, NULL VENDER_NAME5, NULL DISP_VENDER_NAME5
+FROM BALANCE, VENDER
+WHERE BALANCE_CD IS NOT NULL
+
+/*IF (condition.srhBalanceCd != null) && (condition.srhBalanceCd != "")*/
+AND BALANCE.BALANCE_CD LIKE /*condition.srhBalanceCd*/'%'
+/*END*/
+
+AND VENDER_DIVISION(+) = 'TS'
+AND BALANCE.VENDER_CD = VENDER.VENDER_CD(+)
+
+START WITH BALANCE.VENDER_CD IS NOT NULL
+
+/*IF (condition.srhBalanceType == 1)*/
+AND BALANCE_TYPE = 1
+/*END*/
+
+/*IF (condition.srhVenderCd != null) && (condition.srhVenderCd != "")*/
+AND (BALANCE.VENDER_CD LIKE /*condition.srhVenderCd*/'%' OR VENDER_NAME1 LIKE /*condition.srhVenderCd*/'%')
+/*END*/
+
+CONNECT BY PRIOR BALANCE.BALANCE_CD = BALANCE.UPPER_BALANCE_CD
+
+/*IF (condition.srhBalanceType == 1)*/
+AND BALANCE_TYPE = 1
+/*END*/
+
+/*END*/
+
+/*IF (condition.srhBalanceType == 0)*/
+UNION
+/*END*/
+
+/*IF (condition.srhBalanceType == 0 || condition.srhBalanceType == 2)*/
+SELECT BALANCE_CD, BALANCE_TYPE, NULL BALANCE_TYPE_NAME, NULL VENDER_NAME1, NULL DISP_VENDER_NAME1, NULL VENDER_NAME2, NULL DISP_VENDER_NAME2, NULL VENDER_NAME3, NULL DISP_VENDER_NAME3, NULL VENDER_NAME4, NULL DISP_VENDER_NAME4, NULL VENDER_NAME5, NULL DISP_VENDER_NAME5
+FROM BALANCE, VENDER
+WHERE BALANCE_CD IS NOT NULL
+
+/*IF (condition.srhBalanceCd != null) && (condition.srhBalanceCd != "")*/
+AND BALANCE.BALANCE_CD LIKE /*condition.srhBalanceCd*/'%'
+/*END*/
+
+AND VENDER_DIVISION(+) = 'TS'
+AND BALANCE.VENDER_CD = VENDER.VENDER_CD(+)
+
+START WITH BALANCE.VENDER_CD IS NOT NULL
+
+/*IF (condition.srhBalanceType == 2)*/
+AND BALANCE_TYPE = 2
+/*END*/
+
+/*IF (condition.srhVenderCd != null) && (condition.srhVenderCd != "")*/
+AND (BALANCE.VENDER_CD LIKE /*condition.srhVenderCd*/'%' OR VENDER_NAME1 LIKE /*condition.srhVenderCd*/'%')
+/*END*/
+
+CONNECT BY PRIOR BALANCE.UPPER_BALANCE_CD = BALANCE.BALANCE_CD
+
+/*IF (condition.srhBalanceType == 2)*/
+AND BALANCE_TYPE = 2
+/*END*/
+
+UNION
+
+SELECT BALANCE_CD, BALANCE_TYPE, NULL BALANCE_TYPE_NAME, NULL VENDER_NAME1, NULL DISP_VENDER_NAME1, NULL VENDER_NAME2, NULL DISP_VENDER_NAME2, NULL VENDER_NAME3, NULL DISP_VENDER_NAME3, NULL VENDER_NAME4, NULL DISP_VENDER_NAME4, NULL VENDER_NAME5, NULL DISP_VENDER_NAME5
+FROM BALANCE, VENDER
+WHERE BALANCE_CD IS NOT NULL
+
+/*IF (condition.srhBalanceCd != null) && (condition.srhBalanceCd != "")*/
+AND BALANCE.BALANCE_CD LIKE /*condition.srhBalanceCd*/'%'
+/*END*/
+
+AND VENDER_DIVISION(+) = 'TS'
+AND BALANCE.VENDER_CD = VENDER.VENDER_CD(+)
+
+START WITH BALANCE.VENDER_CD IS NOT NULL
+
+/*IF (condition.srhBalanceType == 2)*/
+AND BALANCE_TYPE = 2
+/*END*/
+
+/*IF (condition.srhVenderCd != null) && (condition.srhVenderCd != "")*/
+AND (BALANCE.VENDER_CD LIKE /*condition.srhVenderCd*/'%' OR VENDER_NAME1 LIKE /*condition.srhVenderCd*/'%')
+/*END*/
+
+CONNECT BY PRIOR BALANCE.BALANCE_CD = BALANCE.UPPER_BALANCE_CD
+
+/*IF (condition.srhBalanceType == 2)*/
+AND BALANCE_TYPE = 2
+/*END*/
+
+/*END*/
+
+ORDER BY BALANCE_CD

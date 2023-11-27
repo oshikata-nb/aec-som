@@ -1,0 +1,48 @@
+/*
+ * Created on 2009/02/23
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 処方ASPROVA-asprova詳細検索用SQL
+ *
+ * @author tosco
+ *
+ * entityName=RecipeAsprova
+ * packageName=mgrecipe
+ * methodName=findByPrimaryKey
+ *
+ */
+SELECT 
+    ASPROVA.RECIPE_ID                         AS RECIPE_ID
+,   ASPROVA.RESOUCE_GROUP_CD                  AS RESOUCE_GROUP_CD
+,   ASPROVA.OPERATION_GROUP_CD                AS OPERATION_GROUP_CD
+,   ASPROVA.RESOUCE_CD                        AS RESOUCE_CD
+,   RESOUCE.RESOUCE_NAME                      AS RESOUCE_NAME
+,   ASPROVA.YOUINSU                           AS YOUINSU
+,   NVL(ASPROVA.MAEJIKAN, 0)                  AS MAEJIKAN
+,   NVL(ASPROVA.ATOJIKAN, 0)                  AS ATOJIKAN
+,   NVL(ASPROVA.PROCESS_WORK_TIME1, 0)        AS PROCESS_WORK_TIME1
+,   NVL(ASPROVA.PROCESS_WORK_TIME2, 0)        AS PROCESS_WORK_TIME2
+,   NVL(ASPROVA.MACHINE_WORK_TIME1, 0)        AS MACHINE_WORK_TIME1
+,   NVL(ASPROVA.MACHINE_WORK_TIME2, 0)        AS MACHINE_WORK_TIME2
+,   NVL(ASPROVA.MAN_WORK_TIME1, 0)            AS MAN_WORK_TIME1
+,   NVL(ASPROVA.MAN_WORK_TIME2, 0)            AS MAN_WORK_TIME2
+,   NVL(ASPROVA.RECIPE_PRIORITY, 0)           AS RECIPE_PRIORITY
+,   ASPROVA.INPUTOR_CD                        AS INPUTOR_CD
+,   ASPROVA.INPUT_DATE                        AS INPUT_DATE
+,   ASPROVA.UPDATOR_CD                        AS UPDATOR_CD
+,   ASPROVA.UPDATE_DATE                       AS UPDATE_DATE
+FROM
+    RECIPE_ASPROVA ASPROVA
+,   RECIPE_RESOUCE RESOUCE
+WHERE
+	ASPROVA.RECIPE_ID IS NOT NULL
+    AND ASPROVA.RECIPE_ID = /*recipeId*/'30809'
+    AND ASPROVA.RESOUCE_GROUP_CD = /*resouceGroupCd*/'1'
+    AND ASPROVA.OPERATION_GROUP_CD = /*operationGroupCd*/'30'
+    AND ASPROVA.RESOUCE_CD = /*resouceCd*/'1'
+    AND ASPROVA.RESOUCE_CD = RESOUCE.RESOUCE_CD(+)
+    

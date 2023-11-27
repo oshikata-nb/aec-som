@@ -1,0 +1,184 @@
+<%@ page pageEncoding = "UTF-8" %>
+<%@ include file="/jsp/common/taginclude.jsf" %>
+
+<script language="JavaScript" type="text/javascript">
+
+<%-- 編集内容破棄時に、処理を実行するかの判断を戻す --%>
+function continueConfirm() {
+	if (isEdited()) {
+		<%-- 画面の編集内容は破棄されます、よろしいですか？ --%>
+		var flag = confirm("<bean:message key="message.confirm.under.edit" />");
+		if (!flag) {
+			return false;
+		}
+	}
+	return true;
+}
+
+<%-- レコードを削除する時の確認 --%>
+function deleteConfirm() {
+
+	<%-- データを削除してよろしいですか？ --%>
+	var flag = confirm("<bean:message key="message.confirm.under.delete" />");
+	if (!flag) {
+		return false;
+	}
+
+	return true;
+}
+
+<%-- 20211208 Asclab Kouchi EdgeIE対応 --%>
+<%-- Edge用ポップアップ(モーダル)をオープン --%>
+function open_modal_popup_edge() {
+	var len = arguments.length;
+	var width = arguments[0];
+	var height = arguments[1];
+	var winUrl = "<%= request.getContextPath() %>/" + arguments[2] + ".do?op=init";
+	var index = arguments[3];
+
+	<%-- 画面の高さと幅 --%>
+	var numPosX = (screen.width  - width) / 3;
+
+	if (width >= 1000) {
+		numPosX = 0;
+	}
+
+	var numPosY = (screen.height - height) / 2;
+	if (height >= 650) {
+		numPosY = 10;
+	}
+
+	var strOptionAdd = "";
+	var strOption = "left=" + numPosX + ", top=" + numPosY + ", width=" + width + ", height=" + height + ", resizable=no";
+
+	if (4 < (len)) {
+		if (0 < ((len - 4) % 2)) {
+			alert("引数の数が不正です。引数は2の倍数個で呼び出して下さい。");
+			return false;
+		}
+	}
+
+	<%-- 配列から引数文字列を作成する --%>
+	var param = "";
+	var bSetScroll = false;
+
+	for (var i = 4; i < len; i++) {
+		if (0 == (i % 2)) {
+			if (arguments[i] == "scroll") {
+				<%-- スクロールの設定を取得する --%>
+				bSetScroll = true;
+			} else {
+				param = param + "&" + arguments[i];
+			}
+		} else {
+			if (bSetScroll == true) {
+				<%-- スクロールを設定 --%>
+				strOptionAdd = " scroll:" + arguments[i] + ";";
+
+				bSetScroll = false;
+			} else {
+				param = param + "=" + encodeURI(arguments[i]);
+			}
+		}
+	}
+
+	if (index != null) {
+		param = param + "&index=" + index;
+	}
+
+	param = param + "&dummy=" + encodeURI("" + new Date());
+
+	<%-- ＵＲＬに引数文字列をくっ付ける --%>
+	winUrl = winUrl + param;
+
+	<%-- 引数に自分を渡す(setValueを呼ばせるので) --%>
+	return showModalLikeDialog(winUrl, strOption + strOptionAdd);
+}
+
+<%-- 20211208 Asclab Kouchi EdgeIE対応 --%>
+<%-- ADD start 2020/03/03 by ATTS [Edge対応]No.4-6 モーダルポップアップ画面表示 --%>
+var popupWindow;
+function showModalLikeDialog(url, option) {
+	popupWindow = window.open(url, 'popup', option);
+
+	<%-- Timerで子画面の状態を監視 --%>
+	var interval = setInterval(
+		function(){
+			if(!popupWindow || popupWindow.closed){
+				<%-- 子画面が閉じていたら、Intervalを破棄して監視終了 --%>
+				clearInterval(interval);
+			}else{
+				<%-- 子画面が起動していたら、子画面にフォーカスを当てる --%>
+				if(!popupWindow.document.hasFocus()){
+					popupWindow.focus();
+				}
+			}
+		}
+		,500);
+	return popupWindow;
+}
+
+<%-- ポップアップ(モーダル)をオープン --%>
+function open_modal_popup() {
+
+	var len 	= arguments.length;
+	var width 	= arguments[0];
+	var height 	= arguments[1];
+	var winUrl 	= "<%= request.getContextPath() %>/" + arguments[2] + ".do?op=init";
+	var index 	= arguments[3];
+
+	<%-- 画面の高さと幅 --%>
+	var numPosX = (screen.width  - width) / 2;
+	if (width >= 1000) {
+		numPosX = 0;
+	}
+	var numPosY = (screen.height - height) / 3;
+	if (height >= 650) {
+		numPosY = 10;
+	}
+
+	<%-- オプション値の設定 --%>
+	var strOption = "dialogLeft:" + numPosX + "px; dialogTop:" + numPosY
+				  + "px; dialogWidth:" + width + "px; dialogHeight:" + height
+				  + "px; toolbar:no; location:no;"
+				  + "status:no; menubar:no; scroll:no; resizable:no;";
+
+	if (4 < (len)) {
+		if (0 < ((len - 4) % 2)) {
+			<%-- 引数の数が不正です。引数は2の倍数個で呼び出して下さい。 --%>
+			alert("<bean:message key="errors.pair.parameter.request" />");
+			return false;
+		}
+	}
+
+	<%-- 配列から引数文字列を作成する --%>
+	var param = "";
+	for (var i = 4; i < len; i++) {
+		if (0 == (i % 2)) {
+			param = param + "&" + arguments[i];
+		} else {
+			param = param + "=" + encodeURI(arguments[i]);
+		}
+	}
+	if (index != null) {
+		param = param + "&index=" + index;
+	}
+	param = param + "&dummy=" + encodeURI("" + new Date());
+
+	<%-- ＵＲＬに引数文字列をくっ付ける --%>
+	winUrl = winUrl + param;
+
+	<%-- 引数に自分を渡す(setValueを呼ばせるので) --%>
+	return window.showModalDialog(winUrl, this, strOption);
+}
+
+<%-- ==================== 以下onload時に実行される処理記述 ==================== --%>
+
+<%-- onload時に、画面固有のjavascript実行後に実行するjavascriptを記述します
+Event.observe(window, 'load', function() {
+
+
+}, false);
+ --%>
+
+</script>

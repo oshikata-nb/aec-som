@@ -1,0 +1,78 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+CreateExcelSample
+</name>
+</assembly>
+<members>
+<member name="P:CreateExcelSample.My.Resources.Resources.ResourceManager">
+	<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member><member name="P:CreateExcelSample.My.Resources.Resources.Culture">
+	<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member><member name="T:CreateExcelSample.My.Resources.Resources">
+	<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member><member name="F:CreateExcelSample.Main.m_log">
+	<summary>
+ ロガー
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CreateExcelSample.Main.m_param1">
+	<summary>
+ パラメータ1
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CreateExcelSample.Main.m_param2">
+	<summary>
+ パラメータ2
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CreateExcelSample.Main.m_param3">
+	<summary>
+ パラメータ3
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CreateExcelSample.Main.PRM_IDX">
+	<summary>
+ パラメータINDEX（個別）
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CreateExcelSample.Main.Main(System.String[])">
+	<summary>
+ スタートアップ関数
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:CreateExcelSample.Main.GetParams(System.String[])">
+	<summary>
+ 引数のチェック（個別）
+ </summary>
+	<param name="args"></param>
+	<remarks></remarks>
+</member><member name="M:CreateExcelSample.Main.EditSheet(Microsoft.Office.Interop.Excel.Worksheet)">
+	<summary>
+ シート編集処理
+ </summary>
+	<param name="exlSheet"></param>
+	<remarks></remarks>
+</member><member name="M:CreateExcelSample.Main.GetDataSample">
+	<summary>
+ データ取得
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CreateExcelSample.Main">
+	<summary>
+ メインクラス
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

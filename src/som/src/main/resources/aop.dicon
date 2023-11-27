@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container//EN"
+"http://www.seasar.org/dtd/components.dtd">
+
+<components namespace="aop">
+
+	<component name="traceInterceptor"
+		class="org.seasar.framework.aop.interceptors.TraceInterceptor"/>
+
+	<component name="traceThrowsInterceptor"
+		class="org.seasar.framework.aop.interceptors.TraceThrowsInterceptor"/>
+<!--
+	<component name="measurementInterceptor"
+	    class="com.asahikaseieng.seasar.aop.interceptors.MeasurementInterceptor"/>
+-->
+
+	<component name="daoTraceInterceptor"
+		class="org.seasar.framework.aop.interceptors.TraceInterceptor"/>
+<!--
+	<component name="daoTraceThrowsInterceptor"
+		class="com.asahikaseieng.seasar.aop.interceptors.DaoTraceThrowsInterceptor"/>
+-->
+
+</components>

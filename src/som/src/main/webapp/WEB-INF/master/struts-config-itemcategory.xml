@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- item category -->
+		<form-bean name="itemCategoryListForm"
+			type="com.asahikaseieng.app.master.itemcategory.ItemCategoryListForm" />
+		<!-- item categort detail -->
+		<form-bean name="itemCategoryDetailForm"
+			type="com.asahikaseieng.app.master.itemcategory.ItemCategoryDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ item category -->
+		<action path="/ItemCategoryList"
+			type="com.asahikaseieng.app.master.itemcategory.ItemCategoryListAction"
+			name="itemCategoryListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/item_category_list.jsp">
+
+			<forward name="success" path="/jsp/master/item_category_list.jsp" />
+			<forward name="reSearch" path="/ItemCategoryList.do?op=reSearch" />
+			<forward name="newPage" path="/ItemCategoryDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ item category Detail -->
+		<action path="/ItemCategoryDetail"
+			type="com.asahikaseieng.app.master.itemcategory.ItemCategoryDetailAction"
+			name="itemCategoryDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/item_category_detail.jsp">
+
+			<forward name="success" path="/jsp/master/item_category_detail.jsp" />
+			<forward name="back" path="/ItemCategoryList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

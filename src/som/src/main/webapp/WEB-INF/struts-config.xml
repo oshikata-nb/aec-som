@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- login -->
+		<form-bean name="loginForm"
+			type="com.asahikaseieng.app.login.LoginForm" />
+		<!-- header -->
+		<form-bean name="headerForm"
+			type="com.asahikaseieng.app.header.HeaderForm" />
+		<!-- mypage -->
+		<form-bean name="myPageForm"
+			type="com.asahikaseieng.app.mypage.MyPageForm" />
+		<!-- mypageset -->
+		<form-bean name="myPageSetForm"
+			type="com.asahikaseieng.app.mypage.mypageset.MyPageSetForm" />
+		<!-- gadgetset -->
+		<form-bean name="gadgetSetForm"
+			type="com.asahikaseieng.app.mypage.gadgetset.GadgetSetForm" />
+		<!-- shortcutset -->
+		<form-bean name="shortCutSetForm"
+			type="com.asahikaseieng.app.mypage.shortcutset.ShortCutSetForm" />
+		<!-- Menu -->
+		<form-bean name="menuForm"
+			type="com.asahikaseieng.app.menu.MenuForm" />
+		<!-- picking -->
+		<form-bean name="pickingForm"
+			type="com.asahikaseieng.app.picking.PickingForm" />
+
+	</form-beans>
+
+	<!-- ================================= Global Exception Definitions -->
+
+	<global-exceptions></global-exceptions>
+
+	<!-- =================================== Global Forward Definitions -->
+
+	<global-forwards>
+		<forward name="login" path="/Login.do" />
+		<forward name="global.gadget.error"
+			path="/jsp/common/gadget_error.jsp" />
+		<forward name="global.gadget.move.error"
+			path="/jsp/common/gadget_move_error.jsp" />
+		<forward name="global.empty" path="/jsp/common/empty.jsp" />
+	</global-forwards>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ error -->
+		<action path="/Error"
+			type="com.asahikaseieng.app.error.ErrorAction" parameter=""
+			validate="false">
+			<set-property property="allowNoLogin" value="true" />
+
+			<forward name="404"
+				path="/jsp/common/top_redirect.jsp?to=404%2Ehtml" />
+			<forward name="500"
+				path="/jsp/common/top_redirect.jsp?to=500%2Ehtml" />
+			<forward name="timeout"
+				path="/jsp/common/top_redirect.jsp?to=timeout%2Ehtml" />
+		</action>
+
+		<!-- ================================================ login -->
+		<action path="/Login"
+			type="com.asahikaseieng.app.login.LoginAction" name="loginForm"
+			validate="true" parameter="op" scope="request"
+			input="/jsp/login/login.jsp">
+			<set-property property="allowNoLogin" value="true" />
+
+			<forward name="success" path="/jsp/login/login.jsp" />
+			<forward name="popup" path="/jsp/common/base.jsp" />
+		</action>
+
+		<!-- ================================================ logout -->
+		<action path="/Logout"
+			type="com.asahikaseieng.app.logout.LogoutAction" validate="false"
+			parameter="">
+			<set-property property="allowNoLogin" value="true" />
+
+			<forward name="success"
+				path="/jsp/common/top_redirect.jsp?to=logout%2Ehtml" />
+		</action>
+
+		<!-- ================================================ menu -->
+		<action path="/Menu"
+			type="com.asahikaseieng.app.menu.MenuAction" name="menuForm"
+			validate="false" parameter="op" scope="request">
+
+			<forward name="success" path="/jsp/common/menu.jsp" />
+		</action>
+
+		<!-- ================================================ header -->
+		<action path="/Header"
+			type="com.asahikaseieng.app.header.HeaderAction" name="headerForm"
+			validate="false" parameter="op" scope="request">
+
+			<forward name="success" path="/jsp/common/header.jsp" />
+		</action>
+
+		<!-- ================================================ mypage -->
+		<action path="/MyPage"
+			type="com.asahikaseieng.app.mypage.MyPageAction" name="myPageForm"
+			validate="true" parameter="op" scope="request"
+			input="/jsp/mypage/mypage.jsp">
+
+			<forward name="success" path="/jsp/mypage/mypage.jsp" />
+		</action>
+
+		<!-- ================================================ mypageset -->
+		<action path="/MyPageSet"
+			type="com.asahikaseieng.app.mypage.mypageset.MyPageSetAction"
+			name="myPageSetForm" validate="true" parameter="op" scope="request"
+			input="/jsp/mypage/mypageset.jsp">
+
+			<forward name="success" path="/jsp/mypage/mypageset.jsp" />
+		</action>
+
+		<!-- ================================================ gadgetset -->
+		<action path="/GadgetSet"
+			type="com.asahikaseieng.app.mypage.gadgetset.GadgetSetAction"
+			name="gadgetSetForm" validate="true" parameter="op" scope="request"
+			input="/jsp/mypage/gadgetset.jsp">
+
+			<forward name="success" path="/jsp/mypage/gadgetset.jsp" />
+			<forward name="back" path="/MyPageSet.do?op=init" />
+		</action>
+
+		<!-- ================================================ shortcutset -->
+		<action path="/ShortCutSet"
+			type="com.asahikaseieng.app.mypage.shortcutset.ShortCutSetAction"
+			name="shortCutSetForm" validate="true" parameter="op" scope="request"
+			input="/jsp/mypage/shortcutset.jsp">
+
+			<forward name="success" path="/jsp/mypage/shortcutset.jsp" />
+			<forward name="back" path="/MyPageSet.do?op=init" />
+		</action>
+
+		<action path="/Picking"
+			type="com.asahikaseieng.app.picking.PickingAction" name="pickingForm"
+			validate="false" parameter="op" scope="session">
+
+			<forward name="success" path="/jsp/picking/picking.jsp" />
+		</action>
+
+	</action-mappings>
+
+
+	<!-- ===================================== Controller Configuration -->
+
+	<controller
+		processorClass="com.asahikaseieng.struts.CustomS2RequestProcessor" />
+
+	<!-- ================================ Message Resources Definitions -->
+
+	<message-resources parameter="application" />
+
+	<!-- ======================================= Plug Ins Configuration -->
+
+	<!-- =================================================== Validator plugin -->
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/validator-rules.xml,
+			/claim/validation-billissue.xml,
+			/claim/validation-claimbalance.xml,
+			/claim/validation-claimrollback-csm.xml,
+			/claim/validation-claimrollback-csm.xml,
+			/claim/validation-claimupdate-csm.xml,
+			/claim/validation-deposit.xml,
+			/claim/validation-deposit.xml,
+			/claim/validation-depositplan.xml,
+			/claim/validation-eraser-csm.xml,
+			/cost/validation-costaccounting.xml,
+			/credit/validation-arbalance.xml,
+			/credit/validation-arledger.xml,
+			/credit/validation-arrollback-csm.xml,
+			/credit/validation-arrollback-csm.xml,
+			/credit/validation-artrans.xml,
+			/credit/validation-arupdate.xml,
+			/dailyreport/validation-dailyreport.xml,
+			/debt/validation-apbalance.xml,
+			/debt/validation-apledger.xml,
+			/debt/validation-aprollback.xml,
+			/debt/validation-aptrans.xml,
+			/debt/validation-apupdate.xml,
+			/direction/validation-direction.xml,
+			/direction/validation-direction-materialused.xml,
+			/direction/validation-direction-finish.xml,
+			/direction/validation-direction-formula.xml,
+			/direction/validation-direction-header.xml,
+			/direction/validation-direction-inspection.xml,
+			/direction/validation-direction-procedure.xml,
+			/grecipe/validation-grecipe-finish.xml,
+			/grecipe/validation-grecipe-formula.xml,
+			/grecipe/validation-grecipe-header.xml,
+			/grecipe/validation-grecipe-inspection.xml,
+			/grecipe/validation-grecipe-other.xml,
+			/grecipe/validation-grecipe-procedure.xml,
+			/inout/validation-inoutlist.xml,
+			/inout/validation-inoutmonthlycancel.xml,
+			/inout/validation-inoutmonthlyupdate.xml,
+			/inout/validation-inoutmaterial.xml,
+			/inout/validation-inoutmonthlyreport.xml,
+			/inquiry/validation-inquiryinputlist.xml,
+			/inquiry/validation-inquirypreparation.xml,
+			/inquiry/validation-inquirypreparationcancel.xml,
+			/inquiry/validation-inquiryupdate.xml,
+			/inventory/validation-inventory.xml,
+			/inventory/validation-inventorydrawing.xml,
+			/inventory/validation-inventorymove.xml,
+			/inventory/validation-inventoryshippingout.xml,
+			/inventory/validation-inventorystock.xml,
+			/master/validation-accounts.xml,
+			/master/validation-area.xml,
+			/master/validation-balance.xml,
+			/master/validation-bank.xml,
+			/master/validation-belong.xml,
+			/master/validation-belongrole.xml,
+			/master/validation-bumon.xml,
+			/master/validation-cal.xml,
+			/master/validation-company.xml,
+			/master/validation-carry.xml,
+			/master/validation-chgpwd.xml,
+			/master/validation-classification.xml,
+			/master/validation-component.xml,
+			/master/validation-delivery.xml,
+			/master/validation-financialclass.xml,
+			/master/validation-item.xml,
+			/master/validation-itemcategory.xml,
+			/master/validation-line.xml,
+			/master/validation-location.xml,
+			/master/validation-login.xml,
+			/master/validation-names.xml,
+			/master/validation-offsetgroup.xml,
+			/master/validation-operation.xml,
+			/master/validation-organization.xml,
+			/master/validation-post.xml,
+			/master/validation-reason.xml,
+			/master/validation-reciperesouce.xml,
+			/master/validation-reciperesoucegroup.xml,
+			/master/validation-remark.xml,
+			/master/validation-role.xml,
+			/master/validation-salesterms.xml,
+			/master/validation-unitprice.xml,
+			/master/validation-vender.xml,
+			/master/validation-ordervenderlink.xml,
+			/master/validation-salestermsandestimate.xml,
+			/monthlyvender/validation-monthlyvender.xml,
+			/mgrecipe/validation-mgrecipe.xml,
+			/mgrecipe/validation-mgrecipe-asprova.xml,
+			/mgrecipe/validation-mgrecipe-finish.xml,
+			/mgrecipe/validation-mgrecipe-formula.xml,
+			/mgrecipe/validation-mgrecipe-inspection.xml,
+			/mgrecipe/validation-mgrecipe-other.xml,
+			/mgrecipe/validation-mgrecipe-procedure.xml,
+			/payment/validation-fbdatamaking.xml,
+			/payment/validation-offset.xml,
+			/payment/validation-paymentbalance.xml,
+			/payment/validation-payment-csm.xml,
+			/payment/validation-paymentplan.xml,
+			/payment/validation-paymentrollback.xml,
+			/payment/validation-paymentupdate.xml,
+			/pkgdirection/validation-pkgdirection-finish.xml,
+			/pkgdirection/validation-pkgdirection-formula.xml,
+			/pkgdirection/validation-pkgdirection-header.xml,
+			/pkgdirection/validation-pkgdirection-inspection.xml,
+			/pkgdirection/validation-pkgdirection-procedure.xml,
+			/pkgrdirection/validation-pkgrdirection-finish.xml,
+			/pkgrdirection/validation-pkgrdirection-formula.xml,
+			/pkgrdirection/validation-pkgrdirection-header.xml,
+			/pkgrdirection/validation-pkgrdirection-inspection.xml,
+			/pkgrdirection/validation-pkgrdirection-procedure.xml,
+			/rdirection/validation-rdirection-finish.xml,
+			/rdirection/validation-rdirection-formula.xml,
+ 			/rdirection/validation-rdirection-header.xml,
+ 			/rdirection/validation-rdirection-inspection.xml,
+			/rdirection/validation-rdirection-procedure.xml,
+			/validation.xml,
+			/validation-accept.xml,
+			/validation-arrival.xml,
+			/validation-beforehandmeltlbl.xml,
+			/validation-buying.xml,
+			/validation-buyingapproval.xml,
+			/validation-carryshippinglist.xml,
+			/validation-estimate.xml,
+			/validation-materialrinput.xml,
+			/validation-midinspectcomp.xml,
+			/validation-order.xml,
+			/validation-orderimport.xml,
+			/validation-productinspectcomp.xml,
+			/validation-production.xml,
+			/validation-productionplan.xml,
+			/validation-purchase.xml,
+			/validation-purchasedelivery.xml,
+			/validation-purchaseorder.xml,
+			/validation-sales.xml,
+			/validation-shipping.xml,
+			/validation-shippingresult.xml,
+			/validation-slipsales.xml,
+			/validation-slipshipping.xml,
+			/validation-stockbooking.xml,
+			/validation-tanklock.xml,
+			/validation-topic.xml
+        " />
+	</plug-in>
+
+	<plug-in
+		className="org.seasar.struts.plugin.AutoStrutsConfigRegisterPlugIn">
+		<set-property property="enableJar" value="false" />
+	</plug-in>
+</struts-config>

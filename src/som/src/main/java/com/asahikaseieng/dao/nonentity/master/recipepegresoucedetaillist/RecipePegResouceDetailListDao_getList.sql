@@ -1,0 +1,16 @@
+/*
+ * 前工程設備詳細一覧用SQL
+ *
+ * entityName=RecipePegResouceDetailList
+ * packageName=recipepegresoucedetaillist
+ * methodName=getList
+ *
+ */
+
+SELECT RECIPE_PEG_RESOUCE.RESOUCE_CD, SEQ, PREV_RESOUCE_CD, RESOUCE_NAME
+FROM RECIPE_PEG_RESOUCE, RECIPE_RESOUCE
+WHERE RECIPE_PEG_RESOUCE.RESOUCE_CD = /*resouceCd*/'%'
+AND RECIPE_PEG_RESOUCE.PREV_RESOUCE_CD = RECIPE_RESOUCE.RESOUCE_CD(+)
+ORDER BY SEQ
+
+

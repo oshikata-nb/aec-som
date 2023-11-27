@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+	
+<!-- 全てのmockオブジェクトをコンポーネント化するdiconファイル -->
+<!-- action/logicのテストケース作成時に利用                    -->
+
+<components>
+
+	<include path="aop.dicon"/>
+
+	<component name="logicInterceptorChain"
+		class="org.seasar.framework.aop.interceptors.InterceptorChain">
+		<!--<initMethod name="add"><arg>aop.daoTraceThrowsInterceptor</arg></initMethod>-->
+		<initMethod name="add"><arg>aop.daoTraceInterceptor</arg></initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*Mock.*"</arg>
+		</initMethod>
+		<initMethod name="addIgnoreClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*MockDecoratorImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*MockDecoratorImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
+		<property name="interceptor">logicInterceptorChain</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*Mock.*"</arg>
+		</initMethod>
+	</component>
+	
+</components>

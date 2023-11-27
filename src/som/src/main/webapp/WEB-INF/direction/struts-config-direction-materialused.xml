@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- inout material -->
+		<form-bean name="directionMaterialUsedForm"
+			type="com.asahikaseieng.app.direction.DirectionMaterialUsedForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ inout material -->
+		<action path="/DirectionMaterialUsed"
+			type="com.asahikaseieng.app.direction.DirectionMaterialUsedAction"
+			name="directionMaterialUsedForm" validate="true" parameter="op" scope="session"
+			input="/jsp/direction/direction_material_used.jsp">
+
+			<forward name="success" path="/jsp/direction/direction_material_used.jsp" />
+
+		</action>
+
+	</action-mappings>
+
+</struts-config>

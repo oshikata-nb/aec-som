@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- estimateList -->
+		<form name="estimateListForm">
+			<!-- 検索条件：見積入力日(FROM) -->
+			<field property="strSrhEstimateInputDateFrom"
+				depends="dateif">
+				<arg key="estimate.estimate.input.date.from" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：見積入力日(TO) -->
+			<field property="strSrhEstimateInputDateTo"
+				depends="dateif">
+				<arg key="estimate.estimate.input.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：見積入力日 大小関係 -->
+			<field property="strSrhEstimateInputDateTo"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="estimate.estimate.input.date.from" />
+				<arg1 key="estimate.estimate.input.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strSrhEstimateInputDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>strSrhEstimateInputDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strSrhEstimateInputDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：見積有効期限(FROM) -->
+			<field property="strSrhEstimateValidDateFrom"
+				depends="dateif">
+				<arg key="estimate.estimate.valid.date.from" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：見積有効期限(TO) -->
+			<field property="strSrhEstimateValidDateTo"
+				depends="dateif">
+				<arg key="estimate.estimate.valid.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：見積有効期限 大小関係 -->
+			<field property="strSrhEstimateValidDateTo"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="estimate.estimate.valid.date.from" />
+				<arg1 key="estimate.estimate.valid.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strSrhEstimateValidDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>strSrhEstimateValidDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strSrhEstimateValidDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- estimateDetail -->
+		<form name="estimateDetailForm">
+			<!-- 見積入力日 -->
+			<field property="strEstimateInputDate"
+				depends="requiredif, dateif">
+				<arg0 key="estimate.estimate.input.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 帳合コード -->
+			<field property="balanceCd" depends="requiredif">
+				<arg0 key="estimate.balance.cd" />
+			</field>
+
+			<!-- 見積リスト(内容は別定義 → form name="estimateDetail") -->
+			<field property="searchEstimateDetailList"
+				depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>estimateDetail</var-value>
+				</var>
+			</field>
+
+			<!-- 見積有効期限(FROM) -->
+			<field property="strEstimateValidDateFrom"
+				depends="requiredif, dateif">
+				<arg key="estimate.estimate.valid.date.from" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 見積有効期限(TO) -->
+			<field property="strEstimateValidDateTo"
+				depends="requiredif, dateif">
+				<arg key="estimate.estimate.valid.date.to" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 見積有効期限 大小関係 -->
+			<field property="strEstimateValidDateTo"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="estimate.estimate.valid.date.from" />
+				<arg1 key="estimate.estimate.valid.date.to" />
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strEstimateValidDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>strEstimateValidDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strEstimateValidDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+			<!-- 備考 -->
+			<field property="remark" depends="maxlength">
+				<arg0 key="estimate.remark" />
+				<arg1 key="estimate.remark.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1333</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- 見積リスト -->
+		<form name="estimateDetail">
+			<!-- 品目コード -->
+			<field property="itemCd" depends="requiredif">
+				<arg0 key="estimate.item.cd" />
+				<msg name="requiredif" key="errors.required.row" />
+			</field>
+
+			<!-- 標準単価 -->
+			<field property="strStandardUnitPrice"
+				depends="requiredif, validateDegit">
+				<arg0 key="estimate.standard.unit.price" />
+				<msg name="requiredif" key="errors.required.row" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- 標準値引 -->
+			<field property="strStandardDiscount"
+				depends="validateDegit">
+				<arg0 key="estimate.standard.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- 特別値引 -->
+			<field property="strSpecialDiscount"
+				depends="validateDegit">
+				<arg0 key="estimate.special.discount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- 単価 -->
+			<field property="strUnitprice"
+				depends="requiredif, validateDegit">
+				<arg0 key="estimate.unitprice" />
+				<msg name="requiredif" key="errors.required.row" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- 基準数量 -->
+			<field property="strStandardAmount"
+				depends="validateDegit">
+				<arg0 key="estimate.standard.amount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfStockControl</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+
+			<!-- 増付数 -->
+			<field property="strMatss" depends="validateDegit">
+				<arg0 key="estimate.matss" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfStockControl</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

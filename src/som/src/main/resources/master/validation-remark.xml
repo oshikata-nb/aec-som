@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+    </global>
+
+    <formset>
+		<!-- remarkDetail -->
+        <form name="remarkDetailForm">
+			<!-- 受注時備考 -->
+			<field property="remark01" depends="maxstringnum">
+				<arg0 key="remark.remark01"/>
+				<arg1 key="remark.remark01.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+
+			<!-- 発注時備考 -->
+			<field property="remark12" depends="maxstringnum">
+				<arg0 key="remark.remark12"/>
+				<arg1 key="remark.remark12.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+
+			<!-- 発注書備考 -->
+			<field property="remark13" depends="maxstringnum">
+				<arg0 key="remark.remark13"/>
+				<arg1 key="remark.remark13.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+
+			<!-- 出荷時備考 -->
+			<field property="remark11" depends="maxstringnum">
+				<arg0 key="remark.remark11"/>
+				<arg1 key="remark.remark11.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+
+			<!-- 出荷指図書備考 -->
+			<field property="remark06" depends="maxstringnum">
+				<arg0 key="remark.remark06"/>
+				<arg1 key="remark.remark06.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+ 
+ 			<!-- 受注時返信時備考 -->
+			<field property="remark15" depends="maxstringnum">
+				<arg0 key="remark.remark15"/>
+				<arg1 key="remark.remark15.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+ 			<!-- 受注時自動表示備考 -->
+			<field property="remark16" depends="maxstringnum">
+				<arg0 key="remark.remark16"/>
+				<arg1 key="remark.remark16.maxlength"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+ 
+        </form>
+    </formset>
+</form-validation>

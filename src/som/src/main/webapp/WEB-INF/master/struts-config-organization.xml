@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- organization -->
+		<form-bean name="organizationListForm"
+			type="com.asahikaseieng.app.master.organization.OrganizationListForm" />
+		<!-- organization detail -->
+		<form-bean name="organizationDetailForm"
+			type="com.asahikaseieng.app.master.organization.OrganizationDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ organization -->
+		<action path="/OrganizationList"
+			type="com.asahikaseieng.app.master.organization.OrganizationListAction"
+			name="organizationListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/organization_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/organization_list.jsp" />
+			<forward name="reSearch"
+				path="/OrganizationList.do?op=reSearch" />
+			<forward name="newPage"
+				path="/OrganizationDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ organization Detail -->
+		<action path="/OrganizationDetail"
+			type="com.asahikaseieng.app.master.organization.OrganizationDetailAction"
+			name="organizationDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/organization_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/organization_detail.jsp" />
+			<forward name="back"
+				path="/OrganizationList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

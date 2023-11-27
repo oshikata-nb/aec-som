@@ -1,0 +1,37 @@
+/*
+ * 開発依頼詳細情報SQL文��
+ *
+ * entityName=DevelopDto
+ * packageName=develop
+ * methodName=getDevelopDetail
+ */
+SELECT	DEV.DEVELOPMENT_REQUEST_NO
+,		DEV.STATUS
+,		CASE 
+			WHEN DEV.STATUS = 1 THEN '登録済'
+			WHEN DEV.STATUS = 2 THEN '開発依頼承認依頼中'
+			WHEN DEV.STATUS = 3 THEN '開発依頼承認済'
+			WHEN DEV.STATUS = 4 THEN '受付済(開発中)'
+			WHEN DEV.STATUS = 5 THEN '責任者承認依頼中'
+			WHEN DEV.STATUS = 6 THEN '責任者承認済'
+			WHEN DEV.STATUS = 7 THEN '研究開発承認済(開発完了)'
+			WHEN DEV.STATUS = 8 THEN '研究開発中止'
+			WHEN DEV.STATUS = 50 THEN '開発依頼否認'
+			WHEN DEV.STATUS = 51 THEN '研究開発否認'
+			ELSE '新規登録'
+		END STATUS_NAME
+,		DEV.DEVELOPMENT_DIVISION
+,       DEV.APPLICATION
+,       DEV.PROPERTY
+,       DEV.HOPE_COST_FROM
+,       DEV.HOPE_COST_TO
+,       DEV.SOLVENT_INFORMATION
+,       DEV.ALLERGY_INFORMATION
+,       DEV.DEVELOPMENT_DETAIL
+,		DEV.REQ_APP_TANTO_CD
+,		DEV.DEVELOP_APP_TANTO_CD
+,		DEV.DEV_ITEM
+,		DEV.DEV_ITEM_NO
+,		DEV.DEV_RELATION
+FROM	DEVELOPMENT_REQUEST DEV
+WHERE	DEV.DEVELOPMENT_REQUEST_NO = /*developmentRequestNo*/'UVZO37V8O3'

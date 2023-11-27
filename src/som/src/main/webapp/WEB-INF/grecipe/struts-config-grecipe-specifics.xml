@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 詳細 -->
+		<form-bean name="grecipeSpecificsForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeSpecificsForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 詳細-->
+		<action path="/GrecipeSpecifics"
+			type="com.asahikaseieng.app.grecipe.GrecipeSpecificsAction"
+			name="grecipeSpecificsForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_specifics.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_specifics.jsp" />
+			<forward name="back"
+				path="/GrecipeList.do?op=reSearch" />
+			<forward name="reSearch"
+				path="/GrecipeSpecifics.do?op=reSearch" />
+		</action>
+
+
+	</action-mappings>
+
+</struts-config>

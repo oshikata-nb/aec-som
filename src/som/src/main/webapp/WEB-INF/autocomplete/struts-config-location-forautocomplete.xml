@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 受注用ロケーションマスタ autocomplete -->
+		<form-bean name="orderLocationForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.location.order.OrderLocationForAutoCompleteForm" />
+	
+		<!-- 出荷指図用ロケーションマスタ autocomplete -->
+		<form-bean name="shippingLocationForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.location.shipping.ShippingLocationForAutoCompleteForm" />
+
+		<!-- 出荷実績用ロケーションマスタ autocomplete -->
+		<form-bean name="shippingResultLocationForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.location.shippingresult.ShippingResultLocationForAutoCompleteForm" />
+
+		<!-- 売上用ロケーションマスタ autocomplete -->
+		<form-bean name="salesLocationForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.location.sales.SalesLocationForAutoCompleteForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ ロケーションマスタ auto complete -->
+		<action path="/LocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.LocationForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/location_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 受注用ロケーションマスタ auto complete -->
+		<action path="/OrderLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.order.OrderLocationForAutoCompleteAction"
+			name="orderLocationForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/order/order_location_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 出荷指図用ロケーションマスタ auto complete -->
+		<action path="/ShippingLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.shipping.ShippingLocationForAutoCompleteAction"
+			name="shippingLocationForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/shipping/shipping_location_forautocomplete.jsp" />
+		</action>
+		
+		<!-- ================================================ 出荷実績用ロケーションマスタ auto complete -->
+		<action path="/ShippingResultLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.shippingresult.ShippingResultLocationForAutoCompleteAction"
+			name="shippingResultLocationForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/shippingresult/shippingresult_location_forautocomplete.jsp" />
+		</action>
+		
+		<!-- ================================================ 仕入用ロケーションマスタ auto complete -->
+		<action path="/BuyingLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.buying.BuyingLocationForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/location_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 売上用ロケーションマスタ auto complete -->
+		<action path="/SalesLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.sales.SalesLocationForAutoCompleteAction"
+			name="salesLocationForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/sales/sales_location_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 出荷関連帳票出力画面用ロケーションマスタ autocomplete  -->
+		<action path="/SlipShippingLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.slipshipping.SlipShippingLocationForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/location_forautocomplete.jsp" />
+		</action>
+		
+		<!-- ================================================ 売上伝票出力画面用ロケーションマスタ autocomplete  -->
+		<action path="/SlipSalesLocationForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.location.slipsales.SlipSalesLocationForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/location/location_forautocomplete.jsp" />
+		</action>
+
+	</action-mappings>
+</struts-config>
+

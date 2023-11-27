@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図用 -->
+		<form-bean name="directionRecipeResouceForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.reciperesouce.direction.DirectionRecipeResouceForAutoCompleteForm" />
+		<!-- 包装指図用 -->
+		<form-bean name="PkgDirectionRecipeResouceForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.reciperesouce.pkgdirection.PkgDirectionRecipeResouceForAutoCompleteForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+		<!-- ================================================ 設備マスタ共通auto complete -->
+		<action path="/RecipeResouceForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.reciperesouce.RecipeResouceForAutoCompleteAction"
+			name="generalParameterForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/reciperesouce/recipe_resouce_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 製造指図用auto complete -->
+		<action path="/DirectionRecipeResouceForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.reciperesouce.direction.DirectionRecipeResouceForAutoCompleteAction"
+			name="directionRecipeResouceForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/reciperesouce/direction/direction_recipe_resouce_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 包装指図用auto complete -->
+		<action path="/PkgDirectionRecipeResouceForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.reciperesouce.pkgdirection.PkgDirectionRecipeResouceForAutoCompleteAction"
+			name="PkgDirectionRecipeResouceForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/reciperesouce/pkgdirection/pkgdirection_recipe_resouce_forautocomplete.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

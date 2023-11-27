@@ -1,0 +1,80 @@
+/*
+ * 支払入力－支払先AutoComplete一覧検索用SQL
+ *
+ * entityName=PaymentVenderForAutoComplete
+ * packageName=payment
+ * methodName=getSearchList
+ *
+*/
+
+SELECT *
+FROM   (SELECT VEN.VENDER_CD AS VENDER_CD -- 支払先
+			   ,VEN.VENDER_SHORTED_NAME -- 支払先略称
+			   ,CLASSIFICATION.CATEGORY_DIVISION AS CATEGORY_DIVISION -- 分類コード
+			   ,CLASSIFICATION.CATEGORY_NAME AS CATEGORY_NAME -- 分類名称
+			   ,PAY.CREDIT_SCHEDULED_DATE AS PAYMENT_SCHEDULED_DATE -- 支払予定日
+			   ,NVL(PAY.BALANCE_FORWARD, 0) AS BALANCE_FORWARD -- 差引繰越額
+			   ,(NVL(PAY.STOCKING_AMOUNT, 0) +
+				NVL(PAY.OTHER_STOCKING_AMOUNT, 0) + NVL(TAX_AMOUNT, 0)) -
+				(NVL(PAY.STOCKING_RETURNED_AMOUNT, 0) +
+				NVL(PAY.STOCKING_DISCOUNT_AMOUNT, 0)) AS ACCOUNT_PAYABLE_SUM -- 買掛金額合計
+			   ,NVL(PAY.PAYABLE_AMOUNT, 0) PAYABLE_AMOUNT --支払予定額
+			   ,NVL(PAY.OFFSET_AMOUNT, 0) AS OFFSET_AMOUNTV -- 相殺額
+			   ,DECODE(VEN.TRANSFER_COMMISSION_LOAD
+					  ,1
+					  ,NVL(COMPANY.FEE, 0)
+					  ,0) AS COMMISSION -- 手数料
+			   ,NVL(PAY.STOCK_REDUCTION, 0) PURCHASE_DISCOUNT_AMOUNT -- 仕入割引額
+		 FROM   PAYMENT_HEADER PAY
+			   ,(SELECT PAY2.SUPPLIER_CD AS SUPPLIER_CD
+					   ,MAX(PAY2.PAYABLE_DATE) AS PAYABLE_DATE
+				 FROM   PAYMENT_HEADER PAY2, VENDER VEN2
+				 WHERE  VEN2.VENDER_DIVISION = 'SI'
+				 AND    
+/*IF (organizationCd != null) && (organizationCd != "")*/
+						VEN2.ORGANIZATION_CD = /*organizationCd*/'%'
+				 AND    
+/*END*/
+
+/*IF (venderCd != null) && (venderCd != "")*/
+						(VEN2.VENDER_CD LIKE /*venderCd*/'%' OR VEN2.VENDER_SHORTED_NAME LIKE /*venderCd*/'%')
+				 AND    
+/*END*/
+						((VEN2.PAYMENT_INVOICE_CD IS NULL) OR
+						(VEN2.PAYMENT_INVOICE_CD = VEN2.VENDER_CD))
+				 AND    PAY2.SUPPLIER_CD = VEN2.VENDER_CD
+				 GROUP  BY SUPPLIER_CD) MPAY
+			   ,VENDER VEN
+			   ,(SELECT COMPANY.PRIME, BANK.FEE
+				 FROM   BANK
+					   ,(SELECT BANK_MASTER_CD, PRIME
+						 FROM   COMPANY
+						 WHERE  ROWNUM = 1
+						 ORDER  BY COMPANY_CD) COMPANY
+				 WHERE  COMPANY.BANK_MASTER_CD = BANK.BANK_MASTER_CD(+)) COMPANY
+			   ,CLASSIFICATION
+		 WHERE 
+
+/*IF (organizationCd != null) && (organizationCd != "")*/
+		  VEN.ORGANIZATION_CD = /*organizationCd*/'%'
+	   AND    
+/*END*/
+
+/*IF (venderCd != null) && (venderCd != "")*/
+		  (VEN.VENDER_CD LIKE /*venderCd*/'%' OR VEN.VENDER_SHORTED_NAME LIKE /*venderCd*/'%')
+	   AND    
+/*END*/
+
+		  ((VEN.PAYMENT_INVOICE_CD IS NULL) OR
+		  (VEN.PAYMENT_INVOICE_CD = VEN.VENDER_CD))
+	   AND    VEN.VENDER_DIVISION = 'SI'
+	   AND    MPAY.SUPPLIER_CD(+) = VEN.VENDER_CD
+	   AND    PAY.SUPPLIER_CD(+) = MPAY.SUPPLIER_CD
+	   AND    PAY.PAYABLE_DATE(+) = MPAY.PAYABLE_DATE
+	   AND    CLASSIFICATION.CATEGORY_DIVISION(+) = PAY.CREDIT_DIVISION
+	   AND    CLASSIFICATION.DATA_TYPE(+) = 4
+		 ORDER  BY VENDER_CD)
+
+/*IF (rowlimit != null) && (rowlimit != "")*/
+WHERE  ROWNUM <= /*rowlimit*/'50'
+/*END*/

@@ -1,0 +1,42 @@
+package com.asahikaseieng.dao.nonentity.master.accountslist;
+
+import org.seasar.dao.pager.DefaultThresholdPagerCondition;
+
+import com.asahikaseieng.utils.AecTextUtils;
+
+/**
+ * 科目検索条件
+ * @author a1020630
+ */
+public class AccountsListPagerCondition extends DefaultThresholdPagerCondition {
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * コンストラクタ
+	 */
+	public AccountsListPagerCondition() {
+	}
+
+	/** 検索条件プロパティ * */
+
+	private String srhAccountsCd; /* 科目コード */
+
+	/** 検索条件プロパティのGetter,Settetメソッド * */
+
+	/**
+	 * srhAccountsCdを取得します。
+	 * @return srhAccountsCd
+	 */
+	public String getSrhAccountsCd() {
+		return srhAccountsCd;
+	}
+
+	/**
+	 * srhAccountsCdを設定します。
+	 * @param srhAccountsCd srhAccountsCd
+	 */
+	public void setSrhAccountsCd(final String srhAccountsCd) {
+		this.srhAccountsCd = AecTextUtils.likeFilter(srhAccountsCd);
+	}
+}

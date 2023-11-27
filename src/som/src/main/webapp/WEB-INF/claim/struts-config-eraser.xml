@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- eraser -->
+		<form-bean name="eraserListForm"
+			type="com.asahikaseieng.app.claim.eraser.EraserListForm" />
+
+		<!-- eraser detail -->
+		<form-bean name="eraserDetailForm"
+			type="com.asahikaseieng.app.claim.eraser.EraserDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ eraser -->
+		<action path="/EraserList"
+			type="com.asahikaseieng.app.claim.eraser.EraserListAction"
+			name="eraserListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/claim/eraser_list.jsp">
+
+			<forward name="success"
+				path="/jsp/claim/eraser_list.jsp" />
+			<forward name="reSearch"
+				path="/EraserList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ eraser Detail -->
+		<action path="/EraserDetail"
+			type="com.asahikaseieng.app.claim.eraser.EraserDetailAction"
+			name="eraserDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/claim/eraser_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/claim/eraser_detail.jsp" />
+			<forward name="back"
+				path="/EraserList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

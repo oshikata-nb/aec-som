@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図ヘッダForm -->
+		<form-bean name="directionHeaderForm"
+			type="com.asahikaseieng.app.direction.DirectionHeaderForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造指図ヘッダ -->
+
+		<action path="/DirectionHeader"
+			type="com.asahikaseieng.app.direction.DirectionHeaderAction"
+			name="directionHeaderForm"
+			scope="session"
+			validate="true"
+			input="/jsp/direction/direction_header.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/direction/direction_header.jsp" />
+			<forward name="back" path="/DirectionList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+</struts-config>

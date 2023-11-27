@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- locationDetail -->
+		<form name="locationDetailForm">
+			<!-- ロケーションコード -->
+			<field property="locationCd" depends="requiredif, mask">
+				<arg0 key="location.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 可能重量 -->
+			<field property="strPossibleWeight"
+				depends="validateDegit">
+				<arg key="location.possible.weight" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- 棚卸区分 -->
+			<field property="countDivision" depends="requiredif">
+				<arg0 key="location.count.division" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

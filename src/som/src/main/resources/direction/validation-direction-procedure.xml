@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから工程タブ ====================================-->
+		<!-- DirectionProcedureListForm -->
+        <form name="directionProcedureListForm">
+			<!-- 明細(内容は別定義 → form name="directionProcedureList") -->
+			<field property="searchProcList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>directionProcedureList</var-value>
+				</var>
+			</field>
+		</form>
+		<!--  工程一覧画面の明細データの入力チェック -->
+		<form name="directionProcedureList">
+			<!-- 工程コード -->
+			<field property="operationCd" depends="required">
+				<msg name="required" key="errors.required.row" />
+				<arg0 key="item.direction.operation.cd" />
+			</field>
+
+		</form>
+
+		<!-- DirectionProcedureDetailForm -->
+        <form name="directionProcedureDetailForm">
+			<!-- 温度 -->
+			<field property="strConditionTemp" depends="validateDegit">
+				<arg key="item.direction.str.condition.temp" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE2</var-value>
+				</var>
+			</field>
+			<!-- 時間 -->
+			<field property="strConditionTime" depends="validateDegit">
+				<arg key="item.direction.str.condition.time" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+			</field>
+			<!-- 攪拌速度1 -->
+			<field property="strStirSpeed1" depends="validateDegit">
+				<arg key="item.direction.str.stir.speed1" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+			</field>
+			<!-- 攪拌速度1 -->
+			<field property="strStirSpeed2" depends="validateDegit">
+				<arg key="item.direction.str.stir.speed2" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>RECIPE1</var-value>
+				</var>
+			</field>
+			<!-- 洗浄水絶対重量 -->
+			<field property="strWaterWeight" depends="validateDegit">
+				<arg key="item.direction.str.water.weight" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+			<!-- 工程条件 -->
+			<field property="condition" depends="maxlength">
+				<arg key="item.direction.str.condition" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="procedureRemark" depends="maxlength">
+				<arg key="item.direction.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+			<!-- 注釈 -->
+			<field property="procedureNotes" depends="maxlength">
+				<arg key="item.direction.notes" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

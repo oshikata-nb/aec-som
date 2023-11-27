@@ -1,0 +1,66 @@
+<%@ page language="java" pageEncoding="UTF-8" %>
+
+<div id="credit_data_title" class="msg">
+	<h2 class="msgtitle">
+		<a href="#" class="zippy"  onclick="<%= "minimize('credit_data'); return false;"%>" id='<%= "credit_data_zippy"%>'></a>
+		<div style="cursor: move;font-size:90%;" class="fcTitle fb">
+			入金合計内訳
+		</div>
+	</h2>
+	<div id="credit_data" class="msgbody">
+	    <br>
+			<nested:notEmpty property="creditList[0].creditNo">
+			<table width="" border="0">
+				<tr>
+					<td class="alignCenter">
+					<table cellspacing="2" cellpadding="1" id="tblList">
+						<tr class="bcTitleList fb fcTitleList">
+							<td width="100">入金日付</td>
+							<td width="100">入金番号</td>
+							<td align="right" width="50">行番号</td>
+							<td width="100">入金分類</td>
+							<td align="right" width="100">入金額</td>
+							<td align="right" width="100">入金消込残</td>
+						</tr>
+						<nested:iterate id="creditList" property="creditList" indexId="index">
+							<app:modulo numerator='<%=pageContext.findAttribute("index").toString()%>' denominator="2" zero="false">
+								<tr class="bcList1">
+							</app:modulo>
+
+							<app:modulo numerator='<%=pageContext.findAttribute("index").toString()%>' denominator="2" zero="true">
+								<tr class="bcList2">
+							</app:modulo>
+
+							<%-- 入金日付 --%>
+							<td>
+								<nested:write property="strCreditDate" />
+							</td>
+							<%-- 入金番号 --%>
+							<td>
+								<nested:write property="creditNo" />
+							</td>
+							<%-- 行番号 --%>
+							<td align="right">
+								<nested:write property="rowNo" />
+							</td>
+							<%-- 入金分類 --%>
+							<td>
+								<nested:write property="nyukinCateName" />
+							</td>
+							<%-- 入金額 --%>
+							<td align="right">
+								<nested:write property="strCreditAmount" />
+							</td>
+							<%-- 入金消込額 --%>
+							<td align="right">
+								<nested:write property="strCreditEraserAmount" />
+							</td>
+						</nested:iterate>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</nested:notEmpty>
+		<br>
+	</div>
+</div>

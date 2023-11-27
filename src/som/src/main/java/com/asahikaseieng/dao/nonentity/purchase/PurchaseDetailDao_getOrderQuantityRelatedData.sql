@@ -1,0 +1,42 @@
+/*
+ * Created on 2009/02/26
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 発注数量入力時、検索SQL
+ *
+ * @author tosco
+ *
+ * entityName=PurchaseDetail
+ * packageName=purchase
+ * methodName=getOrderQuantityRelatedData
+ *
+ */
+
+SELECT
+	UNIT.UNITPRICE AS ORDER_UNITPRICE			-- 単価(購買外注オーダーの項目名に合わせる)
+FROM
+	(
+	SELECT
+		 VENDER_CD
+		,ITEM_CD 
+		,MAX(VERSION) AS VERSION
+		,MAX(CONSECUTIVE_NO) AS CONSECUTIVE_NO
+	FROM	UNITPRICE
+	WHERE	VENDER_DIVISION = 'SI'	--発注　'SI'固定
+	AND		VENDER_CD = /*venderCd*/'00495005'
+	AND		ITEM_CD = /*itemCd*/'11002611'
+	AND		QUANTITY_FROM <= /*orderQuantity*/'10'
+	AND		DECODE(QUANTITY_TO, 0, 9999999999999.9999999, QUANTITY_TO) >= /*orderQuantity*/'10'
+	GROUP BY	VENDER_CD, ITEM_CD
+	) UNIT01,
+	UNITPRICE UNIT
+WHERE
+	UNIT.VENDER_DIVISION = 'SI'
+AND	UNIT.VENDER_CD = UNIT01.VENDER_CD
+AND	UNIT.ITEM_CD = UNIT01.ITEM_CD
+AND	UNIT.VERSION = UNIT01.VERSION
+AND UNIT.CONSECUTIVE_NO = UNIT01.CONSECUTIVE_NO

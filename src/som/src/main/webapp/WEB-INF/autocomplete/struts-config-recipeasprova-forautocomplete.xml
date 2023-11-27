@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図用autocomplete -->
+		<form-bean name="directionRecipeAsprovaForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.recipeasprova.direction.DirectionRecipeAsprovaForAutoCompleteForm" />
+
+		<!-- 包装指図用autocomplete -->
+		<form-bean name="PkgDirectionRecipeAsprovaForAutoCompleteForm"
+			type="com.asahikaseieng.app.autocomplete.recipeasprova.pkgdirection.PkgDirectionRecipeAsprovaForAutoCompleteForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 製造指図用auto complete -->
+		<action path="/DirectionRecipeAsprovaForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.recipeasprova.direction.DirectionRecipeAsprovaForAutoCompleteAction"
+			name="directionRecipeAsprovaForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/recipeasprova/direction/direction_recipe_asprova_forautocomplete.jsp" />
+		</action>
+
+		<!-- ================================================ 包装指図用auto complete -->
+		<action path="/PkgDirectionRecipeAsprovaForAutoComplete"
+			type="com.asahikaseieng.app.autocomplete.recipeasprova.pkgdirection.PkgDirectionRecipeAsprovaForAutoCompleteAction"
+			name="PkgDirectionRecipeAsprovaForAutoCompleteForm" validate="false" parameter="op"
+			scope="request">
+			<forward name="success"
+				path="/jsp/autocomplete/recipeasprova/pkgdirection/pkgdirection_recipe_asprova_forautocomplete.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

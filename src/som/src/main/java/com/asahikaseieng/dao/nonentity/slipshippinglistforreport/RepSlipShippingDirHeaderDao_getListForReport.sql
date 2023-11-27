@@ -1,0 +1,28 @@
+/*
+ * 
+ *
+ * entityName=RepSlipShippingDirHeader
+ * packageName=slipshippinglistforreport
+ * methodName=getListForReport
+ *
+ */
+SELECT DISTINCT
+	KEY
+,	SCHEDULED_SHIPPING_DATE
+,	LOCATION_CD
+,	LOCATION_NAME
+,	CARRY_CD
+,	CARRY_NAME
+,	REPOTR_OUTPUT_NUM
+
+FROM 
+	REP_SLIP_SHIPPING_DIR_HEADER 
+WHERE 
+	SHIPPING_NO IN /*shippingNo*/('SK000000001')
+ORDER BY
+	SCHEDULED_SHIPPING_DATE
+,	LOCATION_CD
+,	REPOTR_OUTPUT_NUM
+,	CARRY_CD ASC
+
+

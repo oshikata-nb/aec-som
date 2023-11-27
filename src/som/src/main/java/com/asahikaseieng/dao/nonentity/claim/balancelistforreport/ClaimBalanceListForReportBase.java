@@ -1,0 +1,890 @@
+/*
+ * Created on 2009/08/18
+ *
+ * $copyright$
+ *
+ */
+package com.asahikaseieng.dao.nonentity.claim.balancelistforreport;
+
+import java.io.Serializable;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+/**
+ * ClaimBalanceListForReportクラス.
+ * @author t0011036
+ */
+public class ClaimBalanceListForReportBase implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * コンストラクタ.
+	 */
+	public ClaimBalanceListForReportBase() {
+	}
+
+	//
+	// 定数
+	//
+
+	/** COLUMNアノテーション claimNo */
+	public static final String claimNo_COLUMN = "CLAIM_NO";
+
+	/** COLUMNアノテーション organizationCd */
+	public static final String organizationCd_COLUMN = "ORGANIZATION_CD";
+
+	/** COLUMNアノテーション venderCd */
+	public static final String venderCd_COLUMN = "VENDER_CD";
+
+	/** COLUMNアノテーション venderShortedName */
+	public static final String venderShortedName_COLUMN = "VENDER_SHORTED_NAME";
+
+	/** COLUMNアノテーション creditDate */
+	public static final String creditDate_COLUMN = "CREDIT_DATE";
+
+	/** COLUMNアノテーション creditScheduledDate */
+	public static final String creditScheduledDate_COLUMN = "CREDIT_SCHEDULED_DATE";
+
+	/** COLUMNアノテーション creditDivision */
+	public static final String creditDivision_COLUMN = "CREDIT_DIVISION";
+
+	/** COLUMNアノテーション noteSight */
+	public static final String noteSight_COLUMN = "NOTE_SIGHT";
+
+	/** COLUMNアノテーション holidayFlg */
+	public static final String holidayFlg_COLUMN = "HOLIDAY_FLG";
+
+	/** COLUMNアノテーション claimAmountForward */
+	public static final String claimAmountForward_COLUMN = "CLAIM_AMOUNT_FORWARD";
+
+	/** COLUMNアノテーション creditAmountForward */
+	public static final String creditAmountForward_COLUMN = "CREDIT_AMOUNT_FORWARD";
+
+	/** COLUMNアノテーション otherCreditAmountForward */
+	public static final String otherCreditAmountForward_COLUMN = "OTHER_CREDIT_AMOUNT_FORWARD";
+
+	/** COLUMNアノテーション balanceForward */
+	public static final String balanceForward_COLUMN = "BALANCE_FORWARD";
+
+	/** COLUMNアノテーション salesAmount */
+	public static final String salesAmount_COLUMN = "SALES_AMOUNT";
+
+	/** COLUMNアノテーション salesReturnedAmount */
+	public static final String salesReturnedAmount_COLUMN = "SALES_RETURNED_AMOUNT";
+
+	/** COLUMNアノテーション salesDiscountAmount */
+	public static final String salesDiscountAmount_COLUMN = "SALES_DISCOUNT_AMOUNT";
+
+	/** COLUMNアノテーション otherSalesAmount */
+	public static final String otherSalesAmount_COLUMN = "OTHER_SALES_AMOUNT";
+
+	/** COLUMNアノテーション offsetAmount */
+	public static final String offsetAmount_COLUMN = "OFFSET_AMOUNT";
+
+	/** COLUMNアノテーション taxAmount */
+	public static final String taxAmount_COLUMN = "TAX_AMOUNT";
+
+	/** COLUMNアノテーション claimAmount */
+	public static final String claimAmount_COLUMN = "CLAIM_AMOUNT";
+
+	/** COLUMNアノテーション claimBalanceAmount */
+	public static final String claimBalanceAmount_COLUMN = "CLAIM_BALANCE_AMOUNT";
+
+	/** COLUMNアノテーション eraserAmount */
+	public static final String eraserAmount_COLUMN = "ERASER_AMOUNT";
+
+	/** COLUMNアノテーション eraserBalanceAmount */
+	public static final String eraserBalanceAmount_COLUMN = "ERASER_BALANCE_AMOUNT";
+
+	/** COLUMNアノテーション billDivision */
+	public static final String billDivision_COLUMN = "BILL_DIVISION";
+
+	/** COLUMNアノテーション issueDate */
+	public static final String issueDate_COLUMN = "ISSUE_DATE";
+
+	/** COLUMNアノテーション issuerCd */
+	public static final String issuerCd_COLUMN = "ISSUER_CD";
+
+	/** COLUMNアノテーション inputDate */
+	public static final String inputDate_COLUMN = "INPUT_DATE";
+
+	/** COLUMNアノテーション inputorCd */
+	public static final String inputorCd_COLUMN = "INPUTOR_CD";
+
+	/** COLUMNアノテーション updateDate */
+	public static final String updateDate_COLUMN = "UPDATE_DATE";
+
+	/** COLUMNアノテーション updatorCd */
+	public static final String updatorCd_COLUMN = "UPDATOR_CD";
+
+	/** COLUMNアノテーション organizationName */
+	public static final String organizationName_COLUMN = "ORGANIZATION_NAME";
+
+	/** COLUMNアノテーション venderName1 */
+	public static final String venderName1_COLUMN = "VENDER_NAME1";
+
+	/** COLUMNアノテーション otherCredit */
+	public static final String otherCredit_COLUMN = "OTHER_CREDIT";
+
+	/** COLUMNアノテーション otherSales */
+	public static final String otherSales_COLUMN = "OTHER_SALES";
+
+	/** COLUMNアノテーション creditLimitPrice */
+	public static final String creditLimitPrice_COLUMN = "CREDIT_LIMIT_PRICE";
+
+	/** COLUMNアノテーション issuerName */
+	public static final String issuerName_COLUMN = "ISSUER_NAME";
+
+	/** COLUMNアノテーション inputorName */
+	public static final String inputorName_COLUMN = "INPUTOR_NAME";
+
+	/** COLUMNアノテーション updatorName */
+	public static final String updatorName_COLUMN = "UPDATOR_NAME";
+
+	/** COLUMNアノテーション funTaxAmount */
+	public static final String funTaxAmount_COLUMN = "FUN_TAX_AMOUNT";
+
+	//
+	// インスタンスフィールド
+	//
+
+	private String claimNo;
+
+	private String organizationCd;
+
+	private String venderCd;
+
+	private java.sql.Timestamp creditDate;
+
+	private java.sql.Timestamp creditScheduledDate;
+
+	private String creditDivision;
+
+	private java.math.BigDecimal noteSight;
+
+	private java.math.BigDecimal holidayFlg;
+
+	private java.math.BigDecimal claimAmountForward;
+
+	private java.math.BigDecimal creditAmountForward;
+
+	private java.math.BigDecimal otherCreditAmountForward;
+
+	private java.math.BigDecimal balanceForward;
+
+	private java.math.BigDecimal salesAmount;
+
+	private java.math.BigDecimal salesReturnedAmount;
+
+	private java.math.BigDecimal salesDiscountAmount;
+
+	private java.math.BigDecimal otherSalesAmount;
+
+	private java.math.BigDecimal offsetAmount;
+
+	private java.math.BigDecimal taxAmount;
+
+	private java.math.BigDecimal claimAmount;
+
+	private java.math.BigDecimal claimBalanceAmount;
+
+	private java.math.BigDecimal eraserAmount;
+
+	private java.math.BigDecimal eraserBalanceAmount;
+
+	private java.math.BigDecimal billDivision;
+
+	private java.sql.Timestamp issueDate;
+
+	private String issuerCd;
+
+	private java.sql.Timestamp inputDate;
+
+	private String inputorCd;
+
+	private java.sql.Timestamp updateDate;
+
+	private String updatorCd;
+
+	private String organizationName;
+
+	private String venderName1;
+
+	private String venderShortedName;
+
+	private java.math.BigDecimal otherCredit;
+
+	private java.math.BigDecimal otherSales;
+
+	private java.math.BigDecimal creditLimitPrice;
+
+	private String issuerName;
+
+	private String inputorName;
+
+	private String updatorName;
+
+	private java.math.BigDecimal funTaxAmount;
+
+	//
+	// インスタンスメソッド
+	//
+
+	/**
+	 * claimNo取得.
+	 * @return claimNo
+	 */
+	public String getClaimNo() {
+		return this.claimNo;
+	}
+
+	/**
+	 * claimNo設定.
+	 * @param claimNo claimNo
+	 */
+	public void setClaimNo(final String claimNo) {
+		this.claimNo = claimNo;
+	}
+
+	/**
+	 * organizationCd取得.
+	 * @return organizationCd
+	 */
+	public String getOrganizationCd() {
+		return this.organizationCd;
+	}
+
+	/**
+	 * organizationCd設定.
+	 * @param organizationCd organizationCd
+	 */
+	public void setOrganizationCd(final String organizationCd) {
+		this.organizationCd = organizationCd;
+	}
+
+	/**
+	 * venderCd取得.
+	 * @return venderCd
+	 */
+	public String getVenderCd() {
+		return this.venderCd;
+	}
+
+	/**
+	 * venderCd設定.
+	 * @param venderCd venderCd
+	 */
+	public void setVenderCd(final String venderCd) {
+		this.venderCd = venderCd;
+	}
+
+	/**
+	 * venderShortedNameを取得します。
+	 * @return venderShortedName
+	 */
+	public String getVenderShortedName() {
+		return venderShortedName;
+	}
+
+	/**
+	 * venderShortedNameを設定します。
+	 * @param venderShortedName venderShortedName
+	 */
+	public void setVenderShortedName(final String venderShortedName) {
+		this.venderShortedName = venderShortedName;
+	}
+
+	/**
+	 * creditDate取得.
+	 * @return creditDate
+	 */
+	public java.sql.Timestamp getCreditDate() {
+		return this.creditDate;
+	}
+
+	/**
+	 * creditDate設定.
+	 * @param creditDate creditDate
+	 */
+	public void setCreditDate(final java.sql.Timestamp creditDate) {
+		this.creditDate = creditDate;
+	}
+
+	/**
+	 * creditScheduledDate取得.
+	 * @return creditScheduledDate
+	 */
+	public java.sql.Timestamp getCreditScheduledDate() {
+		return this.creditScheduledDate;
+	}
+
+	/**
+	 * creditScheduledDate設定.
+	 * @param creditScheduledDate creditScheduledDate
+	 */
+	public void setCreditScheduledDate(
+			final java.sql.Timestamp creditScheduledDate) {
+		this.creditScheduledDate = creditScheduledDate;
+	}
+
+	/**
+	 * creditDivision取得.
+	 * @return creditDivision
+	 */
+	public String getCreditDivision() {
+		return this.creditDivision;
+	}
+
+	/**
+	 * creditDivision設定.
+	 * @param creditDivision creditDivision
+	 */
+	public void setCreditDivision(final String creditDivision) {
+		this.creditDivision = creditDivision;
+	}
+
+	/**
+	 * noteSight取得.
+	 * @return noteSight
+	 */
+	public java.math.BigDecimal getNoteSight() {
+		return this.noteSight;
+	}
+
+	/**
+	 * noteSight設定.
+	 * @param noteSight noteSight
+	 */
+	public void setNoteSight(final java.math.BigDecimal noteSight) {
+		this.noteSight = noteSight;
+	}
+
+	/**
+	 * holidayFlg取得.
+	 * @return holidayFlg
+	 */
+	public java.math.BigDecimal getHolidayFlg() {
+		return this.holidayFlg;
+	}
+
+	/**
+	 * holidayFlg設定.
+	 * @param holidayFlg holidayFlg
+	 */
+	public void setHolidayFlg(final java.math.BigDecimal holidayFlg) {
+		this.holidayFlg = holidayFlg;
+	}
+
+	/**
+	 * claimAmountForward取得.
+	 * @return claimAmountForward
+	 */
+	public java.math.BigDecimal getClaimAmountForward() {
+		return this.claimAmountForward;
+	}
+
+	/**
+	 * claimAmountForward設定.
+	 * @param claimAmountForward claimAmountForward
+	 */
+	public void setClaimAmountForward(
+			final java.math.BigDecimal claimAmountForward) {
+		this.claimAmountForward = claimAmountForward;
+	}
+
+	/**
+	 * creditAmountForward取得.
+	 * @return creditAmountForward
+	 */
+	public java.math.BigDecimal getCreditAmountForward() {
+		return this.creditAmountForward;
+	}
+
+	/**
+	 * creditAmountForward設定.
+	 * @param creditAmountForward creditAmountForward
+	 */
+	public void setCreditAmountForward(
+			final java.math.BigDecimal creditAmountForward) {
+		this.creditAmountForward = creditAmountForward;
+	}
+
+	/**
+	 * otherCreditAmountForward取得.
+	 * @return otherCreditAmountForward
+	 */
+	public java.math.BigDecimal getOtherCreditAmountForward() {
+		return this.otherCreditAmountForward;
+	}
+
+	/**
+	 * otherCreditAmountForward設定.
+	 * @param otherCreditAmountForward otherCreditAmountForward
+	 */
+	public void setOtherCreditAmountForward(
+			final java.math.BigDecimal otherCreditAmountForward) {
+		this.otherCreditAmountForward = otherCreditAmountForward;
+	}
+
+	/**
+	 * balanceForward取得.
+	 * @return balanceForward
+	 */
+	public java.math.BigDecimal getBalanceForward() {
+		return this.balanceForward;
+	}
+
+	/**
+	 * balanceForward設定.
+	 * @param balanceForward balanceForward
+	 */
+	public void setBalanceForward(final java.math.BigDecimal balanceForward) {
+		this.balanceForward = balanceForward;
+	}
+
+	/**
+	 * salesAmount取得.
+	 * @return salesAmount
+	 */
+	public java.math.BigDecimal getSalesAmount() {
+		return this.salesAmount;
+	}
+
+	/**
+	 * salesAmount設定.
+	 * @param salesAmount salesAmount
+	 */
+	public void setSalesAmount(final java.math.BigDecimal salesAmount) {
+		this.salesAmount = salesAmount;
+	}
+
+	/**
+	 * salesReturnedAmount取得.
+	 * @return salesReturnedAmount
+	 */
+	public java.math.BigDecimal getSalesReturnedAmount() {
+		return this.salesReturnedAmount;
+	}
+
+	/**
+	 * salesReturnedAmount設定.
+	 * @param salesReturnedAmount salesReturnedAmount
+	 */
+	public void setSalesReturnedAmount(
+			final java.math.BigDecimal salesReturnedAmount) {
+		this.salesReturnedAmount = salesReturnedAmount;
+	}
+
+	/**
+	 * salesDiscountAmount取得.
+	 * @return salesDiscountAmount
+	 */
+	public java.math.BigDecimal getSalesDiscountAmount() {
+		return this.salesDiscountAmount;
+	}
+
+	/**
+	 * salesDiscountAmount設定.
+	 * @param salesDiscountAmount salesDiscountAmount
+	 */
+	public void setSalesDiscountAmount(
+			final java.math.BigDecimal salesDiscountAmount) {
+		this.salesDiscountAmount = salesDiscountAmount;
+	}
+
+	/**
+	 * otherSalesAmount取得.
+	 * @return otherSalesAmount
+	 */
+	public java.math.BigDecimal getOtherSalesAmount() {
+		return this.otherSalesAmount;
+	}
+
+	/**
+	 * otherSalesAmount設定.
+	 * @param otherSalesAmount otherSalesAmount
+	 */
+	public void setOtherSalesAmount(final java.math.BigDecimal otherSalesAmount) {
+		this.otherSalesAmount = otherSalesAmount;
+	}
+
+	/**
+	 * offsetAmount取得.
+	 * @return offsetAmount
+	 */
+	public java.math.BigDecimal getOffsetAmount() {
+		return this.offsetAmount;
+	}
+
+	/**
+	 * offsetAmount設定.
+	 * @param offsetAmount offsetAmount
+	 */
+	public void setOffsetAmount(final java.math.BigDecimal offsetAmount) {
+		this.offsetAmount = offsetAmount;
+	}
+
+	/**
+	 * taxAmount取得.
+	 * @return taxAmount
+	 */
+	public java.math.BigDecimal getTaxAmount() {
+		return this.taxAmount;
+	}
+
+	/**
+	 * taxAmount設定.
+	 * @param taxAmount taxAmount
+	 */
+	public void setTaxAmount(final java.math.BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	/**
+	 * claimAmount取得.
+	 * @return claimAmount
+	 */
+	public java.math.BigDecimal getClaimAmount() {
+		return this.claimAmount;
+	}
+
+	/**
+	 * claimAmount設定.
+	 * @param claimAmount claimAmount
+	 */
+	public void setClaimAmount(final java.math.BigDecimal claimAmount) {
+		this.claimAmount = claimAmount;
+	}
+
+	/**
+	 * claimBalanceAmount取得.
+	 * @return claimBalanceAmount
+	 */
+	public java.math.BigDecimal getClaimBalanceAmount() {
+		return this.claimBalanceAmount;
+	}
+
+	/**
+	 * claimBalanceAmount設定.
+	 * @param claimBalanceAmount claimBalanceAmount
+	 */
+	public void setClaimBalanceAmount(
+			final java.math.BigDecimal claimBalanceAmount) {
+		this.claimBalanceAmount = claimBalanceAmount;
+	}
+
+	/**
+	 * eraserAmount取得.
+	 * @return eraserAmount
+	 */
+	public java.math.BigDecimal getEraserAmount() {
+		return this.eraserAmount;
+	}
+
+	/**
+	 * eraserAmount設定.
+	 * @param eraserAmount eraserAmount
+	 */
+	public void setEraserAmount(final java.math.BigDecimal eraserAmount) {
+		this.eraserAmount = eraserAmount;
+	}
+
+	/**
+	 * eraserBalanceAmount取得.
+	 * @return eraserBalanceAmount
+	 */
+	public java.math.BigDecimal getEraserBalanceAmount() {
+		return this.eraserBalanceAmount;
+	}
+
+	/**
+	 * eraserBalanceAmount設定.
+	 * @param eraserBalanceAmount eraserBalanceAmount
+	 */
+	public void setEraserBalanceAmount(
+			final java.math.BigDecimal eraserBalanceAmount) {
+		this.eraserBalanceAmount = eraserBalanceAmount;
+	}
+
+	/**
+	 * billDivision取得.
+	 * @return billDivision
+	 */
+	public java.math.BigDecimal getBillDivision() {
+		return this.billDivision;
+	}
+
+	/**
+	 * billDivision設定.
+	 * @param billDivision billDivision
+	 */
+	public void setBillDivision(final java.math.BigDecimal billDivision) {
+		this.billDivision = billDivision;
+	}
+
+	/**
+	 * issueDate取得.
+	 * @return issueDate
+	 */
+	public java.sql.Timestamp getIssueDate() {
+		return this.issueDate;
+	}
+
+	/**
+	 * issueDate設定.
+	 * @param issueDate issueDate
+	 */
+	public void setIssueDate(final java.sql.Timestamp issueDate) {
+		this.issueDate = issueDate;
+	}
+
+	/**
+	 * issuerCd取得.
+	 * @return issuerCd
+	 */
+	public String getIssuerCd() {
+		return this.issuerCd;
+	}
+
+	/**
+	 * issuerCd設定.
+	 * @param issuerCd issuerCd
+	 */
+	public void setIssuerCd(final String issuerCd) {
+		this.issuerCd = issuerCd;
+	}
+
+	/**
+	 * inputDate取得.
+	 * @return inputDate
+	 */
+	public java.sql.Timestamp getInputDate() {
+		return this.inputDate;
+	}
+
+	/**
+	 * inputDate設定.
+	 * @param inputDate inputDate
+	 */
+	public void setInputDate(final java.sql.Timestamp inputDate) {
+		this.inputDate = inputDate;
+	}
+
+	/**
+	 * inputorCd取得.
+	 * @return inputorCd
+	 */
+	public String getInputorCd() {
+		return this.inputorCd;
+	}
+
+	/**
+	 * inputorCd設定.
+	 * @param inputorCd inputorCd
+	 */
+	public void setInputorCd(final String inputorCd) {
+		this.inputorCd = inputorCd;
+	}
+
+	/**
+	 * updateDate取得.
+	 * @return updateDate
+	 */
+	public java.sql.Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	/**
+	 * updateDate設定.
+	 * @param updateDate updateDate
+	 */
+	public void setUpdateDate(final java.sql.Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	/**
+	 * updatorCd取得.
+	 * @return updatorCd
+	 */
+	public String getUpdatorCd() {
+		return this.updatorCd;
+	}
+
+	/**
+	 * updatorCd設定.
+	 * @param updatorCd updatorCd
+	 */
+	public void setUpdatorCd(final String updatorCd) {
+		this.updatorCd = updatorCd;
+	}
+
+	/**
+	 * organizationName取得.
+	 * @return organizationName
+	 */
+	public String getOrganizationName() {
+		return this.organizationName;
+	}
+
+	/**
+	 * organizationName設定.
+	 * @param organizationName organizationName
+	 */
+	public void setOrganizationName(final String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	/**
+	 * venderName1取得.
+	 * @return venderName1
+	 */
+	public String getVenderName1() {
+		return this.venderName1;
+	}
+
+	/**
+	 * venderName1設定.
+	 * @param venderName1 venderName1
+	 */
+	public void setVenderName1(final String venderName1) {
+		this.venderName1 = venderName1;
+	}
+
+	/**
+	 * otherCredit取得.
+	 * @return otherCredit
+	 */
+	public java.math.BigDecimal getOtherCredit() {
+		return this.otherCredit;
+	}
+
+	/**
+	 * otherCredit設定.
+	 * @param otherCredit otherCredit
+	 */
+	public void setOtherCredit(final java.math.BigDecimal otherCredit) {
+		this.otherCredit = otherCredit;
+	}
+
+	/**
+	 * otherSales取得.
+	 * @return otherSales
+	 */
+	public java.math.BigDecimal getOtherSales() {
+		return this.otherSales;
+	}
+
+	/**
+	 * otherSales設定.
+	 * @param otherSales otherSales
+	 */
+	public void setOtherSales(final java.math.BigDecimal otherSales) {
+		this.otherSales = otherSales;
+	}
+
+	/**
+	 * creditLimitPrice取得.
+	 * @return creditLimitPrice
+	 */
+	public java.math.BigDecimal getCreditLimitPrice() {
+		return this.creditLimitPrice;
+	}
+
+	/**
+	 * creditLimitPrice設定.
+	 * @param creditLimitPrice creditLimitPrice
+	 */
+	public void setCreditLimitPrice(final java.math.BigDecimal creditLimitPrice) {
+		this.creditLimitPrice = creditLimitPrice;
+	}
+
+	/**
+	 * issuerName取得.
+	 * @return issuerName
+	 */
+	public String getIssuerName() {
+		return this.issuerName;
+	}
+
+	/**
+	 * issuerName設定.
+	 * @param issuerName issuerName
+	 */
+	public void setIssuerName(final String issuerName) {
+		this.issuerName = issuerName;
+	}
+
+	/**
+	 * inputorName取得.
+	 * @return inputorName
+	 */
+	public String getInputorName() {
+		return this.inputorName;
+	}
+
+	/**
+	 * inputorName設定.
+	 * @param inputorName inputorName
+	 */
+	public void setInputorName(final String inputorName) {
+		this.inputorName = inputorName;
+	}
+
+	/**
+	 * updatorName取得.
+	 * @return updatorName
+	 */
+	public String getUpdatorName() {
+		return this.updatorName;
+	}
+
+	/**
+	 * updatorName設定.
+	 * @param updatorName updatorName
+	 */
+	public void setUpdatorName(final String updatorName) {
+		this.updatorName = updatorName;
+	}
+
+	/**
+	 * funTaxAmount取得.
+	 *
+	 * @return funTaxAmount
+	 */
+	public java.math.BigDecimal getFunTaxAmount() {
+		return this.funTaxAmount;
+	}
+
+	/**
+	 * funTaxAmount設定.
+	 *
+	 * @param funTaxAmount funTaxAmount
+	 */
+	public void setFunTaxAmount(final java.math.BigDecimal funTaxAmount) {
+		this.funTaxAmount = funTaxAmount;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean equals(final Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+}

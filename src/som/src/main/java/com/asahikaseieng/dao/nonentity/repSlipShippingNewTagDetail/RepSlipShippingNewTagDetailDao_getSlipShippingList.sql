@@ -1,0 +1,51 @@
+/*
+ * 
+ *
+ * entityName=RepSlipShippingNewTagDetail
+ * packageName=repSlipShippingNewTagDetail
+ * methodName=getSlipShippingList
+ *
+ */
+	
+SELECT
+	 KEY
+	,ORDER_NO -- 受注番号
+	,ITEM_CD -- 品目コード
+	,ITEM_NAME -- 品目名称
+	,STYLE_OF_PACKING -- 荷姿
+	,CD_NAME_STYLE -- 品目コード/品目名称/荷姿
+	,SUM(ORDER_QTY) AS ORDER_QTY -- 受注数量
+	,MIN(SHIPPING_SLIP_NO) AS SHIPPING_SLIP_NO -- 出荷伝票番号
+	,SCHEDULED_SHIPPING_DATE -- 出荷予定日
+	,ORDER_ROW_NO -- 行番号(受注)
+	,DELIVERY_CD -- 納入先コード
+	,CARRY_CD
+	,REPOTR_OUTPUT_NUM
+
+FROM REP_SLIP_SHIP_NEW_TAG_DETAIL
+ 
+WHERE 
+	SHIPPING_NO IN /*shippingNo*/('SK000000001')
+AND
+	LABEL_PUBLISH = 2 --2:荷札
+	
+GROUP BY 
+	 KEY
+    ,ORDER_NO
+	,ITEM_CD
+	,ITEM_NAME
+	,STYLE_OF_PACKING
+	,CD_NAME_STYLE
+	,SCHEDULED_SHIPPING_DATE
+	,ORDER_ROW_NO
+	,DELIVERY_CD
+	,CARRY_CD
+	,REPOTR_OUTPUT_NUM
+
+
+ORDER BY
+	 KEY
+	,REPOTR_OUTPUT_NUM
+	,CARRY_CD ASC
+
+

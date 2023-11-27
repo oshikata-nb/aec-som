@@ -1,0 +1,39 @@
+<%@ page language="java" pageEncoding="UTF-8" %>
+
+<div id='<%= "msg_" + identifier %>' class="msg">
+	<h2 class="msgtitle">
+		<a href="#" class="zippy"  onclick="<%= "minimize(\'msg_" + identifier +"\', " + laneNo + ", " + index + "); regist(); return false;"%>" id='<%= "msg_" + identifier + "_zippy"%>'></a>
+		<div style="cursor: move;" class="msg_handle">
+			<a style="cursor: pointer;" class="msgtitle_link" id='<%= "msg_" + identifier + "_title"%>' href='<%= titleUrl +""%>'>
+				<span id='<%= "msg_" + identifier + "_title_text"%>' class="msgtitle_text"><nested:write property="gadget.title" /></span>
+			</a>
+
+			<div class="ids">
+				<nested:hidden property="menuId"/>
+				<nested:hidden property="tabId"/>
+				<nested:hidden property="slideStatus"/>
+			</div>
+		</div>
+	</h2>
+
+	<div id='<%= "msg_" + identifier + "_body"%>' class="msgbody">
+		<br>
+			<nested:iterate id="linkList" property="linkList" indexId="index">
+				<nested:define id="linkString" property="linkString"/>
+
+				<a href="<%= linkString %>">
+					<nested:write property="listString" /><br>
+				</a>
+			</nested:iterate>
+
+			<%-- 最大表示数!=ゼロ(全件表示) かつ 最大表示数をデータ件数が超えた場合 --%>
+			<%-- 警告メッセージ表示 --%>
+			<nested:notEqual property="gadget.maxLine" value="0">
+				<nested:lessThan property="gadget.maxLine" value='<%= dataCnt + "" %>'>
+					<br>
+					<div style="color: red"><bean:message key="errors.over.maxline.gadget" arg0='<%= dataCnt + "" %>'/></div>
+				</nested:lessThan>
+			</nested:notEqual>
+		<br>
+	</div>
+</div>

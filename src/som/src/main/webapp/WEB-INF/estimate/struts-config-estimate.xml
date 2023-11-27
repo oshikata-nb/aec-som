@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- estimate -->
+		<form-bean name="estimateListForm"
+			type="com.asahikaseieng.app.estimate.EstimateListForm" />
+		<!-- estimate detail -->
+		<form-bean name="estimateDetailForm"
+			type="com.asahikaseieng.app.estimate.EstimateDetailForm" />
+		<!-- search balance -->
+		<form-bean name="balanceSearchForm"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchForm" />
+		<!-- mypage -->
+		<form-bean name="myPageForm"
+			type="com.asahikaseieng.app.mypage.MyPageForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ estimate -->
+		<action path="/EstimateList"
+			type="com.asahikaseieng.app.estimate.EstimateListAction"
+			name="estimateListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/estimate/estimate_list.jsp">
+
+			<forward name="success"
+				path="/jsp/estimate/estimate_list.jsp" />
+			<forward name="reSearch"
+				path="/EstimateList.do?op=reSearch" />
+			<forward name="newPage"
+				path="/EstimateDetail.do?op=newPage" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+
+		<!-- ================================================ estimate Detail -->
+		<action path="/EstimateDetail"
+			type="com.asahikaseieng.app.estimate.EstimateDetailAction"
+			name="estimateDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/estimate/estimate_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/estimate/estimate_detail.jsp" />
+			<forward name="back" path="/EstimateList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ search balance -->
+		<action path="/BalanceSearch"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchAction"
+			name="balanceSearchForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/search/balance_search.jsp">
+
+			<forward name="success"
+				path="/jsp/master/search/balance_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

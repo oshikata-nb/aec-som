@@ -1,0 +1,17 @@
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CST_PURCHASE_ESTIMATE_REPORT.exe.config
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.vbproj.ResolveComReference.cache
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CommonReport.config
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CommonReportLog.config
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CST_PURCHASE_ESTIMATE_REPORT.exe
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CST_PURCHASE_ESTIMATE_REPORT.pdb
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\CST_PURCHASE_ESTIMATE_REPORT.xml
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\Common.dll
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\log4net.dll
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\Common.pdb
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\bin\Release\Common.xml
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.vbprojResolveAssemblyReference.cache
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.Resources.resources
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.vbproj.GenerateResource.Cache
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.exe
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.xml
+D:\ats\ReportCreator\CST_PURCHASE_ESTIMATE_REPORT\obj\Release\CST_PURCHASE_ESTIMATE_REPORT.pdb

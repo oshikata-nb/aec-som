@@ -1,0 +1,21 @@
+/*
+ * 名称マスタ詳細用SQL
+ *
+ * entityName=NamesDetail
+ * packageName=namesdetail
+ * methodName=getEntity
+ *
+ */
+
+SELECT NAME_DIVISION, NAME_CD, NAME01, NAME02, NAME03, QUANTITY_ROUNDUP, QUANTITY_ROUNDUP_UNIT, UPDATE_DATE,
+CASE NAME_DIVISION
+	WHEN N'UNIT' THEN '単位'
+	WHEN N'TANA' THEN '棚卸区分'
+	WHEN N'STDV' THEN '検査項目'
+	ELSE NULL
+END NAME_DIVISION_NAME
+FROM NAMES
+WHERE NAME_DIVISION = /*nameDivision*/'%'
+AND NAME_CD = /*nameCd*/'%'
+
+

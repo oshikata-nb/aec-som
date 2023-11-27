@@ -1,0 +1,97 @@
+body, div, ul, li, h1, h2, h3, h4, h5, h6, form, textarea, p, td {
+  margin:  0;
+  padding: 0;
+}
+
+#contents {
+/* border: 1px #000 solid; */
+
+  margin: auto;
+  text-align: left;
+  width: auto;
+  font-size: 100%;
+  overflow: hidden;
+}
+
+#canvas {
+/* border: 1px #f00 solid; */
+
+  padding: 10px 25px 0px 10px;
+  overflow: hidden;
+}
+
+.wrapper {
+/* border: 1px #10f solid; */
+
+  position: static;
+  display: block;
+  margin: 0 0 1em 0;
+  float: none;
+  width: auto;
+  overflow: hidden;
+}
+
+.lane {
+/* border: 1px #000 solid;
+   background-color: #eee;  */
+
+  float: left;
+  margin-left: 2%;
+  width: 45%;
+  min-height: 100px; /* ←これが大事(空の列対策) IE6はライブラリ検討(要テスト)*/
+}
+
+.first {
+  margin-left: 0;
+}
+
+.msg {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: none;
+  display: block;
+  zoom: 1;
+  both:clear;
+}
+
+.msgtitle {
+  /* background-color: #e5ecf9;
+  border-top:   1px #7aa5d6 solid; */
+  padding: 2px 5px 2px 5px;
+  font-size: 110%;
+}
+/* 
+a.msgtitle_link {
+  color:#3366cc;
+}
+*/
+.msgtitle .msgtitle_text {
+  font-weight: bold;
+}
+
+.msgtitle a.zippy {
+  font-size: 70%;
+  font-weight: normal;
+
+  float: right;
+  margin-left: 3px;
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.msgtitle a.zippy {
+  background-image: url('../images/minus-color.png');
+}
+
+.msgtitle a.delete {
+  background-image: url('../images/x-color.png');
+}
+
+/*
+.msgbody {
+border: 1px #000 solid;
+}
+*/
+

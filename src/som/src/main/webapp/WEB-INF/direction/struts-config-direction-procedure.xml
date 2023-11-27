@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造指図工程Form -->
+		<form-bean name="directionProcedureListForm"
+			type="com.asahikaseieng.app.direction.DirectionProcedureListForm" />
+
+		<!-- 製造指図工程詳細Form -->
+		<form-bean name="directionProcedureDetailForm"
+			type="com.asahikaseieng.app.direction.DirectionProcedureDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造指図工程一覧 -->
+
+		<action path="/DirectionProcedureList"
+			type="com.asahikaseieng.app.direction.DirectionProcedureListAction"
+			name="directionProcedureListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/direction/direction_procedure_list.jsp"
+			parameter="op">
+			<forward name="success"
+				path="/jsp/direction/direction_procedure_list.jsp" />
+			<forward name="error"
+				path="/jsp/direction/direction_procedure_list.jsp" />
+			<forward name="back"
+				path="/DirectionList.do?op=reSearch" />
+			<forward name="init"
+				path="/DirectionProcedureList.do?op=reInit" />
+		</action>
+
+		<!-- ================================================= 製造指図工程詳細 -->
+		<action path="/DirectionProcedureDetail"
+			type="com.asahikaseieng.app.direction.DirectionProcedureDetailAction"
+			name="directionProcedureDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/direction/direction_procedure_detail.jsp"
+			parameter="op">
+			<forward name="success"
+				path="/jsp/direction/direction_procedure_detail.jsp" />
+			<forward name="error"
+				path="/jsp/direction/direction_procedure_detail.jsp" />
+			<forward name="back"
+				path="/DirectionProcedureList.do?op=reInit" />
+		</action>
+
+	</action-mappings>
+</struts-config>

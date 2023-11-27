@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 製造実績検索Form -->
+		<form-bean name="rdirectionListForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionListForm" />
+			
+		<!-- 製造実績－ロット検索ポップアップ画面 -->
+		<form-bean name="rdirectionLotInventorySearchForm"
+			type="com.asahikaseieng.app.rdirection.RdirectionLotInventorySearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 製造実績検索 -->
+		<action path="/RdirectionList"
+			type="com.asahikaseieng.app.rdirection.RdirectionListAction"
+			name="rdirectionListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/rdirection/rdirection_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/rdirection/rdirection_list.jsp" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+			<forward name="reSearch" path="/RdirectionList.do?op=reSearch" />
+			<forward name="reFresh" path="/RdirectionList.do?op=reFresh" />
+		</action>
+
+		<!-- ================================================ 製造実績－ロット検索ポップアップ -->
+		<action path="/RdirectionLotInventorySearch"
+			type="com.asahikaseieng.app.rdirection.RdirectionLotInventorySearchAction"
+			name="rdirectionLotInventorySearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/rdirection/rdirection_lotinventory_search.jsp">
+
+			<forward name="success"
+				path="/jsp/rdirection/rdirection_lotinventory_search.jsp" />
+		</action>
+
+		<!-- ================================================ ファイル取込ポップアップ -->
+		<action path="/RdirectionFileImport"
+			type="com.asahikaseieng.app.rdirection.RdirectionFileImportAction"
+			name="rdirectionFileImportForm" validate="true" parameter="op"
+			scope="session" input="/jsp/rdirection/rdirection_file_import.jsp">
+
+			<forward name="success" path="/jsp/rdirection/rdirection_file_import.jsp" />
+		</action>
+
+	</action-mappings>
+</struts-config>

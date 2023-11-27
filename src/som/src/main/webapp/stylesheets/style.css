@@ -1,0 +1,275 @@
+@charset "UTF-8";
+
+/* 基本 */
+html, body {
+	overflow-y: hidden;
+	margin:0;
+	padding:0;
+}
+body {
+	font: arial,sans-serif;
+	font-size:11pt;
+	background-color:#ffffff;
+}
+
+table {
+	font-size:11pt;
+}
+
+A
+/*** リンク ***/
+A:link{color:#0000cc;text-decoration:underline;}
+A:visited{color:#0000cc;text-decoration:underline;}
+A:active{color:#0000cc;text-decoration:underline;}
+A:hover{color:#0000cc;text-decoration:underline;}
+
+/*** 一覧のリンク ***/
+A.lcList:link{color:#0000cc;text-decoration:underline;}
+A.lcList:visited{color:#0000cc;text-decoration:underline;}
+A.lcList:active{color:#0000cc;text-decoration:underline;}
+A.lcList:hover{color:#0000cc;text-decoration:underline;}
+
+/*** 配置 ***/
+.alignCenter{text-align:center;}
+.alignRight{text-align:right;}
+.alignLeft{text-align:Left;}
+.valignBottom{vertical-align:bottom;}
+.valignTop{vertical-align:top;}
+.valignBase{vertical-align:baseline;}
+.valignMiddle{vertical-align:middle;}
+
+/*** 太字 ***/
+.fb{font-weight:bold;}
+
+/*** 下線 ***/
+.ul{text-decoration:underline;}
+
+/*** ボタン ***/
+.cssButton {
+	padding: 1px 4px;
+	background-color: #ffffff;
+	color: black;
+	font-size: 90%; /* ボタンの高さを取る為… */
+}
+
+A.cssButton:link{text-decoration:none;}
+A.cssButton:visited{text-decoration:none;}
+A.cssButton:active{text-decoration:none;}
+A.cssButton:hover{text-decoration:none;}
+
+.cssButton:visited {
+	color: black;
+}
+
+.cssButton:hover {
+	color: black;
+	border-style: inset;
+	padding: 2px 3px 0 5px; /*shift text 1px to the right and down*/
+}
+
+.cssButton:active {
+	color: black;
+}
+
+/* ボタンの高さを取る為… */
+div#cssButton {
+	padding: 4px;
+}
+
+/*** システムボタン ***/
+.sysButton{
+	padding: 0 2px;
+	color: white;
+	text-decoration: none;
+	font-size: 90%; /* ボタンの高さを取る為… */
+}
+
+A.sysButton:link{text-decoration:none;}
+A.sysButton:visited{text-decoration:none;}
+A.sysButton:active{text-decoration:none;}
+A.sysButton:hover{text-decoration:none;}
+
+.sysButton:visited, .rssbutton:hover, .rssbutton:active{
+	color: white;
+}
+
+/*** テキスト ***/
+
+/* 透明・枠線無し英数テキスト(左詰) */
+INPUT.noborderAl {
+	font-size:11pt;
+	margin:2px;
+	text-align: left;
+	background-color: transparent;
+	border: none;
+	ime-mode: disabled;
+}
+/* ETO 品目コード */
+INPUT.itemCode {
+	width: 10em;
+}
+/*** ボーダースタイル ***/
+/* テーブル(デフォルト) */
+.bsTable{border-style:solid;}
+
+
+/*** 確認メッセージ ***/
+div#information {
+	margin:1px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* ---------- Base ここから ---------- */
+
+/* ヘッダー */
+div#header {
+	width: 100%;
+	height: 45px;
+	margin: 0;
+	background: #EEE;
+	color: #79B30B;
+}
+/* 全体 */
+div#container {
+	text-align: left;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+/* 縦包み：ヘッダーの分の余白を取る(内側) */
+div#verticalwrapper {
+	padding-top: 45px;
+	width: 100%;
+	height: 100%;
+}
+/* 横包み：メニューーの分の余白を取る(外側) */
+div#wrapper {
+	float: right;
+	margin-left: -240px;
+	width: 100%;
+	height: 100%;
+}
+/* ヘッダー：TOPに持っていく */
+div#header {
+	position:absolute;
+	top:0;
+}
+/* メニュー */
+div#navigation {
+	float:left;
+	width:240px;
+	height: 100%;
+}
+
+/* メイン */
+div#content {
+	margin-left: 240px;
+	padding-left: 2px;
+	height: 100%;
+	overflow-y: auto !important;
+}
+
+div#content p {
+	line-height:1.4
+}
+
+/* ---------- Base ここまで ---------- */
+
+/*** Error ***/
+#errorExplanation {
+	border: 2px solid red;
+	text-align: left;
+	padding: 5px;
+	margin: 10px;
+}
+
+#errorExplanation ul{
+	padding: 0px;
+	margin: 0px;
+}
+
+#errorExplanation ul li {
+	color: red;
+	font-size: 90%;
+	margin-left: 25px;
+	margin-right: 15px;
+	font-size: 12px;
+	list-style: square;
+}
+
+/* ---------- Auto Complete ここまで ---------- */
+
+div.autocomplete {
+  position:absolute;
+  width:250px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0px;
+  padding:0px;
+}
+
+ul.contacts {
+  list-style-type: none;
+  margin:0px;
+  padding:0px;
+}
+
+ul.contacts li.selected {
+  background-color: #ddb;
+}
+
+li.contact {
+  list-style-type: none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+}
+
+li.contact div.name {
+  font-weight:bold;
+  font-size:10px;
+  line-height:1.2em;
+}
+
+li.contact div.code {
+  font-size:10px;
+  color:#888;
+}
+
+li.contact div.email {
+  font-size:10px;
+  color:#888;
+}
+
+/* div.codeに合わせたクラス */
+.code2 {
+  font-size:12px !important;
+  color:blue !important;
+  text-decoration:underline;
+}
+
+/* div.codeに合わせたクラス */
+.name2 {
+  font-family:serif;
+  font-weight:bold;
+  font-size:10px !important;
+  color:green;
+}
+
+li.contact div.recipeCd {
+  font-weight:bold;
+  font-size:10px;
+  line-height:1.2em;
+}
+
+li.contact div.recipeId {
+  font-size:10px;
+  color:#888;
+}
+
+li.contact div.recipeVersion {
+  font-size:10px;
+  color:#888;
+}

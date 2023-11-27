@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- arbalance -->
+		<form-bean name="arBalanceListForm"
+			type="com.asahikaseieng.app.credit.arbalance.ArBalanceListForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ arbalance -->
+		<action path="/ArBalanceList"
+			type="com.asahikaseieng.app.credit.arbalance.ArBalanceListAction"
+			name="arBalanceListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/credit/arbalance_list.jsp">
+
+			<forward name="success"
+				path="/jsp/credit/arbalance_list.jsp" />
+			<forward name="reSearch"
+				path="/ArBalanceList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

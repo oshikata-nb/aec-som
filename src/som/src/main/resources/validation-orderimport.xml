@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+<!--==================================== ここからOrderListForm ====================================-->
+		<!-- orderImportListForm -->
+		<form name="orderImportListForm">
+		<!-- 受注グループ番号 大小関係 -->
+			<field property="srhFrstOrderNoTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.order.group.no.from" />
+				<arg1 key="item.order.group.no.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhFrstOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhFrstOrderNoTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhFrstOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 取込日From -->
+			<field property="srhImportDateFrom" depends="date">
+				<arg key="item.import.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 取込日To -->
+			<field property="srhImportDateTo" depends="date">
+				<arg key="item.import.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 取込日 大小関係 -->
+			<field property="srhImportDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.import.date.from" />
+				<arg1 key="item.import.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhImportDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhImportDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhImportDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+			<!-- 受注番号 大小関係 -->
+			<field property="srhOrderNoTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.order.no.from" />
+				<arg1 key="item.order.no.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhOrderNoTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+ 			<!-- 受注日From -->
+			<field property="srhOrderDateFrom" depends="date">
+				<arg key="item.order.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 受注日To -->
+			<field property="srhOrderDateTo" depends="date">
+				<arg key="item.order.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 受注日 大小関係 -->
+			<field property="srhOrderDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.order.date.from" />
+				<arg1 key="item.order.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhOrderDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhOrderDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhOrderDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+ 			<!-- 出荷予定日From -->
+			<field property="srhScheduledShippingDateFrom" depends="date">
+				<arg key="item.scheduled.shipping.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 出荷予定日To -->
+			<field property="srhScheduledShippingDateTo" depends="date">
+				<arg key="item.scheduled.shipping.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 出荷予定日 大小関係 -->
+			<field property="srhScheduledShippingDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.scheduled.shipping.date.from" />
+				<arg1 key="item.scheduled.shipping.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhScheduledShippingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhScheduledShippingDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhScheduledShippingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+			 <!-- 希望納期From -->
+			<field property="srhSuggestedDeliverlimitFrom" depends="date">
+				<arg key="item.suggested.deliverlimit.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 希望納期To -->
+			<field property="srhSuggestedDeliverlimitTo" depends="date">
+				<arg key="item.suggested.deliverlimit.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 希望納期 大小関係 -->
+			<field property="srhSuggestedDeliverlimitTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.suggested.deliverlimit.from" />
+				<arg1 key="item.suggested.deliverlimit.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhSuggestedDeliverlimitFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhSuggestedDeliverlimitTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhSuggestedDeliverlimitFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+			<!-- 納品予定日From -->
+			<field property="srhDeliveryExpectedDateFrom" depends="date">
+				<arg key="item.delivery.expected.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納品予定日To -->
+			<field property="srhDeliveryExpectedDateTo" depends="date">
+				<arg key="item.delivery.expected.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納品予定日 大小関係 -->
+			<field property="srhDeliveryExpectedDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.delivery.expected.date.from" />
+				<arg1 key="item.delivery.expected.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhDeliveryExpectedDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhDeliveryExpectedDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhDeliveryExpectedDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 受注番号 大小関係 -->
+			<field property="srhPkNoTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.pkno.from" />
+				<arg1 key="item.pkno.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhFrstOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhFrstOrderNoTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhFrstOrderNoFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+
+    	</form>
+<!--==================================== ここからOrderImportDetailForm ====================================-->
+		<!-- orderImportDetailForm -->
+		<form name="orderImportDetailForm">
+			<!-- 受注日 -->
+			<field property="orderDate" depends="required,dateif">
+				<arg key="item.order.str.order.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納入先 -->
+			<field property="deliveryCd" depends="required">
+				<arg key="item.order.delivery.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			<!-- 客先納入先宛先 -->
+			<field property="ctmDeliveryAddress" depends="maxlength">
+				<arg key="item.ctm.delivery.address" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>60</var-value>
+				</var>
+			</field>
+			<!-- 納入時刻 -->
+			<field property="deliveryExpectedTime" depends="maxlength">
+				<arg key="item.order.delivery.expected.time" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<!-- 客先注文番号 -->
+			<field property="headCtmOrderNo" depends="maxlength">
+				<arg key="item.order.ctm.order.no" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
+			</field>
+			<!-- 備考(印字用) -->
+			<field property="printSummery" depends="maxlength">
+				<arg key="item.order.order.printsummery" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+			<!-- 自動表示備考 -->
+			<field property="deliverySlipSummery" depends="maxlength">
+				<arg key="item.order.delivery.slip.summery" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+			<!-- 参照 -->
+			<field property="orderSummery" depends="maxlength">
+				<arg key="item.order.order.summery" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+			<!-- 20210914 Asclab Saita 納期連絡表専用備考追加対応 -->
+			<!-- 客先連絡事項 -->
+			<field property="deliverydateContactSummery" depends="maxlength">
+				<arg key="item.order.deliverydate.contact.summery" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+			<!-- 出荷予定日 -->
+			<field property="scheduledShippingDate" depends="required,dateif">
+				<arg key="item.order.str.scheduled.shipping.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 希望納期(在庫引当等) -->
+			<field property="suggestedDeliverlimit" depends="dateif">
+				<arg key="item.order.str.suggested.deliverlimit" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 希望納期(仕入れ直送品) -->
+			<field property="ctmDeliveryLimitDirect" depends="required,dateif">
+				<arg key="item.order.str.suggested.deliverlimit" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納入予定日 -->
+			<field property="deliveryExpectedDate" depends="required,dateif">
+				<arg key="item.order.str.delivery.expected.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- リードタイム -->
+			<field property="leadTime" depends="validateDegit">
+				<arg key="item.order.str.lead.time"/>
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionCarryFare</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>SI</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 運賃 -->
+			<field property="carryFare" depends="validateDegit">
+				<arg key="item.order.str.carry.fare" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivisionCarryFare</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>SI</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+		</form>
+<!--==================================== ここより上に記入 ====================================-->
+
+	</formset>
+
+</form-validation>

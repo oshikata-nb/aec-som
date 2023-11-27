@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- companyDetail -->
+		<form name="companyDetailForm">
+			<!-- 自社名称1 -->
+			<field property="homeName1" depends="requiredif">
+				<arg0 key="company.home.name1" />
+			</field>
+
+			<!-- 決算月 -->
+			<field property="strSettlement"
+				depends="requiredif, validateDegit, floatRangeEx">
+				<msg name="floatRangeEx"
+					key="errors.company.settlement.range" />
+				<arg0 key="company.settlement" />
+				<arg1 key="1" name="floatRangeEx" resource="false" />
+				<arg2 key="12" name="floatRangeEx" resource="false" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>12</var-value>
+				</var>
+			</field>
+
+			<!-- 締日 -->
+			<field property="strClosingDay"
+				depends="requiredif, validateDegit">
+				<arg0 key="company.closing.day" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+			
+			<!-- 消費税切替適用日 -->
+			<field property="strNewTaxApllyDate"
+				depends="dateif">
+				<arg0 key="company.new.tax.apply.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>			
+
+			<!-- 消費税率 -->
+			<field property="strNewTaxRatio"
+				depends="validateDegit, floatRangeEx">
+				<arg0 key="company.tax.ratio" />
+				<arg1 key="0" name="floatRangeEx" resource="false" />
+				<arg2 key="100" name="floatRangeEx" resource="false" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>TAX_AMOUNT</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<!-- 消費税率 -->
+			<field property="strTaxRatio"
+				depends="validateDegit, floatRangeEx">
+				<arg0 key="company.tax.ratio" />
+				<arg1 key="0" name="floatRangeEx" resource="false" />
+				<arg2 key="100" name="floatRangeEx" resource="false" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>TAX_AMOUNT</var-value>
+				</var>
+				<var>
+					<var-name>min</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+
+			<!-- 在庫割引率 -->
+			<field property="strStockDiscountRate"
+				depends="validateDegit">
+				<arg0 key="company.stock.discount.rate" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>TAX_AMOUNT</var-value>
+				</var>
+			</field>
+
+			<!-- 仕入割引率 -->
+			<field property="strPurchaseDiscountRate"
+				depends="validateDegit">
+				<arg0 key="company.purchase.discount.rate" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>TAX_AMOUNT</var-value>
+				</var>
+			</field>
+
+			<!-- 入金銀行マスタコード1 -->
+			<field property="bankMasterCd1" depends="requiredif">
+				<arg0 key="company.bank.master.cd1" />
+			</field>
+
+			<!-- 口座略称1 -->
+			<field property="accountAbbreviation1"
+				depends="requiredif">
+				<arg0 key="company.account.abbreviation1" />
+			</field>
+
+			<!-- 口座番号1 -->
+			<field property="accountNo1" depends="requiredif">
+				<arg0 key="company.account.no1" />
+			</field>
+
+			<!-- 口座名義人1 -->
+			<field property="accountStockhold1" depends="mask">
+				<arg0 key="company.account.stockhold1" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 口座名義人2 -->
+			<field property="accountStockhold2" depends="mask">
+				<arg0 key="company.account.stockhold2" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 口座名義人3 -->
+			<field property="accountStockhold3" depends="mask">
+				<arg0 key="company.account.stockhold3" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 口座名義人4 -->
+			<field property="accountStockhold4" depends="mask">
+				<arg0 key="company.account.stockhold4" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 支払銀行マスタコード -->
+			<field property="bankMasterCd" depends="requiredif">
+				<arg0 key="company.bank.master.cd" />
+			</field>
+
+			<!-- 口座番号 -->
+			<field property="accountNo" depends="requiredif">
+				<arg0 key="company.account.no" />
+			</field>
+
+			<!-- 振込依頼人コード -->
+			<field property="transferClientCd" depends="requiredif">
+				<arg0 key="company.transfer.client.cd" />
+			</field>
+
+			<!-- 振込依頼人名 -->
+			<field property="transferClientName"
+				depends="requiredif, mask">
+				<arg0 key="company.transfer.client.name" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 短プラ+金利 -->
+			<field property="strPrime"
+				depends="requiredif, validateDegit">
+				<arg0 key="company.prime" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA3</var-value>
+				</var>
+			</field>
+
+			<!-- パスワード有効期限 -->
+			<field property="strPasswordValidTerm"
+				depends="requiredif, validateDegit">
+				<arg0 key="company.password.valid.term" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 開始パスワード有効桁数 -->
+			<field property="strPasswordKetaLowerLimit"
+				depends="requiredif, validateDegit">
+				<arg0 key="company.password.keta.lower.limit" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 終了パスワード有効桁数 -->
+			<field property="strPasswordKetaUpperLimit"
+				depends="requiredif, validateDegit">
+				<arg0 key="company.password.keta.upper.limit" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- パスワード有効桁数 大小関係 -->
+			<field property="strPasswordKetaUpperLimit"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="company.password.keta.lower.limit" />
+				<arg1 key="company.password.keta.upper.limit" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>strPasswordKetaLowerLimit</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>strPasswordKetaUpperLimit</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>strPasswordKetaLowerLimit</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

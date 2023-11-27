@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- reason -->
+		<form-bean name="reasonListForm"
+			type="com.asahikaseieng.app.master.reason.ReasonListForm" />
+		<!-- reason detail -->
+		<form-bean name="reasonDetailForm"
+			type="com.asahikaseieng.app.master.reason.ReasonDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ reason -->
+		<action path="/ReasonList"
+			type="com.asahikaseieng.app.master.reason.ReasonListAction"
+			name="reasonListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/reason_list.jsp">
+
+			<forward name="success" path="/jsp/master/reason_list.jsp" />
+			<forward name="reSearch" path="/ReasonList.do?op=reSearch" />
+			<forward name="newPage" path="/ReasonDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ reason Detail -->
+		<action path="/ReasonDetail"
+			type="com.asahikaseieng.app.master.reason.ReasonDetailAction"
+			name="reasonDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/reason_detail.jsp">
+
+			<forward name="success" path="/jsp/master/reason_detail.jsp" />
+			<forward name="back" path="/ReasonList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

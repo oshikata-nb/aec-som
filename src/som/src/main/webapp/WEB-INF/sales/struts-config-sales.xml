@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 売上検索 -->
+		<form-bean name="salesListForm"
+			type="com.asahikaseieng.app.sales.SalesListForm" />
+
+		<!-- 売上詳細(標準) -->
+		<form-bean name="salesDetailStandardForm"
+			type="com.asahikaseieng.app.sales.SalesDetailStandardForm" />
+
+		<!-- 売上詳細(預り品) -->
+		<form-bean name="salesDetailKeepForm"
+			type="com.asahikaseieng.app.sales.SalesDetailKeepForm" />
+
+		<!-- 納入先検索ポップアップ -->
+		<form-bean name="salesDeliverySearchForm"
+			type="com.asahikaseieng.app.sales.SalesDeliverySearchForm" />
+
+		<!-- ロット検索ポップアップ -->
+		<form-bean name="salesLotSearchForm"
+			type="com.asahikaseieng.app.sales.SalesLotSearchForm" />
+
+		<!-- 受払検索ポップアップ -->
+		<form-bean name="salesInoutSearchForm"
+			type="com.asahikaseieng.app.sales.SalesInoutSearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 売上検索 -->
+		<action path="/SalesList"
+			type="com.asahikaseieng.app.sales.SalesListAction"
+			name="salesListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/sales/sales_list.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_list.jsp" />
+			<forward name="reSearch"
+				path="/SalesList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 売上詳細(標準) -->
+		<action path="/SalesDetailStandard"
+			type="com.asahikaseieng.app.sales.SalesDetailStandardAction"
+			name="salesDetailStandardForm" validate="true" parameter="op"
+			scope="session" input="/jsp/sales/sales_detail_standard.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_detail_standard.jsp" />
+			<forward name="error"
+				path="/jsp/sales/sales_detail_standard.jsp" />
+			<forward name="initContinue" path="/SalesDetailStandard.do?op=initContinue" />
+			<forward name="back"
+				path="/SalesList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 売上詳細(預り品) -->
+		<action path="/SalesDetailKeep"
+			type="com.asahikaseieng.app.sales.SalesDetailKeepAction"
+			name="salesDetailKeepForm" validate="true" parameter="op"
+			scope="session" input="/jsp/sales/sales_detail_keep.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_detail_keep.jsp" />
+			<forward name="error"
+				path="/jsp/sales/sales_detail_keep.jsp" />
+			<forward name="initContinue" path="/SalesDetailKeep.do?op=initContinue" />
+			<forward name="back"
+				path="/SalesList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 納入先検索ポップアップ -->
+		<action path="/SalesDeliverySearch"
+			type="com.asahikaseieng.app.sales.SalesDeliverySearchAction"
+			name="salesDeliverySearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/sales/sales_delivery_search.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_delivery_search.jsp" />
+		</action>
+
+		<!-- ================================================ ロット検索ポップアップ -->
+		<action path="/SalesLotSearch"
+			type="com.asahikaseieng.app.sales.SalesLotSearchAction"
+			name="salesLotSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/sales/sales_lot_search.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_lot_search.jsp" />
+		</action>
+
+		<!-- ================================================ 受払検索ポップアップ -->
+		<action path="/SalesInoutSearch"
+			type="com.asahikaseieng.app.sales.SalesInoutSearchAction"
+			name="salesInoutSearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/sales/sales_inout_search.jsp">
+
+			<forward name="success"
+				path="/jsp/sales/sales_inout_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

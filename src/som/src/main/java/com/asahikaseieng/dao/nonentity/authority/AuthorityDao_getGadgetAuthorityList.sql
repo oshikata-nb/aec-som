@@ -1,0 +1,76 @@
+/*
+ * ガジェット権限リスト取得用SQL
+ *
+ * entityName=Authority
+ * packageName=dao.nonentity.authority
+ * methodName=getGadgetAuthorityList
+ *
+ */
+SELECT MENU_ID
+	  ,TAB_ID
+	  ,CONTROL_ID
+	  ,GADGET_ID
+	  ,TITLE
+FROM (
+/*IF tantoRoleIds.length > 0*/
+	SELECT
+		 VAUTH.MENU_ID			-- メニューID
+		,VAUTH.TAB_ID			-- タブID
+		,CAUTH.CONTROL_ID		-- 操作ID
+		,GAT.GADGET_ID			-- ガジェットID
+		,GAT.TITLE				-- タイトル
+	FROM ROLE ROLE
+		 INNER JOIN
+			VIEW_AUTHORITY VAUTH
+			ON ROLE.ROLE_ID = VAUTH.ROLE_ID
+		 INNER JOIN
+			CONTROL_AUTHORITY CAUTH
+			ON ROLE.ROLE_ID = CAUTH.ROLE_ID
+			AND VAUTH.MENU_ID = CAUTH.MENU_ID
+			AND VAUTH.TAB_ID = CAUTH.TAB_ID
+		 INNER JOIN
+			GADGET GAT
+			ON VAUTH.MENU_ID = GAT.MENU_ID
+			AND VAUTH.TAB_ID = GAT.TAB_ID
+			AND CAUTH.CONTROL_ID = GAT.CONTROL_ID
+	WHERE
+		ROLE.ROLE_ID IN /*tantoRoleIds*/('2')
+/*END*/
+/*IF (tantoRoleIds.length > 0 && belongRoleIds.length > 0)*/
+	UNION
+/*END*/
+/*IF belongRoleIds.length > 0*/
+	SELECT
+		 VAUTH.MENU_ID			-- メニューID
+		,VAUTH.TAB_ID			-- タブID
+		,CAUTH.CONTROL_ID		-- 操作ID
+		,GAT.GADGET_ID			-- ガジェットID
+		,GAT.TITLE				-- タイトル
+	FROM ROLE ROLE
+		 INNER JOIN
+			VIEW_AUTHORITY VAUTH
+			ON ROLE.ROLE_ID = VAUTH.ROLE_ID
+		 INNER JOIN
+			CONTROL_AUTHORITY CAUTH
+			ON ROLE.ROLE_ID = CAUTH.ROLE_ID
+			AND VAUTH.MENU_ID = CAUTH.MENU_ID
+			AND VAUTH.TAB_ID = CAUTH.TAB_ID
+		 INNER JOIN
+			GADGET GAT
+			ON VAUTH.MENU_ID = GAT.MENU_ID
+			AND VAUTH.TAB_ID = GAT.TAB_ID
+			AND CAUTH.CONTROL_ID = GAT.CONTROL_ID
+	WHERE
+		ROLE.ROLE_ID IN /*belongRoleIds*/('2')
+/*END*/
+	 )
+GROUP BY MENU_ID
+		,TAB_ID
+		,CONTROL_ID
+		,GADGET_ID
+		,TITLE
+ORDER BY
+	 MENU_ID
+	,TAB_ID
+	,CONTROL_ID
+	,GADGET_ID

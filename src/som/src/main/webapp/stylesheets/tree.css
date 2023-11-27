@@ -1,0 +1,115 @@
+.tafelTree {
+text-align: left;
+float: left;
+direction: ltr;
+overflow: auto;
+}
+
+.tafelTree, .tafelTree table {
+	/* font-size: small; */
+	font-size:11pt;
+}
+
+.tafelTree, .tafelTree span, .tafelTree img, .tafelTree div {
+margin: 0;
+padding: 0;
+}
+
+.tafelTree table {
+border-collapse: collapse;
+margin: 0;
+padding: 0;
+}
+
+.tafelTree table tr, .tafelTree table td {
+direction: ltr;
+margin: 0;
+padding: 0;
+}
+
+.tafelTree table td {
+white-space: nowrap;
+vertical-align: top;
+}
+
+.tafelTree .drag {
+cursor: pointer;
+}
+
+.tafelTree .content {
+padding: 0 0.1em;
+}
+
+.tafelTree .canevas {
+vertical-align: middle;
+}
+
+.tafelTree .selected {
+background-color: #9999FF;
+color: #FFFFFF;
+cursor: pointer;
+}
+
+.tafelTree .editable {
+display: none;
+padding: 0 0.2em;
+border: 1px solid #CCCCFF;
+background-color: #EEEEFF;
+}
+
+.tafelTree .dragOver {
+background-color: #9999CC;
+color: #EEEEFF;
+}
+
+.tafelTree .tooltip {
+display: none;
+position: absolute;
+border: 1px solid #9999FF;
+background-color: #EEEEFF;
+padding: 0.3em;
+z-index: 9000;
+}
+
+.tafelTree .mouseOver {
+text-decoration: underline; 
+cursor: pointer;
+}
+
+/**
+ * Multiline
+ */
+.tafelTree table td.multiline {
+background-repeat: repeat-y;
+background-position: top left;
+}
+
+.tafelTree table td.multiline2 {
+background-repeat: repeat-y;
+background-position: top left;
+}
+
+/**
+ * other
+ */
+.tafelTree h3, .tafelTree p, .tafelTree ol {
+margin: 0;
+padding: 0;
+}
+
+.tafelTree p {
+padding-bottom: 1em;
+}
+
+.tafelTree h3 {
+color: #009900;
+}
+
+#errorMenu {
+	border: 2px solid red;
+	text-align: left;
+	padding: 5px;
+	margin: 5px;
+	color: red;
+	font-size: 80%;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<form name="monthlyVenderForm">
+			<!-- 検索条件：日付(To) -->
+			<field property="srhDateFrom" depends="required,dateif">
+				<arg key="inout.list.inoutmaterial.date.from" />
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+
+			<!-- 検索条件：日付(TO) -->
+			<field property="srhDateTo" depends="required,dateif">
+				<arg key="inout.list.inoutmaterial.date.to" />
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM</var-value>
+				</var>
+			</field>
+
+
+			<!-- 出力日付 大小関係 -->
+			<field property="srhDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="inout.list.inoutmaterial.date.from" />
+				<arg1 key="inout.list.inoutmaterial.date.to" />
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装実績－配合一覧画面 -->
+		<form-bean name="pkgRdirectionFormulaListForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionFormulaListForm" />
+
+		<!-- 包装実績－配合詳細画面 -->
+		<form-bean name="pkgRdirectionFormulaDetailForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionFormulaDetailForm" />
+
+		<!-- 包装実績－ロット検索画面 -->
+		<form-bean name="pkgRdirectionLotInventorySearchForm"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionLotInventorySearchForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================= 包装実績－配合一覧 -->
+		<action path="/PkgRdirectionFormulaList"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionFormulaListAction"
+			name="pkgRdirectionFormulaListForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_formula_list.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgrdirection/pkgrdirection_formula_list.jsp" />
+			<forward name="error" path="/jsp/pkgrdirection/pkgrdirection_formula_list.jsp" />
+			<forward name="back" path="/PkgRdirectionList.do?op=reSearch" />
+			<forward name="reSearch" path="/PkgRdirectionFormulaList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================= 包装実績－配合詳細 -->
+		<action path="/PkgRdirectionFormulaDetail"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionFormulaDetailAction"
+			name="pkgRdirectionFormulaDetailForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgrdirection/pkgrdirection_formula_detail.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgrdirection/pkgrdirection_formula_detail.jsp" />
+			<forward name="error" path="/jsp/pkgrdirection/pkgrdirection_formula_detail.jsp" />
+			<forward name="back" path="/PkgRdirectionFormulaList.do?op=reSearch" />
+			<forward name="init" path="/PkgRdirectionFormulaDetail.do?op=init" />
+		</action>
+
+		<!-- ================================================ 包装実績－ロット検索画面 -->
+		<action path="/PkgRdirectionLotInventorySearch"
+			type="com.asahikaseieng.app.pkgrdirection.PkgRdirectionLotInventorySearchAction"
+			name="pkgRdirectionLotInventorySearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/pkgrdirection/pkgrdirection_lotinventory_search.jsp">
+
+			<forward name="success"
+				path="/jsp/pkgrdirection/pkgrdirection_lotinventory_search.jsp" />
+			<forward name="back" path="/PkgRdirectionFormulaList.do?op=reSearch" />
+			<forward name="error" path="/jsp/pkgrdirection/pkgrdirection_lotinventory_search.jsp" />
+		</action>
+
+	</action-mappings>
+</struts-config>

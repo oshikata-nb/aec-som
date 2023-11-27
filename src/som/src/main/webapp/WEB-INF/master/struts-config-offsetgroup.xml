@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- post -->
+		<form-bean name="offsetGroupListForm"
+			type="com.asahikaseieng.app.master.offsetgroup.OffsetGroupListForm" />
+
+		<!-- offsetgroup detail_new -->
+		<form-bean name="offsetGroupDetailForm"
+			type="com.asahikaseieng.app.master.offsetgroup.OffsetGroupDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ offsetgroup -->
+		<action path="/OffsetGroupList"
+			type="com.asahikaseieng.app.master.offsetgroup.OffsetGroupListAction"
+			name="offsetGroupListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/offsetgroup_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/offsetgroup_list.jsp" />
+			<forward name="reSearch"
+				path="/OffsetGroupList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ offsetgroup Detail -->
+		<action path="/OffsetGroupDetail"
+			type="com.asahikaseieng.app.master.offsetgroup.OffsetGroupDetailAction"
+			name="offsetGroupDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/offsetgroup_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/offsetgroup_detail.jsp" />
+			<forward name="back"
+				path="/OffsetGroupList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- salesterms_and_estimate list -->
+		<form-bean name="salestermsAndEstimateListForm"
+			type="com.asahikaseieng.app.master.salestermsandestimate.SalestermsAndEstimateListForm" />
+		<!-- salesterms_and_estimate detail -->
+		<form-bean name="salestermsAndEstimateDetailForm"
+			type="com.asahikaseieng.app.master.salestermsandestimate.SalestermsAndEstimateDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ salesterms_and_estimate list -->
+		<action path="/SalestermsAndEstimateList"
+			type="com.asahikaseieng.app.master.salestermsandestimate.SalestermsAndEstimateListAction"
+			name="salestermsAndEstimateListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/salesterms_and_estimate_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/salesterms_and_estimate_list.jsp" />
+			<forward name="reSearch"
+				path="/SalestermsAndEstimateList.do?op=reSearch" />
+			<forward name="newPage"
+				path="/SalestermsAndEstimateDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ salesterms_and_estimate detail -->
+		<action path="/SalestermsAndEstimateDetail"
+			type="com.asahikaseieng.app.master.salestermsandestimate.SalestermsAndEstimateDetailAction"
+			name="salestermsAndEstimateDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/salesterms_and_estimate_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/salesterms_and_estimate_detail.jsp" />
+			<forward name="back" path="/SalestermsAndEstimateList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

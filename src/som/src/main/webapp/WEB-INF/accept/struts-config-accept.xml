@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- accept -->
+		<form-bean name="acceptListForm"
+			type="com.asahikaseieng.app.accept.AcceptListForm" />
+
+		<!-- accept detail_new -->
+		<form-bean name="acceptDetailForm"
+			type="com.asahikaseieng.app.accept.AcceptDetailForm" />
+
+		<!-- accept buying detail_new -->
+		<form-bean name="acceptBuyingDetailForm"
+			type="com.asahikaseieng.app.accept.AcceptBuyingDetailForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ accept -->
+		<action path="/AcceptList"
+			type="com.asahikaseieng.app.accept.AcceptListAction"
+			name="acceptListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/accept/accept_list.jsp">
+
+			<forward name="success"
+				path="/jsp/accept/accept_list.jsp" />
+			<forward name="reSearch"
+				path="/AcceptList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ accept Detail -->
+		<action path="/AcceptDetail"
+			type="com.asahikaseieng.app.accept.AcceptDetailAction"
+			name="acceptDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/accept/accept_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/accept/accept_detail.jsp" />
+			<forward name="error"
+				path="/jsp/accept/accept_detail.jsp" />
+			<forward name="back"
+				path="/AcceptList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ accept buying Detail -->
+		<action path="/AcceptBuyingDetail"
+			type="com.asahikaseieng.app.accept.AcceptBuyingDetailAction"
+			name="acceptBuyingDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/accept/accept_buying_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/accept/accept_buying_detail.jsp" />
+			<forward name="error"
+				path="/jsp/accept/accept_buying_detail.jsp" />
+			<forward name="back"
+				path="/AcceptList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

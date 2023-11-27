@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- recipe resouce group -->
+		<form-bean name="recipeResouceGroupListForm"
+			type="com.asahikaseieng.app.master.reciperesoucegroup.RecipeResouceGroupListForm" />
+		<!-- recipe resouce group detail -->
+		<form-bean name="recipeResouceGroupDetailForm"
+			type="com.asahikaseieng.app.master.reciperesoucegroup.RecipeResouceGroupDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ recipe resouce group -->
+		<action path="/RecipeResouceGroupList"
+			type="com.asahikaseieng.app.master.reciperesoucegroup.RecipeResouceGroupListAction"
+			name="recipeResouceGroupListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/recipe_resouce_group_list.jsp">
+
+			<forward name="success"
+				path="/jsp/master/recipe_resouce_group_list.jsp" />
+			<forward name="reSearch"
+				path="/RecipeResouceGroupList.do?op=reSearch" />
+			<forward name="newPage"
+				path="/RecipeResouceGroupDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ recipe resouce group Detail -->
+		<action path="/RecipeResouceGroupDetail"
+			type="com.asahikaseieng.app.master.reciperesoucegroup.RecipeResouceGroupDetailAction"
+			name="recipeResouceGroupDetailForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/master/recipe_resouce_group_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/master/recipe_resouce_group_detail.jsp" />
+			<forward name="back"
+				path="/RecipeResouceGroupList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

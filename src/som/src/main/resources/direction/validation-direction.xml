@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+
+    <global>
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここから新規入力 ====================================-->
+		<!-- directionNewDetailForm -->
+        <form name="directionNewDetailForm">
+			<!-- 基本処方コード -->
+			<field property="recipeIdVersion" depends="required">
+				<arg key="item.mgrecipe.recipe.cd" />
+			</field>
+			<!-- 調合タンクNO -->
+			<field property="compoundTankNo" depends="required">
+				<arg key="item.direction.compound.tank.no" />
+			</field>
+			<!-- 仕込み予定数量 -->
+			<field property="planedQty" depends="required,validateDegit">
+				<arg key="item.direction.planed.qty" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>HAIGO</var-value>
+				</var>
+			</field>
+			<!-- 製造開始予定日時(日付) -->
+			<field property="planedSdateDate" depends="required">
+				<arg key="item.direction.planed.sdate.date" />
+			</field>
+			<!-- 製造開始予定日時(時刻) -->
+			<field property="planedSdateTime" depends="required">
+				<arg key="item.direction.planed.sdate.time" />
+			</field>
+			<!-- 製造終了予定日時(日付) -->
+			<field property="planedEdateDate" depends="required">
+				<arg key="item.direction.planed.edate.date" />
+			</field>
+			<!-- 製造終了予定日時(時刻) -->
+			<field property="planedEdateTime" depends="required">
+				<arg key="item.direction.planed.edate.time" />
+			</field>
+			<!-- 備考-->
+			<field property="remark" depends="maxlength">
+				<arg0 key="item.direction.remark" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+			<!-- 注釈-->
+			<field property="notes" depends="maxlength">
+				<arg0 key="item.direction.notes" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>256</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- tankLockListForm -->
+		<form-bean name="tankLockListForm"
+			type="com.asahikaseieng.app.tanklock.TankLockListForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ inspectcomp -->
+		<action path="/TankLockList"
+			type="com.asahikaseieng.app.tanklock.TankLockListAction"
+			name="tankLockListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/tanklock/tanklock_list.jsp">
+
+			<forward name="success"
+				path="/jsp/tanklock/tanklock_list.jsp" />
+			<forward name="reSearch"
+				path="/TankLockList.do?op=reSearch" />
+			<forward name="mypage" path="/MyPage.do?op=init" />
+		</action>
+	</action-mappings>
+
+</struts-config>

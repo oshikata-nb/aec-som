@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>Application Tag Library</shortname>
+	<uri></uri>
+	<info>Application tag library</info>
+
+	<tag>
+		<name>modulo</name>
+		<tagclass>com.asahikaseieng.customtag.ModuloTag</tagclass>
+		<bodycontent>jsp</bodycontent>
+		<info>Modulo tag</info>
+		<attribute>
+			<name>numerator</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>denominator</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>zero</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>writable</name>
+		<tagclass>com.asahikaseieng.customtag.WritableTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>menu auth writable tag</info>
+	</tag>
+	
+	<tag>
+		<name>notWritable</name>
+		<tagclass>com.asahikaseieng.customtag.NotWritableTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>menu auth not writable tag</info>
+	</tag>
+
+</taglib>

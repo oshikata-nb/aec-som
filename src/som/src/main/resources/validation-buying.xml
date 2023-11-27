@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからbuyingListForm ====================================-->
+		<!-- buyingList -->
+		<form name="buyingListForm">			
+			<!-- 仕入日From -->
+			<field property="srhStockingDateFrom" depends="dateif">
+				<arg key="item.buying.srh.stocking.date.from" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 仕入日To -->
+			<field property="srhStockingDateTo" depends="dateif">
+				<arg key="item.buying.srh.stocking.date.to" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 検索条件：仕入日 大小関係 -->
+			<field property="srhStockingDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.buying.srh.stocking.date.from" />
+				<arg1 key="item.buying.srh.stocking.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhStockingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhStockingDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhStockingDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+        </form>
+
+<!--==================================== ここからbuyingDetailForm ====================================-->
+		<!-- buyingDetail -->
+        <form name="buyingDetailForm">
+        	<!-- 仕入日付 -->
+			<field property="strStockingDate" depends="required">
+				<arg key="item.buying.stocking.date" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			<field property="strStockingDate" depends="dateif">
+				<arg key="item.buying.stocking.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			
+			<!-- 仕入先コード -->
+			<field property="venderCd" depends="required,alphanumeric">
+				<arg key="item.buying.supplier.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>			
+			
+			<!-- 品目コード -->
+			<field property="itemCd" depends="required,alphanumeric">
+				<arg key="item.buying.item.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			
+			<!-- 購入数量 -->
+			<field property="strStockingQuantity" depends="required, validateDegit">
+				<arg key="item.buying.stocking.quantity"/>
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitOfOperationManagement</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>SI</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			<!-- 単価 -->
+			<field property="strHousingUnitprice" depends="required, validateDegit">
+				<arg key="item.buying.housing.unitprice" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SITANKA</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>SI</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+			</field>
+			
+			<!-- 会計部門借方コード -->
+			<field property="accountDebitSectionCd" depends="required">
+				<arg key="item.buying.account.debit.section.cd"/>
+			</field>
+			<!-- 会計部門貸方コード -->
+			<field property="accountCreditSectionCd" depends="required">
+				<arg key="item.buying.account.credit.section.cd"/>
+			</field>
+			<!-- 勘定科目借方コード -->
+			<field property="debitTitleCd" depends="required">
+				<arg key="item.buying.debit.title.cd"/>
+			</field>
+			<!-- 勘定科目貸方コード -->
+			<field property="creditTitleCd" depends="required">
+				<arg key="item.buying.credit.title.cd"/>
+			</field>
+			
+			<!-- 担当部署 -->
+			<field property="chargeOrganizationCd" depends="required,alphanumeric">
+				<arg key="item.buying.tanto.section.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			
+			<!-- 部署 -->
+			<field property="organizationCd" depends="required,alphanumeric">
+				<arg key="item.buying.section.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			
+			<!-- 担当者コード -->
+			<field property="tantoCd" depends="required,alphanumeric">
+				<arg key="item.buying.tanto.cd" />
+				<var>
+					<var-name></var-name>
+					<var-value></var-value>
+				</var>
+			</field>
+			
+			<!-- 摘要 -->
+			<field property="remark2" depends="maxlength">
+				<arg key="item.buying.remark2" />
+				<arg1 key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

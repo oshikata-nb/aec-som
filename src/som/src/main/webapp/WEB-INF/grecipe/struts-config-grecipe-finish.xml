@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 仕上げ一覧 -->
+		<form-bean name="grecipeFinishListForm"
+			type="com.asahikaseieng.app.grecipe.GrecipeFinishListForm" />
+
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 仕上げ一覧 -->
+		<action path="/GrecipeFinishList"
+			type="com.asahikaseieng.app.grecipe.GrecipeFinishListAction"
+			name="grecipeFinishListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/grecipe/grecipe_finish_list.jsp">
+
+			<forward name="success"
+				path="/jsp/grecipe/grecipe_finish_list.jsp" />
+			<forward name="error"
+				path="/jsp/grecipe/grecipe_finish_list.jsp" />
+			<forward name="back"
+				path="/GrecipeList.do?op=reSearch" />
+			<forward name="reInit"
+				path="/GrecipeFinishList.do?op=reInit" />
+		</action>
+
+
+	</action-mappings>
+
+</struts-config>

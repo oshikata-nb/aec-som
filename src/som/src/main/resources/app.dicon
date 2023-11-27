@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+
+<components>
+	<include path="mys2struts.dicon"/>
+	<include path="j2ee.dicon"/>
+
+	<include path="alldao.dicon"/>
+	<include path="logicaop.dicon"/>
+
+	<!-- 独自トランザクションが必要なTxLogicImpl用 -->
+	<!-- <include path="jp/co/aec/app/shipping/shipping.dicon"/> -->
+
+	<!-- 自動登録 -->
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*LogicImpl"</arg>
+		</initMethod>
+		<initMethod name="addIgnoreClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*TxLogicImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="autoNaming">
+			<component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+		</property>
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*DecoratorImpl"</arg>
+		</initMethod>
+		<initMethod name="addIgnoreClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*Mock.*DecoratorImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
+		<property name="interceptor">logicInterceptorChain</property>
+		<initMethod name="addClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*LogicImpl,.*DecoratorImpl"</arg>
+		</initMethod>
+		<initMethod name="addIgnoreClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*TxLogicImpl"</arg>
+		</initMethod>
+		<initMethod name="addIgnoreClassPattern">
+			<arg>"com.asahikaseieng"</arg>
+			<arg>".*Mock.*DecoratorImpl"</arg>
+		</initMethod>
+	</component>
+
+</components>

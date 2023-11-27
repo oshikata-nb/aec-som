@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+
+    </global>
+
+    <formset>
+
+<!--==================================== ここからarrivalListForm ====================================-->
+		<!-- arrivalList -->
+		<form name="arrivalListForm">
+			<!-- 項目を追加 -->
+			<!-- 発注日From -->
+			<field property="srhOrderDateFrom" depends="date">
+				<arg key="item.arrival.srh.order.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 発注日To -->
+			<field property="srhOrderDateTo" depends="date">
+				<arg key="item.arrival.srh.order.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 発注日 大小関係 -->
+			<field property="srhOrderDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.arrival.srh.order.date.from" />
+				<arg1 key="item.arrival.srh.order.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhOrderDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhOrderDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhOrderDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+			<!-- 納品希望日From -->
+			<field property="srhSuggestedDeliverlimitDateFrom" depends="date">
+				<arg key="item.arrival.srh.suggested.deliverlimit.date.from"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納品希望日To -->
+			<field property="srhSuggestedDeliverlimitDateTo" depends="date">
+				<arg key="item.arrival.srh.suggested.deliverlimit.date.to"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 納品希望日 大小関係 -->
+			<field property="srhSuggestedDeliverlimitDateTo" depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.arrival.srh.suggested.deliverlimit.date.from" />
+				<arg1 key="item.arrival.srh.suggested.deliverlimit.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhSuggestedDeliverlimitDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhSuggestedDeliverlimitDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhSuggestedDeliverlimitDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+
+        </form>
+
+<!--==================================== ここからarrivalDetailForm ====================================-->
+		<!-- arrivalDetail -->
+        <form name="arrivalDetailForm">
+			<!-- 明細(内容は別定義 → form name="arrivalDetail") -->
+			<field property="detailList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>arrivalDetail</var-value>
+				</var>
+			</field>
+			<!-- 発注書備考 -->
+			<field property="orderSheetRemark2" depends="maxlength">
+				<arg0 key="item.arrival.order.sheet.remark2" />
+				<arg1 key="item.arrival.order.sheet.remark2.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+			<!-- 備考 -->
+			<field property="remark2" depends="maxlength">
+				<arg0 key="item.arrival.remark2" />
+				<arg1 key="item.arrival.remark2.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>255</var-value>
+				</var>
+			</field>
+		</form>
+		<!--  入荷入力（詳細)画面の明細データの入力チェック -->
+		<form name="arrivalDetail">
+			<!-- メーカーロット番号 -->
+			<field property="supplierLotno" depends="mask">
+				<msg name="mask" key="errors.alphanumeric.row"/>
+				<arg0 key="item.arrival.supplier.lot.no" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9a-zA-Z\+\-\/\*\.]*$</var-value>
+				</var>
+			</field>
+			<!-- 入荷予定数量 -->
+			<field property="strArrivalQuantity" depends="required,validateDegit">
+				<msg name="required" key="errors.required.row"/>
+				<arg0 key="item.arrival.arrival.quantity" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDiv</var-value>
+				</var>
+				<var>
+					<var-name>venderDivision</var-name>
+					<var-value>SI</var-value>
+				</var>
+				<var>
+					<var-name>venderCd</var-name>
+					<var-value>venderCd</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+		</form>
+
+<!--==================================== ここより上に記入 ====================================-->
+
+    </formset>
+
+</form-validation>

@@ -1,0 +1,25 @@
+/*
+ * Created on 2009/02/23
+ *
+ * $copyright$
+ *
+*/
+
+/**
+ * 予備溶解ラベル発行対象取得用SQL
+ *
+ * @author tosco
+ *
+ * entityName=BeforehandMeltLblList
+ * packageName=beforehandmeltlbl
+ * methodName=getDirectionProcedureList
+ *
+ */
+SELECT	DIRECTION_DIVISION
+,	DIRECTION_NO
+,	MOD(TO_NUMBER(DIRECTION_PROCEDURE.OPERATION_CD),10) AS MAIN_STREAM
+FROM	DIRECTION_PROCEDURE
+WHERE	DIRECTION_PROCEDURE.DIRECTION_DIVISION = /*directionDivision*/'1'
+AND	DIRECTION_PROCEDURE.DIRECTION_NO = /*directionNo*/'S0907230001'
+AND	TO_NUMBER(DIRECTION_PROCEDURE.OPERATION_CD) >= 31
+AND	TO_NUMBER(DIRECTION_PROCEDURE.OPERATION_CD) <= 36

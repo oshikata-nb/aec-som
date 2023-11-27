@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- ASP取込 -->
+		<form-bean name="aspImportDetailForm"
+			type="com.asahikaseieng.app.aspimport.AspImportDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+		<!-- ================================================ operation Detail -->
+		<action path="/AspImportDetail"
+			type="com.asahikaseieng.app.aspimport.AspImportDetailAction"
+			name="aspImportDetailForm" validate="false" parameter="op"
+			scope="session" input="/jsp/aspimport/aspimport_detail.jsp">
+
+			<forward name="success" path="/jsp/aspimport/aspimport_detail.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

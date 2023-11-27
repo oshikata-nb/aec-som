@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- balance -->
+		<form-bean name="balanceListForm"
+			type="com.asahikaseieng.app.master.balance.BalanceListForm" />
+		<!-- balance detail -->
+		<form-bean name="balanceDetailForm"
+			type="com.asahikaseieng.app.master.balance.BalanceDetailForm" />
+		<!-- search balance -->
+		<form-bean name="balanceSearchForm"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ balance -->
+		<action path="/BalanceList"
+			type="com.asahikaseieng.app.master.balance.BalanceListAction"
+			name="balanceListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/balance_list.jsp">
+
+			<forward name="success" path="/jsp/master/balance_list.jsp" />
+			<forward name="reSearch" path="/BalanceList.do?op=reSearch" />
+			<forward name="newPage" path="/BalanceDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ balance Detail -->
+		<action path="/BalanceDetail"
+			type="com.asahikaseieng.app.master.balance.BalanceDetailAction"
+			name="balanceDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/balance_detail.jsp">
+
+			<forward name="success" path="/jsp/master/balance_detail.jsp" />
+			<forward name="back" path="/BalanceList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ search balance -->
+		<action path="/BalanceSearch"
+			type="com.asahikaseieng.app.master.search.balance.BalanceSearchAction"
+			name="balanceSearchForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/search/balance_search.jsp">
+
+			<forward name="success" path="/jsp/master/search/balance_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

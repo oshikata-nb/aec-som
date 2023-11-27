@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+		<constant>
+			<constant-name>id_mask</constant-name>
+			<constant-value>^[.\-_0-9A-Za-z]+$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>ap21_mask</constant-name>
+			<constant-value>^[*$%.\- _0-9A-Za-z@]+$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>som_lot_mask</constant-name>
+			<constant-value>^[*$%.\- _0-9A-Za-z@]+$</constant-value>
+		</constant>
+		<constant>
+			<constant-name>kana_mask</constant-name>
+			<constant-value>
+				^[.\-_0-9A-Zｱ-ﾝｧ-ｫｬ-ｮｯ･ﾟﾞ\\｢｣,.()--ｰ/]+$
+			</constant-value>
+		</constant>
+		<constant>
+			<constant-name>item_kana_mask</constant-name>
+			<constant-value>
+				^[.\-_!-~｢｣･]+$
+			</constant-value>
+		</constant>
+		<!-- 定数：画面モード -->
+		<constant>
+			<constant-name>op_search</constant-name>
+			<constant-value>search</constant-value>
+		</constant>
+		<constant>
+			<constant-name>op_regist</constant-name>
+			<constant-value>regist</constant-value>
+		</constant>
+		<constant>
+			<constant-name>op_update</constant-name>
+			<constant-value>update</constant-value>
+		</constant>
+		<constant>
+			<constant-name>op_insert</constant-name>
+			<constant-value>insert</constant-value>
+		</constant>
+	</global>
+	<formset>
+
+		<!-- ログイン -->
+		<form name="loginForm">
+			<field property="userId"
+				depends="required,maxlength,mask">
+				<arg key="10" resource="false" />
+				<arg key="item.userid" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+			<field property="password"
+				depends="required,maxlength,mask">
+				<msg name="mask" key="errors.alphameric.code" />
+				<arg key="10" resource="false" />
+				<arg key="item.password" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+		</form>
+
+	</formset>
+
+</form-validation>

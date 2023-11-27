@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- recipeResouceDetail -->
+		<form name="recipeResouceDetailForm">
+			<!-- 設備コード -->
+			<field property="resouceCd" depends="requiredif, mask">
+				<arg0 key="recipe.resouce.resouce.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 作業時間単価(機械) -->
+			<field property="strCostMachine" depends="validateDegit">
+				<arg key="recipe.resouce.cost.machine" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- 作業時間単価(一律) -->
+			<field property="strCost" depends="validateDegit">
+				<arg key="recipe.resouce.cost" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>unitDivision</var-value>
+				</var>
+			</field>
+
+			<!-- 前工程設備リスト(内容は別定義 → form name="recipeResouceDetail") -->
+			<field property="searchRecipePegResouceDetailList"
+				depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>recipeResouceDetail</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- 前工程設備リスト -->
+		<form name="recipeResouceDetail">
+			<!-- 前工程設備コード -->
+			<field property="prevResouceCd" depends="requiredif">
+				<arg key="recipe.resouce.prev.resouce.cd" />
+				<msg name="requiredif" key="errors.required.row" />
+			</field>
+		</form>
+	</formset>
+</form-validation>

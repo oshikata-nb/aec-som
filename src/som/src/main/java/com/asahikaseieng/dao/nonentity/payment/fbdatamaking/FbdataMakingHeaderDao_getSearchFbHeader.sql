@@ -1,0 +1,29 @@
+/*
+ * ＦＢデータ作成 ＦＢヘッダー用SQL
+ *
+ * entityName=FbdataMakingHeader
+ * packageName=payment.fbdatamaking
+ * methodName=getSearchFbHeader
+ *
+ */
+SELECT 	DATA_DIVISION
+,		DIVISION_CD
+,		CATEGORY_DIVISION
+,		TRANSFER_CLIENT_CD
+,		TRANSFER_CLIENT_NAME
+,		TRASFER_DATE
+,		BANK_MASTER_CD
+,		BANK_KANA_NAME
+,		BRANCH_CD
+,		BRANCH_KANA_NAME
+,		ACCOUNT_DIVISION
+,		ACCOUNT_NO
+,		DUMMY
+,		DL_DATE
+,		PAYMENT_DATE
+,		INPUT_DATE
+,		INPUTOR_CD
+,		UPDATE_DATE
+,		UPDATOR_CD
+FROM 	FB_HEADER
+WHERE	PAYMENT_DATE = /*paymentDate*/

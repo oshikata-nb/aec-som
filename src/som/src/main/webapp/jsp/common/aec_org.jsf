@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/jsp/common/taginclude.jsf" %>
+<script language="JavaScript" type="text/javascript">
+/**
+ * Nヶ月後の日付を自動入力.
+ * @add  org 元の文字列
+ * @return 無し
+ */
+function monthAdd(add) {
+	a = new Date(add);
+	c = new Date(a.getYear(), a.getMonth() , a.getDate());
+	Year = c.getYear();
+	Month = c.getMonth() + parseInt(2);
+	Day = c.getDate();
+
+	temp = new Date(Year + "/" + Month + "/" + Day);
+	Year = temp.getYear();
+	Month = temp.getMonth() + parseInt(1);
+	Day = temp.getDate();
+
+	if(c.getDate() != temp.getDate()){
+		Month = temp.getMonth();
+		Day = c.getDate() - temp.getDate();
+	}
+	if(Month < 10 && Month > 0){
+		Month = '0' + Month
+	}
+	if(Day < 10 && Day > 0){
+		Day = '0' + Day
+	}
+
+	if(isNaN(Year) || isNaN(Month) || isNaN(Day)){
+		$("strSuggestedDeliverlimit").value = ""
+	} else {
+		$("strSuggestedDeliverlimit").value = Year + "/" + Month + "/" + Day;
+	}
+ }
+
+
+</script>

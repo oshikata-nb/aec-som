@@ -1,0 +1,311 @@
+CREATE OR REPLACE VIEW AP21.SIAP_CAY2
+    (Y2COCODE,Y2HBRCODE,Y2IMCODE,Y2IMKANA,Y2IMTSHINCD,Y2HINNM,Y2KIKAKU,
+    Y2HINKBN,Y2ACNO,Y2ACHOJO,Y2UNIT,Y2LDTIME,Y2PHANTOM,Y2HTKIJUN,Y2STHANTK,
+    Y2STSIRTK,Y2STSIQTK,Y2YSYOHTANK,Y2IZHKTANK,Y2LEVELCD,Y2GKEITAI,Y2HGKICHOU,
+    Y2TKSCD,Y2HLOTSIZE,Y2SERIESCD,Y2SGMNTCD,Y2SGMNTCDA,Y2SGMNTCDB,Y2SGMNTCDC,
+    Y2SGMNTCD2,Y2HTANKAKB,Y2SBUNRUICD,Y2SIKYU,Y2SKHNKKB,Y2KTEIBKKB,Y2SMDKSHO,
+    Y2SPOTKBN,Y2ZAIKKBN,Y2SYNYUKKB,Y2CZTNKKBN,Y2TEMOQTY,Y2SYKBN1,Y2SYKBN2,
+    Y2SYKBN3,Y2SYKBN4,Y2SYKBN5,Y2VERSION,Y2STARTDATE,Y2SENDDIVISION)
+AS
+SELECT '001' AS Y2COCODE -- 会社コード(自社マスタ攝津製油固定)
+	  ,'001' AS Y2HBRCODE -- 本支店コード(暫定！攝津製油固定)
+	  ,ITEM.ITEM_CD AS Y2IMCODE -- 品目コード(20桁以内)
+	  ,SUBSTRB(NVL(ITEM.ITEM_SUB_NAME, '-'), 1, 20) AS Y2IMKANA -- カナ名称
+	  ,NULL AS Y2IMTSHINCD -- 客先品目コード(20桁以内)
+	  ,SUBSTR(ITEM.ITEM_NAME || ' ' || ITEM.STYLE_OF_PACKING, 1, 20) AS Y2HINNM -- 品目名称
+	  ,NULL AS Y2KIKAKU -- 規格(30桁以内。帳票、照会画面で表示）
+	  ,CASE -- 品目区分(0..製品 1..商品 2..中間品 3..原材料 7..外注加工品 該当品目の属性に従う。)
+		   WHEN ITEM.TYPE_DIVISION = 0 THEN -- 0:製品           → 0..製品
+			0
+		   WHEN ITEM.TYPE_DIVISION = 1 THEN -- 1:原料           → 3..原材料
+			3
+		   WHEN ITEM.TYPE_DIVISION = 2 THEN -- 2:包材           → 3..原材料
+			3
+		   WHEN ITEM.TYPE_DIVISION = 3 THEN -- 3:中間品         → 2..中間品
+			2
+		   WHEN ITEM.TYPE_DIVISION = 4 THEN -- 4:仕入直送品     → 1..商品
+			1
+		   WHEN ITEM.TYPE_DIVISION = 5 THEN -- 5:仕入在庫品     → 1..商品
+			1
+		   WHEN ITEM.TYPE_DIVISION = 6 THEN -- 6:外注品(直送)   → 7..外注加工品
+			7
+		   WHEN ITEM.TYPE_DIVISION = 7 THEN -- 7:外注品(非直送) → 7..外注加工品
+			7
+		   ELSE -- 9:その他         → 1..商品
+			1
+	   END AS Y2HINKBN -- 品目区分
+	  ,CASE -- 勘定科目コード('01200'製品,'01210'原材料,'01220'貯蔵品)
+		   WHEN ITEM.TYPE_DIVISION = 0 THEN -- 0:製品           → '01200'製品
+			'01200'
+		   WHEN ITEM.TYPE_DIVISION = 1 THEN -- 1:原料           → '01220'原材料
+			'01220'
+		   WHEN ITEM.TYPE_DIVISION = 2 THEN -- 2:包材           → '01220'原材料
+			'01220'
+		   WHEN ITEM.TYPE_DIVISION = 3 THEN -- 3:中間品         → '01200'貯蔵品
+			'01200'
+		   WHEN ITEM.TYPE_DIVISION = 4 THEN -- 4:仕入直送品     → '01220'原材料
+			'01220'
+		   WHEN ITEM.TYPE_DIVISION = 5 THEN -- 5:仕入在庫品     → '01220'原材料
+			'01220'
+		   WHEN ITEM.TYPE_DIVISION = 6 THEN -- 6:外注品(直送)   → '01220'製品
+			'01220'
+		   WHEN ITEM.TYPE_DIVISION = 7 THEN -- 7:外注品(非直送) → '01220'製品
+			'01220'
+		   ELSE -- 9:その他(運賃？) → '01220'製品
+			'01220'
+	   END AS Y2ACNO -- 勘定科目コード
+	  ,'0000000000' AS Y2ACHOJO -- 補助科目コード（'0000000000')
+	   --    ,SUBSTRB(NVL(NAME.NAME01, '個'), 1, 6) AS Y2UNIT -- 計算単位
+	  ,DECODE(ITEM.TYPE_DIVISION
+			 ,2
+			 ,SUBSTRB(NVL(NAME.NAME01, '個'), 1, 6)
+			 ,'kg') Y2UNIT -- 計算単位(kg固定)
+	  ,0 AS Y2LDTIME -- リードタイム(未使用　0)
+	  ,DECODE(ITEM.PHANTOM_DIVISION, 2, 1, 0) AS Y2PHANTOM -- ファントム区分(0:通常 1:ファントム)
+	  ,0 AS Y2HTKIJUN -- 発注基準(未使用　0)
+	   -- 販売品扱い属性
+	   --         ,DECODE(ITEM.ARTICLE_DIVISION, 0, 0, NVL(AAQ.SELLING_PRICE, 0)) AS Y2STHANTK -- 標準販売単価
+	  ,ROUND(DECODE(ITEM.ARTICLE_DIVISION
+				   ,0
+				   ,0
+				   ,CASE NVL(AAQ.PRICE_CALC_DIVISION, 0)
+						WHEN 1 THEN -- 個単位
+						 ROUND(DECODE(ITEM.ARTICLE_DIVISION
+									 ,0
+									 ,0
+									 ,NVL(AAQ.SELLING_PRICE, 0) /
+									  DECODE(NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,0)
+											,0
+											,1
+											,NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,1)))
+							  ,4)
+						WHEN 2 THEN -- Kg単位
+						 NVL(AAQ.SELLING_PRICE, 0)
+						ELSE
+						 0
+					END)
+			,4) AS Y2STHANTK -- 標準販売単価
+	   -- 購入品扱い属性
+	  ,ROUND(DECODE(ITEM.PURCHASE_DIVISION
+				   ,0
+				   ,0
+				   ,CASE NVL(PAQ.PRICE_CALC_DIVISION, 0)
+						WHEN 1 THEN -- 個単位
+						 ROUND(DECODE(ITEM.PURCHASE_DIVISION
+									 ,0
+									 ,0
+									 ,NVL(PAQ.PURCHASE_PRICE, 0) /
+									  DECODE(NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,0)
+											,0
+											,1
+											,NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,1)))
+							  ,4)
+						WHEN 2 THEN -- Kg単位
+						 NVL(PAQ.PURCHASE_PRICE, 0)
+						ELSE
+						 0
+					END)
+			,4) Y2STSIRTK -- 標準仕入単価
+	   
+	   -- 購入品扱い属性
+	  ,ROUND(DECODE(ITEM.PURCHASE_DIVISION
+				   ,0
+				   ,0
+				   ,CASE NVL(PAQ.PRICE_CALC_DIVISION, 0)
+						WHEN 1 THEN -- 個単位
+						 ROUND(DECODE(ITEM.PURCHASE_DIVISION
+									 ,0
+									 ,0
+									 ,NVL(PAQ.PURCHASE_PRICE, 0) /
+									  DECODE(NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,0)
+											,0
+											,1
+											,NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,1)))
+							  ,4)
+						WHEN 2 THEN -- Kg単位
+						 NVL(PAQ.PURCHASE_PRICE, 0)
+						ELSE
+						 0
+					END)
+			,4) Y2STSIQTK -- 標準支給単価(=標準仕入単価)
+	   
+	   -- 購入品扱い属性
+	  ,ROUND(DECODE(ITEM.PURCHASE_DIVISION
+				   ,0
+				   ,0
+				   ,CASE NVL(PAQ.PRICE_CALC_DIVISION, 0)
+						WHEN 1 THEN -- 個単位
+						 ROUND(DECODE(ITEM.PURCHASE_DIVISION
+									 ,0
+									 ,0
+									 ,NVL(PAQ.PURCHASE_PRICE, 0) /
+									  DECODE(NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,0)
+											,0
+											,1
+											,NVL(ITEM.KG_OF_FRACTION_MANAGEMENT
+												,1)))
+							  ,4)
+						WHEN 2 THEN -- Kg単位
+						 NVL(PAQ.PURCHASE_PRICE, 0)
+						ELSE
+						 0
+					END)
+			,4) Y2YSYOHTANK -- 予定消費単価(=標準仕入単価)
+	   
+	  ,0 AS Y2IZHKTANK -- 実際消費単価(未使用　0)
+	  ,0 AS Y2LEVELCD -- ローレベルコード(未使用　0)
+	  ,4 AS Y2GKEITAI -- 原価計算形態区分(4:工程別単純総合原価計算)
+	  ,3 AS Y2HGKICHOU -- 標準原価記帳方式(3:月次総平均)
+	  ,NULL AS Y2TKSCD -- 等価係数コード(設定不要 NULL)
+	  ,DECODE(ITEM.PRODUCT_DIVISION
+			 ,0
+			 ,NVL(ITEM.KG_OF_FRACTION_MANAGEMENT, 0)
+			 ,1) Y2HLOTSIZE -- 標準ロットサイズ(標準原価カードを計算する場合に必要)
+	  ,NULL AS Y2SERIESCD -- 製品シリーズコード(10桁以内)
+	   -- 2011/06/10 品目分類CD追加 ------------------------------>
+	   --    ,NULL AS Y2SGMNTCD -- セグメントコード(10桁以内で設定してください。)
+	  ,ITEM.ITEM_CATEGORY AS Y2SGMNTCD -- セグメントコード(10桁以内で設定してください。)
+	   --<----------------------------------------------------------
+	  ,NULL AS Y2SGMNTCDA -- セグメントコード（大分類）(未使用　NULL)
+	  ,NULL AS Y2SGMNTCDB -- セグメントコード（中分類）(未使用　NULL)
+	  ,NULL AS Y2SGMNTCDC -- セグメントコード（小分類）(未使用　NULL)
+	  ,NULL AS Y2SGMNTCD2 -- セグメントコード２(未使用　NULL)
+	  ,3 AS Y2HTANKAKB -- 消費単価計算方法( 3:月次総平均)
+	  ,NULL AS Y2SBUNRUICD -- 組コード(品目分類コード）
+	  ,0 AS Y2SIKYU -- 支給区分(未使用　0)
+	  ,0 AS Y2SKHNKKB -- 仕掛品計算方法(0:平均法)
+	  ,0 AS Y2KTEIBKKB -- 工程別計算方法(0:累加法)
+	  ,0 AS Y2SMDKSHO -- 進捗度計測方法(未使用　0)
+	  ,0 AS Y2SPOTKBN -- スポット区分(未使用　0)
+	  ,0 AS Y2ZAIKKBN -- 在庫管理区分(未使用　0)
+	  ,0 AS Y2SYNYUKKB -- 出入記録区分(未使用　0)
+	  ,2 AS Y2CZTNKKBN -- 購入時/消費時の単価使用法(1:購入のみ実際、消費は予定)
+	  ,0 AS Y2TEMOQTY -- 手持在庫(未使用　0)
+	  ,0 AS Y2SYKBN1 -- 区分１(未使用　0)
+	  ,0 AS Y2SYKBN2 -- 区分２(未使用　0)
+	  ,0 AS Y2SYKBN3 -- 区分３(未使用　0)
+	  ,0 AS Y2SYKBN4 -- 区分４(未使用　0)
+	  ,0 AS Y2SYKBN5 -- 区分５(未使用　0)
+	  ,ITEM.VERSION AS Y2VERSION -- 品目バージョン
+	  ,TO_CHAR(ITEM.ACTIVE_DATE, 'YYYYMMDD') AS Y2STARTDATE -- 有効開始日
+	   -- 2011/06/17 ADD START
+	  ,ITEM.COST_DIVISION -- マスタ送信区分
+FROM   AP21.ITEM_QUEUE               ITEM -- 品目マスタキュー
+	  ,AP21.ARTICLE_ATTRIBUTE_QUEUE  AAQ -- 販売品扱い属性
+	  ,AP21.PURCHASE_ATTRIBUTE_QUEUE PAQ -- 購入品扱い属性
+	  ,AP21.NAMES                    NAME -- 単位名称
+WHERE  ITEM.TYPE_DIVISION <> 9 -- その他以外
+AND    ITEM.ITEM_CD = AAQ.ITEM_CD(+)
+AND    ITEM.VERSION = AAQ.VERSION(+)
+AND    ITEM.ITEM_CD = PAQ.ITEM_CD(+)
+AND    ITEM.VERSION = PAQ.VERSION(+)
+AND    ITEM.UNIT_OF_STOCK_CONTROL = NAME.NAME_CD(+)
+AND    NAME.NAME_DIVISION(+) = 'UNIT'
+/
+COMMENT ON TABLE AP21.SIAP_CAY2 IS 'ＣＡ品目マスタ'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2COCODE IS '会社コード(※共通仕様参照)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HBRCODE IS '本支店コード(※共通仕様参照)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2IMCODE IS '品目コード(20桁以内)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2IMKANA IS 'カナ名称'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2IMTSHINCD IS '客先品目コード(20桁以内)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HINNM IS '品目名称'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2KIKAKU IS '規格(30桁以内。帳票、照会画面で表示）'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HINKBN IS '品目区分(0..製品 1..商品 2..中間品 3..原材料 7..外注加工品)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2ACNO IS '勘定科目コード(会計で使用する科目コード)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2ACHOJO IS '補助科目コード（''0000000000'')'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2UNIT IS '計算単位'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2LDTIME IS 'リードタイム(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2PHANTOM IS 'ファントム区分(0:通常 1:ファントム)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HTKIJUN IS '発注基準(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2STHANTK IS '標準販売単価'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2STSIRTK IS '標準仕入単価'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2STSIQTK IS '標準支給単価'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2YSYOHTANK IS '予定消費単価'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2IZHKTANK IS '実際消費単価(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2LEVELCD IS 'ローレベルコード'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2GKEITAI IS '原価計算形態区分(4:工程別単純総合原価計算)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HGKICHOU IS '標準原価記帳方式(2:設定なし)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2TKSCD IS '等価係数コード(設定不要 NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HLOTSIZE IS '標準ロットサイズ(標準原価カードを計算する場合に必要)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SERIESCD IS '製品シリーズコード(10桁以内)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SGMNTCD IS 'セグメントコード(10桁以内で設定してください。)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SGMNTCDA IS 'セグメントコード（大分類）(未使用　NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SGMNTCDB IS 'セグメントコード（中分類）(未使用　NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SGMNTCDC IS 'セグメントコード（小分類）(未使用　NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SGMNTCD2 IS 'セグメントコード２(未使用　NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2HTANKAKB IS '消費単価計算方法( 3:月次総平均)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SBUNRUICD IS '組コード(未使用　NULL)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SIKYU IS '支給区分(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SKHNKKB IS '仕掛品計算方法(0:平均法)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2KTEIBKKB IS '工程別計算方法(0:累加法)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SMDKSHO IS '進捗度計測方法(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SPOTKBN IS 'スポット区分(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2ZAIKKBN IS '在庫管理区分(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYNYUKKB IS '出入記録区分(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2CZTNKKBN IS '購入時/消費時の単価使用法(1:購入のみ実際、消費は予定)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2TEMOQTY IS '手持在庫(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYKBN1 IS '区分１(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYKBN2 IS '区分２(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYKBN3 IS '区分３(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYKBN4 IS '区分４(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SYKBN5 IS '区分５(未使用　0)'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2VERSION IS '品目バージョン'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2STARTDATE IS '品目有効開始日'
+/
+COMMENT ON COLUMN AP21.SIAP_CAY2.Y2SENDDIVISION IS '送信区分|0:未送信 1:送信済'
+/

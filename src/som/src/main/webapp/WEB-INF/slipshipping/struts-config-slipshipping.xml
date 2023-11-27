@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 出荷帳票検索画面 -->
+		<form-bean name="slipShippingListForm"
+			type="com.asahikaseieng.app.slipshipping.SlipShippingListForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+		<!-- ================================================ 出荷帳票検索 -->
+		<action path="/SlipShippingList"
+			type="com.asahikaseieng.app.slipshipping.SlipShippingListAction"
+			name="slipShippingListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/slipshipping/slipshipping_list.jsp">
+
+			<forward name="success"
+				path="/jsp/slipshipping/slipshipping_list.jsp" />
+			<forward name="reSearch"
+				path="/SlipShippingList.do?op=reSearch" />
+			<forward name="reFresh" path="/SlipShippingList.do?op=reFresh" />
+		</action>
+	</action-mappings>
+
+</struts-config>

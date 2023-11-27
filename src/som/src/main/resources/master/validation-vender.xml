@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- venderDetail -->
+		<form name="venderDetailForm">
+			<!-- 請求先 -->
+			<field property="venderCd" depends="requiredif">
+				<arg0 key="vender.ts.payment.invoice.cd" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>TS</var-value>
+				</var>
+			</field>
+
+			<!-- 支払先 -->
+			<field property="venderCd" depends="requiredif">
+				<arg0 key="vender.si.payment.invoice.cd" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 取引先コード -->
+			<field property="venderCd" depends="requiredif, mask">
+				<arg0 key="vender.vender.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 取引先略称 -->
+			<field property="venderShortedName" depends="requiredif">
+				<arg0 key="vender.vender.shorted.name" />
+			</field>
+			
+			<!-- 受注FAX番号 -->
+			<field property="orderFaxNo" depends="requiredif">
+				<arg0 key="vender.order.fax.no" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>orderFaxOutput</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+			
+			<!-- 受注メールアドレス -->
+			<field property="orderMailAddress1" depends="requiredif, mask">
+				<arg0 key="vender.order.mail.address" />
+				<arg1 key="vender.order.mail.address1" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>orderMailOutput</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>orderMailAddress2</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>orderMailAddress3</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			
+			<!-- 受注メールアドレス2 -->
+			<field property="orderMailAddress2" depends="mask">
+				<arg1 key="vender.order.mail.address2" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			
+			<!-- 受注メールアドレス3 -->
+			<field property="orderMailAddress3" depends="mask">
+				<arg1 key="vender.order.mail.address3" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			
+			<!-- 売上FAX番号 -->
+			<field property="salesFaxNo" depends="requiredif">
+				<arg0 key="vender.sales.fax.no" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>salesFaxOutput</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+
+			<!-- 受注メールアドレス -->
+			<field property="salesMailAddress1" depends="requiredif, mask">
+				<arg0 key="vender.sales.mail.address" />
+				<arg1 key="vender.sales.mail.address1" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>salesMailOutput</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>1</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>salesMailAddress2</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>salesMailAddress3</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			
+			<!-- 売上メールアドレス2 -->
+			<field property="salesMailAddress2" depends="mask">
+				<arg1 key="vender.sales.mail.address2" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+			
+			<!-- 売上メールアドレス3 -->
+			<field property="salesMailAddress3" depends="mask">
+				<arg1 key="vender.sales.mail.address3" />
+				<msg name="mask" key="errors.email.vender.mail.address" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^.+@+.+$</var-value>
+				</var>
+			</field>
+
+			<!-- 締日 -->
+			<field property="strClosingDate"
+				depends="requiredif,validateDegit">
+				<arg0 key="vender.closing.date" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 与信限度額 -->
+			<field property="strCreditLimitPrice"
+				depends="requiredif,validateDegit">
+				<arg0 key="vender.credit.limit.price" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>URKINGAKU</var-value>
+				</var>
+			</field>
+
+			<!-- 手形サイト1 -->
+			<field property="strNoteSight3" depends="validateDegit">
+				<arg0 key="vender.note.sight3" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 境界限度額1 -->
+			<field property="strBoundAmount3" depends="validateDegit">
+				<arg0 key="vender.bound.amount3" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>URKINGAKU</var-value>
+				</var>
+			</field>
+
+			<!-- 仕入割引日数1 -->
+			<field property="strPurchaseDiscountDays1"
+				depends="validateDegit">
+				<arg0 key="vender.purchase.discount.days1" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 手形サイト2 -->
+			<field property="strNoteSight4" depends="validateDegit">
+				<arg0 key="vender.note.sight4" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 境界限度額2 -->
+			<field property="strBoundAmount4" depends="validateDegit">
+				<arg0 key="vender.bound.amount4" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>URKINGAKU</var-value>
+				</var>
+			</field>
+
+			<!-- 仕入割引日数2 -->
+			<field property="strPurchaseDiscountDays2"
+				depends="validateDegit">
+				<arg0 key="vender.purchase.discount.days2" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 手形サイト3 -->
+			<field property="strNoteSight5" depends="validateDegit">
+				<arg0 key="vender.note.sight5" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+			</field>
+
+			<!-- 仕入割引日数3 -->
+			<field property="strPurchaseDiscountDays3"
+				depends="validateDegit">
+				<arg0 key="vender.purchase.discount.days3" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>SONOTA</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 自社銀行口座名義人 -->
+			<field property="accountStockhold" depends="mask">
+				<arg0 key="vender.account.stockhold" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+			</field>
+
+			<!-- 相手銀行 -->
+			<field property="otherBankMasterCd" depends="requiredif">
+				<arg0 key="vender.other.bank.master.cd" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 相手銀行口座 -->
+			<field property="otherAccountNo" depends="requiredif">
+				<arg0 key="vender.other.account.no" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 相手銀行口座名義人 -->
+			<field property="otherAccountStockhold"
+				depends="requiredif,mask">
+				<arg0 key="vender.other.account.stockhold" />
+				<msg name="mask" key="errors.kana" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${kana_mask}</var-value>
+				</var>
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>venderDivision</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>SI</var-value>
+				</var>
+			</field>
+
+			<!-- 客先所感1 -->
+			<field property="customerImpression1" depends="maxlength">
+				<arg0 key="vender.customer.impression1" />
+				<arg1 key="vender.customer.impression1.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+
+			<!-- 客先所感2 -->
+			<field property="customerImpression2" depends="maxlength">
+				<arg0 key="vender.customer.impression2" />
+				<arg1 key="vender.customer.impression2.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+
+			<!-- 備考 -->
+			<field property="remarks" depends="maxlength">
+				<arg0 key="vender.remarks" />
+				<arg1 key="vender.remarks.maxlength" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- inventory shippingout -->
+		<form-bean name="inventoryShippingoutListForm"
+			type="com.asahikaseieng.app.inventory.InventoryShippingoutListForm" />
+		<!-- inventory shippingout detail -->
+		<form-bean name="inventoryShippingoutDetailForm"
+			type="com.asahikaseieng.app.inventory.InventoryShippingoutDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ inventory shippingout -->
+		<action path="/InventoryShippingoutList"
+			type="com.asahikaseieng.app.inventory.InventoryShippingoutListAction"
+			name="inventoryShippingoutListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/inventory/inventoryshippingout_list.jsp">
+
+			<forward name="success"
+				path="/jsp/inventory/inventoryshippingout_list.jsp" />
+			<forward name="reSearch"
+				path="/InventoryShippingoutList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ inventory shippingout Detail -->
+		<action path="/InventoryShippingoutDetail"
+			type="com.asahikaseieng.app.inventory.InventoryShippingoutDetailAction"
+			name="inventoryShippingoutDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/inventory/inventoryshippingout_detail.jsp">
+
+			<forward name="success"
+				path="/jsp/inventory/inventoryshippingout_detail.jsp" />
+			<forward name="back" path="/InventoryShippingoutList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

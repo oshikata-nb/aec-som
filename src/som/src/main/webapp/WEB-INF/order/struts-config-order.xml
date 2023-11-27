@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- order -->
+		<form-bean name="orderListForm"
+			type="com.asahikaseieng.app.order.OrderListForm" />
+		<!-- order detail -->
+		<form-bean name="orderDetailForm"
+			type="com.asahikaseieng.app.order.OrderDetailForm" />
+		<!-- 納入先検索ポップアップ -->
+		<form-bean name="orderDeliverySearchForm"
+			type="com.asahikaseieng.app.order.OrderDeliverySearchForm" />
+		<!-- ロット検索ポップアップ -->
+		<form-bean name="orderLotSearchForm"
+			type="com.asahikaseieng.app.order.OrderLotSearchForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ order -->
+		<action path="/OrderList"
+			type="com.asahikaseieng.app.order.OrderListAction"
+			name="orderListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/order_list.jsp">
+
+			<forward name="success" path="/jsp/order/order_list.jsp" />
+			<forward name="reSearch" path="/OrderList.do?op=reSearch" />
+			<forward name="newPage" path="/OrderDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ order Detail -->
+		<action path="/OrderDetail"
+			type="com.asahikaseieng.app.order.OrderDetailAction"
+			name="orderDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/order_detail.jsp">
+
+			<forward name="success" path="/jsp/order/order_detail.jsp" />
+			<forward name="init" path="/OrderDetail.do?op=newPage" />
+			<forward name="back" path="/OrderList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ 納入先検索ポップアップ -->
+		<action path="/OrderDeliverySearch"
+			type="com.asahikaseieng.app.order.OrderDeliverySearchAction"
+			name="orderDeliverySearchForm" validate="true" parameter="op"
+			scope="session" input="/jsp/order/order_delivery_search.jsp">
+
+			<forward name="success"
+				path="/jsp/order/order_delivery_search.jsp" />
+		</action>
+		<!-- ================================================ ロット検索ポップアップ -->
+		<action path="/OrderLotSearch"
+			type="com.asahikaseieng.app.order.OrderLotSearchAction"
+			name="orderLotSearchForm" validate="true" parameter="op"
+			scope="session"
+			input="/jsp/order/order_lot_search.jsp">
+
+			<forward name="success"
+				path="/jsp/order/order_lot_search.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- vender -->
+		<form-bean name="venderListForm"
+			type="com.asahikaseieng.app.master.vender.VenderListForm" />
+		<!-- vender select -->
+		<form-bean name="venderSelectForm"
+			type="com.asahikaseieng.app.master.vender.VenderSelectForm" />
+		<!-- vender detail -->
+		<form-bean name="venderDetailForm"
+			type="com.asahikaseieng.app.master.vender.VenderDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ vender -->
+		<action path="/VenderList"
+			type="com.asahikaseieng.app.master.vender.VenderListAction"
+			name="venderListForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/vender_list.jsp">
+
+			<forward name="success" path="/jsp/master/vender_list.jsp" />
+			<forward name="reSearch" path="/VenderList.do?op=reSearch" />
+			<forward name="newPage" path="/jsp/master/vender_select.jsp" />
+		</action>
+
+		<!-- ================================================ vender Select -->
+		<action path="/VenderSelect"
+			type="com.asahikaseieng.app.master.vender.VenderSelectAction"
+			name="venderSelectForm" validate="false" parameter="op"
+			scope="session" input="/jsp/master/vender_select.jsp">
+
+			<forward name="success" path="/VenderDetail.do?op=newPage" />
+			<forward name="back" path="/VenderList.do?op=reSearch" />
+		</action>
+
+		<!-- ================================================ vender Detail -->
+		<action path="/VenderDetail"
+			type="com.asahikaseieng.app.master.vender.VenderDetailAction"
+			name="venderDetailForm" validate="true" parameter="op"
+			scope="session" input="/jsp/master/vender_detail.jsp">
+
+			<forward name="success" path="/jsp/master/vender_detail.jsp" />
+			<forward name="back" path="/VenderList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

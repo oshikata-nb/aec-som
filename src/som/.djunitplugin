@@ -1,0 +1,12 @@
+#djUnit Plugin Settings
+#Tue May 01 19:27:01 JST 2007
+CoverageIncludedPatterns=
+VirtualMockIgnoreLibrary=false
+CoverageExcludedPatterns=.*Test.*$;.*Mock.*$;.*test.*$;.*customtag.*$;.*Servlet.*$;.*Tool.*$;.*IgnoreCase.*Utils.*$;.*MailS.*$;
+UseMarker=true
+UseVirtualMock=false
+UseCoverage=true
+BytecodeLibrary=ASM
+VirtualMockNotIgnorePatterns=
+UseNoverify=false
+CoverageWorkingDirectory=

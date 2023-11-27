@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+
+		<!--==================================== ここからeraserCsmListForm ====================================-->
+		<!-- eraserCsmListForm -->
+		<form name="eraserCsmListForm">
+			<!-- 検索入力：部署コード -->
+			<field property="srhOrganizationCd" depends="required">
+				<msg name="required" key="errors.required" />
+				<arg0 key="item.eraser.organization.cd" />
+			</field>
+			<!-- 消込完了日付From -->
+			<field property="srhEraserCompleteDateFrom"
+				depends="date">
+				<arg key="item.eraser.eraser.complete.date.from" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 消込完了日付To -->
+			<field property="srhEraserCompleteDateTo" depends="date">
+				<arg key="item.eraser.eraser.complete.date.to" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+			<!-- 消込完了日付 大小関係 -->
+			<field property="srhEraserCompleteDateTo"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare" />
+				<arg0 key="item.eraser.eraser.complete.date.from" />
+				<arg1 key="item.eraser.eraser.complete.date.to" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>op</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[0]</var-name>
+					<var-value>${op_search}</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>EQUAL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>srhEraserCompleteDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>srhEraserCompleteDateTo</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>srhEraserCompleteDateFrom</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>GREATEREQUAL</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!--==================================== ここからeraserCsmDetailForm ====================================-->
+		<!-- eraserCsmDetailForm -->
+		<form name="eraserCsmDetailForm">
+			<!-- 消込日付 -->
+			<field property="strEraserDate" depends="date,required">
+				<msg name="required" key="errors.required" />
+				<arg key="item.eraser.eraser.date" />
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>yyyy/MM/dd</var-value>
+				</var>
+			</field>
+
+			<!-- 明細(内容は別定義 → form name="eraserCsmDetail") -->
+			<field property="eraserCsmList" depends="extendsif">
+				<arg0 key="#" resource="false" />
+				<var>
+					<var-name>extends</var-name>
+					<var-value>eraserCsmDetail</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- eraserCsmDetail -->
+		<form name="eraserCsmDetail">
+			<!-- 消込金額 -->
+			<field property="strEraserAmount" depends="validateDegit">
+				<arg0 key="item.eraser.csm.strEraserAmount" />
+				<var>
+					<var-name>unitDivision</var-name>
+					<var-value>KINGAKU</var-value>
+				</var>
+				<var>
+					<var-name>isList</var-name>
+					<var-value>true</var-value>
+				</var>
+			</field>
+			<field property="validateEraserAmount"
+				depends="compareif">
+				<msg name="compareif" key="errors.compare.row" />
+				<arg0 key="item.eraser.csm.strEraserObjectAmount" />
+				<arg1 key="item.eraser.csm.strEraserAmount" />
+				<var>
+					<var-name>field[0]</var-name>
+					<var-value>validateEraserObjectAmount</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[0]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[1]</var-name>
+					<var-value>validateEraserAmount</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[1]</var-name>
+					<var-value>NOTNULL</var-value>
+				</var>
+				<var>
+					<var-name>field[2]</var-name>
+					<var-value>validateEraserAmount</var-value>
+				</var>
+				<var>
+					<var-name>fieldValue[2]</var-name>
+					<var-value>0</var-value>
+				</var>
+				<var>
+					<var-name>fieldTest[2]</var-name>
+					<var-value>NOTEQUAL</var-value>
+				</var>
+				<var>
+					<var-name>fieldJoin</var-name>
+					<var-value>AND</var-value>
+				</var>
+				<var>
+					<var-name>targetField</var-name>
+					<var-value>validateEraserObjectAmount</var-value>
+				</var>
+				<var>
+					<var-name>compareType</var-name>
+					<var-value>LESSEQUAL</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!--==================================== ここより上に記入 ====================================-->
+
+	</formset>
+
+</form-validation>

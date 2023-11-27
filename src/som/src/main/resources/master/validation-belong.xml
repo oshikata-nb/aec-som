@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+		<!-- belongDetail -->
+		<form name="belongDetailForm">
+			<!-- 部署コード -->
+			<field property="organizationCd" depends="requiredif">
+				<arg0 key="belong.organization.cd"/>
+			</field>
+			<!-- 担当者コード -->
+			<field property="tantoCd" depends="requiredif">
+				<arg0 key="belong.tanto.cd"/>
+			</field>
+			<!-- 役職コード -->
+			<field property="postId" depends="requiredif">
+				<arg0 key="belong.post.id"/>
+			</field>
+			<!-- 所属区分 -->
+			<field property="belongKbn" depends="requiredif">
+				<arg0 key="belong.belong.kbn"/>
+			</field>
+		</form>
+	</formset>
+</form-validation>

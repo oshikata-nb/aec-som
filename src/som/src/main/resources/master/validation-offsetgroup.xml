@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+		<!-- よく使いそうな正規表現、数字等はここで一元管理しましょう -->
+	</global>
+
+	<formset>
+
+		<!--==================================== ここからoffsetgroupDetailForm ====================================-->
+		<!-- offsetGroupDetail -->
+		<form name="offsetGroupDetailForm">
+			<!-- 相殺グループコード -->
+			<field property="offsetGroupCd" depends="required, mask">
+				<arg0 key="offset.group.offset.group.cd" />
+				<msg name="mask" key="errors.alphameric.code" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${id_mask}</var-value>
+				</var>
+			</field>
+			<!-- 相殺グループ名称 -->
+			<field property="offsetGroupName" depends="required">
+				<arg0 key="offset.group.offset.group.name" />
+			</field>
+			<!-- 請求先／支払先 -->
+			<field property="venderCdSaki" depends="required">
+				<arg0 key="offset.group.vender.cd.saki" />
+			</field>
+		</form>
+
+		<!--==================================== ここより上に記入 ====================================-->
+
+	</formset>
+
+</form-validation>

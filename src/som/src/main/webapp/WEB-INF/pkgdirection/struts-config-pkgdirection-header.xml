@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- 包装指図－ヘッダー情報画面 -->
+		<form-bean name="pkgDirectionHeaderForm"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionHeaderForm" />
+
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ 包装指図－新規登録 -->
+		<action path="/PkgDirectionHeader"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionHeaderAction"
+			name="pkgDirectionHeaderForm" validate="true" parameter="op"
+			scope="session" input="/jsp/pkgdirection/pkgdirection_header.jsp">
+
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_header.jsp" />
+			<forward name="retrieve" path="/PkgDirectionHeaderDetail.do?op=retrieve" />
+			<forward name="back" path="/PkgDirectionList.do?op=reSearch" />
+			<forward name="error" path="/jsp/pkgdirection/pkgdirection_header.jsp" />
+		</action>
+
+		<!-- ================================================= 包装指図－ヘッダ情報 -->
+
+		<action path="/PkgDirectionHeaderDetail"
+			type="com.asahikaseieng.app.pkgdirection.PkgDirectionHeaderAction"
+			name="pkgDirectionHeaderForm"
+			scope="session"
+			validate="true"
+			input="/jsp/pkgdirection/pkgdirection_header_detail.jsp"
+			parameter="op">
+			<forward name="success" path="/jsp/pkgdirection/pkgdirection_header_detail.jsp" />
+			<forward name="retrieve" path="/PkgDirectionHeaderDetail.do?op=retrieve" />
+			<forward name="back" path="/PkgDirectionList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+</struts-config>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!-- ======================================== Form Bean Definitions -->
+
+	<form-beans>
+		<!-- names -->
+		<form-bean name="namesListForm"
+			type="com.asahikaseieng.app.master.names.NamesListForm" />
+		<!-- names detail -->
+		<form-bean name="namesDetailForm"
+			type="com.asahikaseieng.app.master.names.NamesDetailForm" />
+	</form-beans>
+
+	<!-- =================================== Action Mapping Definitions -->
+
+	<action-mappings type="com.asahikaseieng.struts.CustomMapping">
+
+		<!-- ================================================ names -->
+		<action path="/NamesList"
+			type="com.asahikaseieng.app.master.names.NamesListAction"
+			name="namesListForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/names_list.jsp">
+
+			<forward name="success" path="/jsp/master/names_list.jsp" />
+			<forward name="reSearch" path="/NamesList.do?op=reSearch" />
+			<forward name="newPage" path="/NamesDetail.do?op=newPage" />
+		</action>
+
+		<!-- ================================================ names Detail -->
+		<action path="/NamesDetail"
+			type="com.asahikaseieng.app.master.names.NamesDetailAction"
+			name="namesDetailForm" validate="true" parameter="op" scope="session"
+			input="/jsp/master/names_detail.jsp">
+
+			<forward name="success" path="/jsp/master/names_detail.jsp" />
+			<forward name="back" path="/NamesList.do?op=reSearch" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

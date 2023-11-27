@@ -1,0 +1,81 @@
+/*
+ * 入金補助用SQL
+ *
+ * entityName=DepositPlanList
+ * packageName=depositplan
+ * methodName=getSearchList
+ *
+ */
+WITH TMP_CLAIM (CLAIM_NO , VENDER_CD , CREDIT_SCHEDULED_DATE , CLAIM_AMOUNT , CREDIT_DIVISION , CATEGORY_NAME)
+AS (
+SELECT 
+       CLM_HED.CLAIM_NO 
+,      CLM_HED.VENDER_CD
+,      TO_CHAR(CLM_HED.CREDIT_SCHEDULED_DATE,'YYYY/MM') AS CREDIT_SCHEDULED_DATE
+											--入金予定日
+,      CLM_HED.CLAIM_AMOUNT - CLM_HED.BALANCE_FORWARD AS CLAIM_AMOUNT
+											--請求額(今回請求額-差引繰越額)
+,      CLM_HED.CREDIT_DIVISION				--入金分類
+,      CLS.CATEGORY_NAME			--入金名称
+FROM   (
+        SELECT CLAIM_HEADER.CLAIM_NO             　       --請求番号
+        ,      CLAIM_HEADER.ORGANIZATION_CD               --部署コード
+        ,      CLAIM_HEADER.VENDER_CD                     --請求先コード
+        ,      CLAIM_HEADER.CREDIT_DATE                   --請求日付
+        ,      CLAIM_HEADER.CREDIT_SCHEDULED_DATE       　--入金予定日
+        ,      CLAIM_HEADER.CREDIT_DIVISION               --入金分類
+        ,      CLAIM_HEADER.NOTE_SIGHT                    --手形サイト
+        ,      CLAIM_HEADER.SALES_AMOUNT                  --今回売上額
+        ,      CLAIM_HEADER.CLAIM_AMOUNT                  --今回請求額
+        ,      CLAIM_HEADER.BALANCE_FORWARD               --差引繰越額
+        ,      CLAIM_HEADER.INPUTOR_CD                    --登録者ID
+        ,      VENDER.VENDER_DIVISION
+        ,      VENDER.VENDER_NAME1
+        ,      VENDER.VENDER_SHORTED_NAME
+        ,      VENDER.BANK_CD BANK_MASTER_CD
+        ,      BANK.BANK_MASTER_NAME
+        ,      VENDER.ACCOUNT_DIVISION
+        ,      VENDER.ACCOUNT_NO
+        ,      ADVANCE_DIVISION
+        FROM CLAIM_HEADER CLAIM_HEADER
+	    LEFT JOIN VENDER VENDER
+	    ON   VENDER.VENDER_DIVISION = 'TS'
+	    AND  CLAIM_HEADER.VENDER_CD = VENDER.VENDER_CD
+		LEFT JOIN BANK BANK
+		ON VENDER.BANK_CD = BANK.BANK_MASTER_CD
+	   ) CLM_HED
+	   LEFT JOIN ORGANIZATION
+	   ON CLM_HED.ORGANIZATION_CD =　ORGANIZATION.ORGANIZATION_CD
+	   LEFT JOIN LOGIN LOGIN
+	   ON CLM_HED.INPUTOR_CD = LOGIN.TANTO_CD
+	   LEFT JOIN CLASSIFICATION CLS
+	   ON CLM_HED.CREDIT_DIVISION = CLS.CATEGORY_DIVISION
+	   AND CLS.DATA_TYPE = '2'
+WHERE  CLM_HED.ORGANIZATION_CD IS NOT NULL
+AND    ADVANCE_DIVISION = 1 -- 前受金区分 = 対象でない
+
+	AND	CLM_HED.ORGANIZATION_CD = /*organizationCd*/'5800' 
+	AND	CLM_HED.VENDER_CD = /*venderCd*/'00495004' 
+	AND	TRUNC(CLM_HED.CREDIT_SCHEDULED_DATE , 'MM' ) = TRUNC( TO_DATE(/*creditDate*/'2023/07/01' , 'yyyy/MM/dd' )  , 'MM')
+)
+,
+TMP_SALES AS (
+SELECT
+    SUM( ( SALES.TAX_AMOUNT + SALES.SALES_AMOUNT ) 
+        * CASE WHEN SALES.CATEGORY_DIVISION IN ( 2 , 3 , -1 , -4 , 12 , 13 , -11 , -14) THEN -1 ELSE 1 END ) AS SALES_AMOUNT
+FROM
+    SALES
+INNER JOIN
+    TMP_CLAIM
+ON
+    TMP_CLAIM.CLAIM_NO = SALES.CLAIM_NO
+)
+SELECT
+    CLAIM_AMOUNT
+    , SALES_AMOUNT 
+FROM
+    TMP_CLAIM
+LEFT JOIN
+    TMP_SALES
+ON
+    1 = 1

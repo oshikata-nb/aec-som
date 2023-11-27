@@ -1,0 +1,108 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/jsp/common/taginclude.jsf" %>
+<script language="JavaScript" type="text/javascript">
+	<!--LocationName-->
+	function clearLocationName() {
+		$("locationName").value = "";
+		refreshLabel();
+	}
+	<!--LocationName-->
+	function clearSrhLocationName() {
+		$("srhLocationName").value = "";
+		refreshLabel();
+	}
+	function clearUpperLocationName() {
+		$("upperLocationName").value = "";
+		refreshLabel();
+	}
+	function clearSectionName() {
+		$("sectionName").value = "";
+		refreshLabel();
+	}
+	<!--DeliveryName-->
+	function clearDeliveryName() {
+		$("deliveryName").value = "";
+		refreshLabel();
+	}
+	function clearSrhDeliveryName() {
+		$("srhDeliveryName").value = "";
+		refreshLabel();
+	}
+	function clearDeliveryName1() {
+		$("deliveryName1").value = "";
+		refreshLabel();
+	}
+	function clearSrhDeliveryName1() {
+		$("srhDeliveryName1").value = "";
+		refreshLabel();
+	}
+	function clearDeliveryName2() {
+		$("deliveryName2").value = "";
+		refreshLabel();
+	}
+	function clearSrhDeliveryName2() {
+		$("srhDeliveryName2").value = "";
+		refreshLabel();
+	}
+	<!--VenderCd-->
+	function clearCustomerCd() {
+		$("customerCd").value = "";
+		refreshLabel();
+	}
+	function clearSrhCustomerCd() {
+		$("srhCustomerCd").value = "";
+		refreshLabel();
+	}
+	function clearVenderCd() {
+		$("venderCd").value = "";
+		refreshLabel();
+	}
+	function clearSrhVenderCd() {
+		$("srhVenderCd").value = "";
+		refreshLabel();
+	}
+	<!--VenderName-->
+	function clearVenderName() {
+		$("venderName").value = "";
+		refreshLabel();
+	}
+	function clearSrhVenderName() {
+		$("srhVenderName").value = "";
+		refreshLabel();
+	}
+	function clearVender01Name() {
+		$("srhVender01Name").value = "";
+		refreshLabel();
+	}
+	function clearVender02Name() {
+		$("srhVender02Name").value = "";
+		refreshLabel();
+	}
+	function clearVender03Name() {
+		$("srhVender03Name").value = "";
+		refreshLabel();
+	}
+	function clearVender04Name() {
+		$("srhVender04Name").value = "";
+		refreshLabel();
+	}
+	function clearVender05Name() {
+		$("srhVender05Name").value = "";
+		refreshLabel();
+	}
+	<!--支払請求先コード-->	
+	function clearPaymentInvoiceName() {
+		$("paymentInvoiceName").value = "";
+		refreshLabel();
+	}
+	<!--ItemName-->
+	function clearItemName() {
+		$("itemName").value = "";
+		refreshLabel();
+	}
+	function clearSrhItemName() {
+		$("srhItemName").value = "";
+		refreshLabel();
+	}
+
+</script>
